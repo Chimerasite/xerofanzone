@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Xero Fanzone') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -17,9 +17,10 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @livewireStyles
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-stone-800 dark:bg-stone-500">
+        <div class="min-h-screen bg-stone-800">
             <!-- Banner -->
             <img src="/assets/img/banner.png" alt="{{ __('Xero Fanzone Banner') }}">
 
@@ -29,16 +30,28 @@
             <!-- Page content -->
             <main class="flex flex-row h-full px-5 text-stone-50 p-6 space-x-6">
                 <!-- Sub navigation -->
-                @isset($subnav)
-                    <div class="bg-stone-600 w-80 h-full p-6 rounded-md ">
-                        {{ $subnav }}
+                @if(isset($subnav) or isset($removelayout))
+                    @if(isset($subnav))
+                        <div class="bg-stone-600 w-80 h-full p-6 rounded-md ">
+                            {{ $subnav }}
+                        </div>
+                        <!-- main content -->
+                        <div class="bg-stone-500 w-full p-6 rounded-md">
+                            {{ $slot }}
+                        </div>
+                    @elseif(isset($removelayout))
+                        <div class="w-full">
+                            {{ $slot }}
+                        </div>
+                    @endif
+                @else
+                    <div class="bg-stone-500 lg:w-5/6 m-auto p-6 rounded-md">
+                        {{ $slot }}
                     </div>
                 @endisset
-                <!-- main content -->
-                <div class="bg-stone-500 w-full p-6 rounded-md">
-                    {{ $slot }}
-                </div>
+
             </main>
         </div>
+        @livewireScripts
     </body>
 </html>

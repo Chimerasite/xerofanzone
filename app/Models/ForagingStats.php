@@ -14,7 +14,7 @@ class ForagingStats extends Model
 
     protected $fillable = [
         'foraging_location_id',
-        'forageable_id',
+        'item_id',
         'amount',
     ];
 

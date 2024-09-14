@@ -17,6 +17,7 @@ class Table extends Component
     public $name = '';
     public $value = '';
     public $color = '';
+    public $forageable = '';
     public $type = '';
     public $start = '';
     public $end = '';
@@ -43,7 +44,7 @@ class Table extends Component
         $exist = [];
 
         foreach(ForagingStats::all()->where('foraging_location_id', $location) as $forage) {
-            array_push($exist, $forage->forageable->id);
+            array_push($exist, $forage->item->id);
         }
 
         if(in_array($this->id, $exist) || $this->id == null){
@@ -68,13 +69,24 @@ class Table extends Component
             }
         }
 
-        ForagingStats::create(['foraging_location_id'=> $location, 'forageable_id' => $this->id, 'amount'=> 0]);
+        ForagingStats::create(['foraging_location_id'=> $location, 'item_id' => $this->id, 'amount'=> 0]);
     }
 
-    public function delete($forage) //delete item from location
+    public function deleteForage($forage) //delete item from location
     {
         $item = ForagingStats::find($forage['id']);
         $item->delete();
+    }
+
+    public function deleteLocation($location) //delete location
+    {
+        $location = ForagingLocations::find($location['id']);
+        $location->delete();
+
+        $stats = ForagingStats::all()->where('foraging_location_id', $location['id']);
+        foreach($stats as $stat){
+            $stat->delete();
+        }
     }
 
     public function createItem() //create new item
@@ -83,7 +95,11 @@ class Table extends Component
             $this->value = 0;
         }
 
-        Items::updateOrCreate(['name'=>$this->name, 'value'=>$this->value]);
+        if($this->forageable === ""){
+            $this->forageable = true;
+        }
+
+        Items::updateOrCreate(['name'=>$this->name, 'value'=>$this->value, 'forageable'=>$this->forageable]);
     }
 
     public function newLocation() //create new location
@@ -131,11 +147,18 @@ class Table extends Component
             $bestVal = implode(", ", array_keys($vals, max($vals)));
         }
 
+
+        $sortedLocations= $locations->sortby(function ($location) {
+            if($location->id == 10) {
+                return $location;
+            }
+        });
+
         return view('foraging.table', [
             'bestVal' => $bestVal,
-            'locations' => $locations,
-            'forages' => $forages->sortby('forageable.name'),
-            'forageables' => Items::all()->sortby('name'),
+            'locations' => $sortedLocations,
+            'forages' => $forages->sortby('item.name'),
+            'forageables' => Items::all()->where('forageable', 1)->sortby('name'),
             'updated' => $forages->sortByDesc('updated_at')->first()->updated_at ?? null,
         ]);
     }

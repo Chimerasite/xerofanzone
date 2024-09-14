@@ -4,17 +4,17 @@
         <div class="mt-6">
             <x-input.label for="location" value="{{ __('Location') }}*" />
 
-            <select wire:model.defer="location" id="location" name="location" class="block w-full rounded border-0 shadow-sm ring-1 ring-inset ring-slate-400 focus:ring-2 focus:ring-inset focus:ring-midnight-500">
+            <select wire:model.defer="location" id="location" name="location" class="block w-full rounded-md border-0 shadow-sm ring-1 ring-inset ring-stone-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 text-stone-950">
                 @foreach ($locations as $location)
-                    <option value="{{ $location->id }}">{{ $location->name }}</option>
+                    <option class="text-stone-950" value="{{ $location->id }}">{{ $location->name }}</option>
                 @endforeach
             </select>
 
             <x-input.label class="mt-2" for="forageable" value="{{ __('Item') }}*" />
 
-            <select wire:model.defer="forageable" id="forageable" name="forageable" class="block w-full rounded border-0 shadow-sm ring-1 ring-inset ring-slate-400 focus:ring-2 focus:ring-inset focus:ring-midnight-500">
+            <select wire:model.defer="forageable" id="forageable" name="forageable" class="block w-full rounded-md border-0 shadow-sm ring-1 ring-inset ring-stone-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 text-stone-950">
                 @foreach ($forageables as $forageable)
-                    <option value="{{ $forageable->id }}">{{ $forageable->name }}</option>
+                    <option class="text-stone-950" value="{{ $forageable->id }}">{{ $forageable->name }}</option>
                 @endforeach
             </select>
 
@@ -26,7 +26,7 @@
                     type="number"
                     name="amount"
                     id="amount"
-                    class="w-full"
+                    class="w-full text-stone-950"
                 />
         </div>
 

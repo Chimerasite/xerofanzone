@@ -37,10 +37,12 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-nav.dropdown-link :href="route('profile.edit')">
+                        <x-nav.dropdown-link :href="route('dashboard')">
                             {{ __('Profile') }}
                         </x-nav.dropdown-link>
-
+                        <x-nav.dropdown-link :href="route('profile.edit')">
+                            {{ __('Settings') }}
+                        </x-nav.dropdown-link>
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
