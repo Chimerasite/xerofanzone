@@ -15,7 +15,11 @@
         <link href="/assets/fontawesome/css/brands.css" rel="stylesheet">
         <link href="/assets/fontawesome/css/solid.css" rel="stylesheet">
 
+        <!-- Styles -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/styles.css') }}">
+
         <!-- Scripts -->
+        <script src="{{ asset('js/script.js') }}"></script>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
     </head>
@@ -28,16 +32,18 @@
             @include('layouts.navigation')
 
             <!-- Page content -->
-            <main class="flex flex-row h-full px-5 text-stone-50 p-6 space-x-6">
+            <main class="flex flex-row h-full lg:px-5 text-stone-50 lg:p-6 space-x-6">
                 <!-- Sub navigation -->
                 @if(isset($subnav) or isset($removelayout))
                     @if(isset($subnav))
-                        <div class="bg-stone-600 w-80 h-full p-6 rounded-md ">
-                            {{ $subnav }}
-                        </div>
-                        <!-- main content -->
-                        <div class="bg-stone-500 w-full p-6 rounded-md">
-                            {{ $slot }}
+                        <div class="w-full px-5 lg:my-0 my-6 space-x-6 flex flex-row">
+                            <div class="bg-stone-600 w-80 h-full p-6 rounded-md ">
+                                {{ $subnav }}
+                            </div>
+                            <!-- main content -->
+                            <div class="bg-stone-500 w-full p-6 rounded-md">
+                                {{ $slot }}
+                            </div>
                         </div>
                     @elseif(isset($removelayout))
                         <div class="w-full">
@@ -45,13 +51,15 @@
                         </div>
                     @endif
                 @else
-                    <div class="bg-stone-500 lg:w-5/6 m-auto p-6 rounded-md">
+                    <div class="bg-stone-500 lg:w-5/6 w-full lg:m-auto mx-5 my-6 p-6 rounded-md">
                         {{ $slot }}
                     </div>
                 @endisset
-
             </main>
         </div>
         @livewireScripts
     </body>
+    <footer class="flex justify-center bg-stone-950 text-teal-500 px-4 py-2">
+       <i class="fa-solid fa-arrow-down mr-2 mt-1"></i> This is the footer, credits and stuff should go here  ;p
+    </footer>
 </html>

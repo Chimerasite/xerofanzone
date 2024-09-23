@@ -1,5 +1,5 @@
-<div class="flex flex-row text-stone-50 space-x-6">
-    <div class="w-80">
+<div class="flex lg:flex-row flex-col text-stone-50 lg:space-x-6" x-data="{ open: false }">
+    <div class="w-80 lg:flex hidden">
         <div class="bg-stone-600 w-full p-6 rounded-md">
             <h2 class="text-teal-500 uppercase text-center text-lg mb-4">{{ __('Foraging Stats') }}</h2>
             <div class="w-full space-y-2 mb-4">
@@ -12,16 +12,16 @@
                         }
                     @endphp
 
-                    <h4>Total Forages: </h4>
+                    <h4 class="text-left">Total Forages: </h4>
                     <p class="text-center text-lg font-bold"> {{ $total }} </p>
                 </div>
                 <div>
-                    <h4>Latest Update: </h4>
+                    <h4 class="text-left">Latest Update: </h4>
                     <p class="text-center text-lg font-bold">{{ $updated ? $updated->diffForHumans() : ''}}</p>
                 </div>
                 <div>
-                    <h4>Highest Average Value: </h4>
-                    <p class="text-center text-lg font-bold">{{ $bestVal }}</p>
+                    <h4 class="text-left">Highest Average Value: </h4>
+                    <p class="text-center ltext-lg font-bold">{{ $bestVal }}</p>
                 </div>
             </div>
             <hr>
@@ -65,8 +65,84 @@
             @endif
         </div>
     </div>
-    <div class="bg-stone-500 w-full p-6 rounded-md text-stone-950">
-        <div class="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 w-full">
+    <div class="lg:hidden flex bg-stone-600">
+        <!-- Hamburger -->
+        <div class="flex items-center h-12 justify-start w-screen text-stone-50 px-4 z-30">
+            <button @click="open = ! open" onclick="lockscroll()">
+                <span :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex items-center px-4 py-2 border border-stone-50 rounded-md font-semibold text-xs text-stone-50 uppercase tracking-widest">Menu<i class="fa-solid fa-caret-right ml-1"></i></span>
+                <span :class="{'hidden': ! open, 'inline-flex': open }" class="inline-flex items-center px-4 py-2 bg-teal-500 rounded-md font-semibold text-xs text-stone-50 uppercase tracking-widest">Menu<i class="fa-solid fa-caret-left ml-1"></i></span>
+            </button>
+        </div>
+        <div x-cloak x-show="open" class="absolute z-20 flex flex-col justify-between w-screen h-screen bg-stone-600 text-white">
+            <!-- Navigation Links -->
+            <div class="flex flex-col space-y-3 mx-10 my-6">
+                <h2 class="text-teal-500 uppercase text-center text-lg mb-4">{{ __('Foraging Stats') }}</h2>
+                <div class="w-full mb-4">
+                    <div>
+                        @php
+                            $total = 0;
+
+                            foreach($forages as $key){
+                                $total = $total + $key->amount;
+                            }
+                        @endphp
+
+                        <h4 class="text-center">Total Forages: </h4>
+                        <p class="text-center font-bold"> {{ $total }} </p>
+                    </div>
+                    <div>
+                        <h4 class="text-center">Latest Update: </h4>
+                        <p class="text-center font-bold">{{ $updated ? $updated->diffForHumans() : ''}}</p>
+                    </div>
+                    <div>
+                        <h4 class="text-center">Highest Average Value: </h4>
+                        <p class="text-center font-bold">{{ $bestVal }}</p>
+                    </div>
+                </div>
+                <hr>
+                @if (Auth::user())
+                    <div class="space-y-2 mt-4">
+                        <p>
+                            <a href="{{ route('stats.foraging-add') }}" class="hover:text-teal-500">
+                                Add Foraging Data <i class="fa-solid fa-plus fa-sm ml-1"></i>
+                            </a>
+                        </p>
+                        @if (Auth::user() && Auth::user()->is_admin == 1)
+                            @if ($massedit)
+                                <p>
+                                    <a href="{{ route('stats.foraging') }}" class="hover:text-teal-500">
+                                        Close Mass Edit <i class="fa-solid fa-xmark fa-sm ml-1"></i>
+                                    </a>
+                                </p>
+                                <p>
+                                    <x-button.inline data="" x-on:click.prevent="$dispatch('open-modal', 'newLocation')">
+                                        {{ __('Create Location') }} <i class="fa-solid fa-location-dot fa-sm ml-1"></i>
+                                    </x-button.inline>
+                                </p>
+                                <p>
+                                    <x-button.inline data="" x-on:click.prevent="$dispatch('open-modal', 'createItem')">
+                                        {{ __('Create Item') }} <i class="fa-solid fa-tag fa-sm ml-1"></i>
+                                    </x-button.inline>
+                                </p>
+                            @else
+                                <p>
+                                    <a href="{{ route('stats.foraging-edit') }}" class="hover:text-teal-500">
+                                        Mass Edit <i class="fa-solid fa-edit fa-sm ml-1"></i>
+                                    </a>
+                                </p>
+                            @endif
+                        @endif
+                    </div>
+                @else
+                    <div class="mt-4">
+                        Please Login to add data.
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+    <div class="w-full lg:px-0 px-5 lg:my-0 my-6 text-stone-950">
+        <div class="bg-stone-500 rounded-md p-6 grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 w-full">
             @foreach($locations as $location)
                 @php
                     $count = 0;
