@@ -6,22 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Items;
-use App\Models\ForagingLocations;
 
-class ForagingStats extends Model
+class CometStats extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'foraging_location_id',
         'item_id',
         'amount',
     ];
-
-    public function location(): BelongsTo
-    {
-        return $this->belongsTo(ForagingLocations::class);
-    }
 
     public function item(): BelongsTo
     {

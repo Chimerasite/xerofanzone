@@ -10,7 +10,6 @@ use Livewire\Component;
 
 class Table extends Component
 {
-
     public $massedit;
 
     public $id = '';

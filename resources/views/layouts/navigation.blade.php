@@ -7,7 +7,7 @@
                 {{ __('home') }}
             </x-nav.link>
             <x-nav.link :href="route('home')" :active="request()->routeIs('home')">
-                {{ __('Fan locations') }}
+                {{ __('Fan creations') }}
             </x-nav.link>
             <x-nav.dropdown>
                 <x-slot:trigger>
@@ -19,7 +19,7 @@
                     <x-nav.dropdown-link :href="route('stats.foraging')" :active="request()->routeIs('stats.*')">
                         {{ __('Foraging') }}
                     </x-nav.dropdown-link>
-                    <x-nav.dropdown-link :href="route('home')" :active="request()->routeIs('home')">
+                    <x-nav.dropdown-link :href="route('stats.comets')" :active="request()->routeIs('stats.*')">
                         {{ __('Comet clusters') }}
                     </x-nav.dropdown-link>
                 </x-slot>
@@ -79,7 +79,7 @@
                         {{ __('home') }}
                     </x-nav.responsive-link>
                     <x-nav.responsive-link :href="route('home')" :active="request()->routeIs('home')">
-                        {{ __('Fan locations') }}
+                        {{ __('Fan creations') }}
                     </x-nav.responsive-link>
                     <x-nav.dropdown>
                         <x-slot:trigger>
@@ -91,7 +91,7 @@
                             <x-nav.dropdown-link :href="route('stats.foraging')" :active="request()->routeIs('stats.*')">
                                 {{ __('Foraging') }}
                             </x-nav.dropdown-link>
-                            <x-nav.dropdown-link :href="route('home')" :active="request()->routeIs('home')">
+                            <x-nav.dropdown-link :href="route('stats.comets')" :active="request()->routeIs('stats.*')">
                                 {{ __('Comet clusters') }}
                             </x-nav.dropdown-link>
                         </x-slot>

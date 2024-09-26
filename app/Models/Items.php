@@ -17,8 +17,20 @@ class Items extends Model
         'forageable',
     ];
 
+    protected $rules = [
+        'name' => [
+            'required',
+            'unique:XeroForagingStats,name',
+        ],
+    ];
+
     public function stat(): HasMany
     {
         return $this->hasMany(ForagingStats::class);
+    }
+
+    public function cometstat(): HasMany
+    {
+        return $this->hasMany(CometStats::class);
     }
 }

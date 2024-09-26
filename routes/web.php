@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ForagingController;
+use App\Http\Controllers\CometController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,9 +20,14 @@ Route::middleware('auth')->group(function () {
 });
 
 // Foraging
-Route::get('/statistics/foraging', [ForagingController::class, 'foragingShow'])->name('stats.foraging');
-Route::get('/edit', [ForagingController::class, 'foragingEdit'])->middleware(['auth', 'admin'])->name('stats.foraging-edit');
-Route::get('foraging/add', [ForagingController::class, 'foragingAdd'])->middleware(['auth'])->name('stats.foraging-add');
+Route::get('/statistics/foraging', [ForagingController::class, 'Show'])->name('stats.foraging');
+Route::get('/statistics/foraging/edit', [ForagingController::class, 'Edit'])->middleware(['auth', 'admin'])->name('stats.foraging-edit');
+Route::get('/statistics/foraging/add', [ForagingController::class, 'Add'])->middleware(['auth'])->name('stats.foraging-add');
+
+// Foraging
+Route::get('/statistics/cometclusters', [CometController::class, 'Show'])->name('stats.comets');
+Route::get('/statistics/cometclusters/add', [CometController::class, 'Add'])->middleware(['auth'])->name('stats.comets-add');
+Route::get('/statistics/cometclusters/calculator', [CometController::class, 'Math'])->name('stats.comets-math');
 
 
 require __DIR__.'/auth.php';
