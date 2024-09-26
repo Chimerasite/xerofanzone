@@ -15,9 +15,6 @@
         <link href="/assets/fontawesome/css/brands.css" rel="stylesheet">
         <link href="/assets/fontawesome/css/solid.css" rel="stylesheet">
 
-        <!-- Styles -->
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/styles.css') }}">
-
         <!-- Scripts -->
         <script src="{{ asset('js/script.js') }}"></script>
         @vite(['resources/css/app.css', 'resources/js/app.js'])

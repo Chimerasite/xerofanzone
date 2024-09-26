@@ -2,7 +2,7 @@
     <!-- Primary subnav -->
     <div class="w-80 lg:flex hidden">
         <div class="bg-stone-600 w-full p-6 rounded-md">
-            <h2 class="text-teal-500 uppercase text-center text-lg mb-4">{{ __('Comet Cluster Stats') }}</h2>
+            <h4 class="text-teal-500 uppercase text-center mb-4">{{ __('Comet Cluster Stats') }}</h4>
             <div class="w-full space-y-2 mb-4">
 
             </div>
@@ -41,7 +41,7 @@
         <div x-cloak x-show="open" class="absolute z-20 flex flex-col justify-between w-screen h-screen bg-stone-600 text-white">
             <!-- Navigation Links -->
             <div class="flex flex-col space-y-3 mx-10 my-6">
-                <h2 class="text-teal-500 uppercase text-center text-lg mb-4">{{ __('Comet Cluster Stats') }}</h2>
+                <h4 class="text-teal-500 uppercase text-center mb-4">{{ __('Comet Cluster Stats') }}</h4>
                 <div class="w-full mb-4">
 
                 </div>
@@ -90,7 +90,7 @@
 
                 <div class="col-span-1 my-4 rounded-md shadow-md px-2 py-4 bg-teal-500">
                     <div class="relative flex items-center pb-4">
-                        <h4 class="text-lg text-center w-full font-semibold text-stone-50">{{ $cometType->name }}</h4>
+                        <h4 class="text-center w-full text-stone-50">{{ $cometType->name }}</h4>
                     </div>
                     <table class="w-full">
                         <tr class="w-full bg-stone-50">

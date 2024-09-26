@@ -1,7 +1,7 @@
 <div class="flex lg:flex-row flex-col text-stone-50 lg:space-x-6" x-data="{ open: false }">
     <div class="w-80 lg:flex hidden">
         <div class="bg-stone-600 w-full p-6 rounded-md">
-            <h2 class="text-teal-500 uppercase text-center text-lg mb-4">{{ __('Foraging Stats') }}</h2>
+            <h4 class="text-teal-500 uppercase text-center mb-4">{{ __('Foraging Stats') }}</h4>
             <div class="w-full space-y-2 mb-4">
                 <div>
                     @php
@@ -12,15 +12,15 @@
                         }
                     @endphp
 
-                    <h4 class="text-left">Total Forages: </h4>
+                    <span class="text-left">Total Forages: </span>
                     <p class="text-center text-lg font-bold"> {{ $total }} </p>
                 </div>
                 <div>
-                    <h4 class="text-left">Latest Update: </h4>
+                    <span class="text-left">Latest Update: </span>
                     <p class="text-center text-lg font-bold">{{ $updated ? $updated->diffForHumans() : ''}}</p>
                 </div>
                 <div>
-                    <h4 class="text-left">Highest Average Value: </h4>
+                    <span class="text-left">Highest Average Value: </span>
                     <p class="text-center ltext-lg font-bold">{{ $bestVal }}</p>
                 </div>
             </div>
@@ -76,7 +76,7 @@
         <div x-cloak x-show="open" class="absolute z-20 flex flex-col justify-between w-screen h-screen bg-stone-600 text-white">
             <!-- Navigation Links -->
             <div class="flex flex-col space-y-3 mx-10 my-6">
-                <h2 class="text-teal-500 uppercase text-center text-lg mb-4">{{ __('Foraging Stats') }}</h2>
+                <h4 class="text-teal-500 uppercase text-center mb-4">{{ __('Foraging Stats') }}</h4>
                 <div class="w-full mb-4">
                     <div>
                         @php
@@ -87,15 +87,15 @@
                             }
                         @endphp
 
-                        <h4 class="text-center">Total Forages: </h4>
+                        <span class="text-center">Total Forages: </span>
                         <p class="text-center font-bold"> {{ $total }} </p>
                     </div>
                     <div>
-                        <h4 class="text-center">Latest Update: </h4>
+                        <span class="text-center">Latest Update: </span>
                         <p class="text-center font-bold">{{ $updated ? $updated->diffForHumans() : ''}}</p>
                     </div>
                     <div>
-                        <h4 class="text-center">Highest Average Value: </h4>
+                        <span class="text-center">Highest Average Value: </span>
                         <p class="text-center font-bold">{{ $bestVal }}</p>
                     </div>
                 </div>
@@ -167,7 +167,7 @@
                 @if(($massedit) || (in_array($location->type, ['Standard', 'Monthly']) || ($location->type == 'Event' && $eventShow == true)))
                     <div class="col-span-1 my-4 rounded-md shadow-md px-2 py-4" style="background-color: {{ $location->color }}">
                         <div class="relative flex items-center pb-4">
-                            <h4 class="text-lg text-center w-full font-semibold text-stone-50">{{ $location->name }}</h4>
+                            <h4 class="text-center w-full text-stone-50">{{ $location->name }}</h4>
                             @if ($massedit)
                                 <span data="" x-on:click.prevent="$dispatch('open-modal', 'add{{ $location->id }}')" class="absolute right-5">
                                     <i class="fa-solid fa-circle-plus hover:text-stone-50"></i>
