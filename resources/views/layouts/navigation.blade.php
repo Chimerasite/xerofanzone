@@ -6,7 +6,7 @@
             <x-nav.link :href="route('home')" :active="request()->routeIs('home')">
                 {{ __('home') }}
             </x-nav.link>
-            <x-nav.link :href="route('home')" :active="request()->routeIs('home')">
+            <x-nav.link :href="route('creations')" :active="request()->routeIs('creations')">
                 {{ __('Fan creations') }}
             </x-nav.link>
             <x-nav.dropdown>

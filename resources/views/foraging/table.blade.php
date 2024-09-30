@@ -28,7 +28,7 @@
             @if (Auth::user())
                 <div class="space-y-2 mt-4">
                     <p>
-                        <a href="{{ route('stats.foraging-add') }}" class="hover:text-teal-500">
+                        <a href="{{ route('stats.foraging-update') }}" class="hover:text-teal-500">
                             Add Foraging Data <i class="fa-solid fa-plus fa-sm ml-1"></i>
                         </a>
                     </p>
@@ -103,7 +103,7 @@
                 @if (Auth::user())
                     <div class="space-y-2 mt-4">
                         <p>
-                            <a href="{{ route('stats.foraging-add') }}" class="hover:text-teal-500">
+                            <a href="{{ route('stats.foraging-update') }}" class="hover:text-teal-500">
                                 Add Foraging Data <i class="fa-solid fa-plus fa-sm ml-1"></i>
                             </a>
                         </p>

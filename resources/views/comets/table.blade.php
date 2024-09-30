@@ -17,7 +17,7 @@
             @if (Auth::user())
                 <div class="space-y-2 mt-4">
                     <p>
-                        <a href="{{ route('stats.comets-add') }}" class="hover:text-teal-500">
+                        <a href="{{ route('stats.comets-update') }}" class="hover:text-teal-500">
                             Add Comet Cluster Data <i class="fa-solid fa-plus fa-sm ml-1"></i>
                         </a>
                     </p>
@@ -56,7 +56,7 @@
                 @if (Auth::user())
                     <div class="space-y-2 mt-4">
                         <p>
-                            <a href="{{ route('stats.comets-add') }}" class="hover:text-teal-500">
+                            <a href="{{ route('stats.comets-update') }}" class="hover:text-teal-500">
                                 Add Comet Cluster Data <i class="fa-solid fa-plus fa-sm ml-1"></i>
                             </a>
                         </p>

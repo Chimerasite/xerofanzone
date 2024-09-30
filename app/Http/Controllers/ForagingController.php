@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 
 class ForagingController extends Controller
 {
-    public function Show()
+    public function Index()
     {
-        return view('foraging.show');
+        return view('foraging.index');
     }
 
     public function Edit()
@@ -17,8 +17,8 @@ class ForagingController extends Controller
         return view('foraging.edit');
     }
 
-    public function Add()
+    public function Update()
     {
-        return view('foraging.add');
+        return view('foraging.update');
     }
 }
