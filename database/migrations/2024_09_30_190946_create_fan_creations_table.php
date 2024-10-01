@@ -13,7 +13,19 @@ return new class extends Migration
     {
         Schema::create('fan_creations', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
             $table->string('name');
+            $table->string('slug')->unique();
+            $table->json('tags')->nullable();
+            $table->string('thumbnail')->nullable();
+            $table->longText('description');
+            $table->string('location')->nullable();
+            $table->set('art_permission', ['yes', 'ask', 'no'])->default('yes');
+            $table->set('writing_permission', ['yes', 'ask', 'no'])->default('yes');
+            $table->boolean('public')->default(false);
+            $table->string('contact')->nullable();
+            $table->string('external_link')->nullable();
+            $table->json('images')->nullable();
             $table->timestamps();
         });
     }

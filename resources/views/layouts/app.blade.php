@@ -48,7 +48,7 @@
                         </div>
                     @endif
                 @else
-                    <div class="bg-stone-500 lg:w-5/6 w-full lg:m-auto mx-5 my-6 p-9 rounded-md">
+                    <div class="bg-stone-500 lg:w-5/6 w-full lg:m-auto mx-5 my-6 p-8 rounded-md">
                         {{ $slot }}
                     </div>
                 @endisset

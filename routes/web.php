@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ForagingController;
 use App\Http\Controllers\CometController;
-use App\Http\Controllers\CreationController;
+use App\Http\Controllers\FanCreationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -31,8 +31,10 @@ Route::get('/statistics/cometclusters/update', [CometController::class, 'Update'
 Route::get('/statistics/cometclusters/calculator', [CometController::class, 'Math'])->name('stats.comets-math');
 
 // Creations
-Route::get('/fan-creations', [CreationController::class, 'Index'])->name('creations');
-Route::get('/fan-creations/{id}', [CreationController::class, 'Show'])->name('creations-show');
+Route::get('/fan-creations', [FanCreationController::class, 'Index'])->name('fancreations');
+Route::get('/fan-creations/create', [FanCreationController::class, 'Create'])->name('fancreations-create');
+Route::get('/fan-creations/{post:slug}', [FanCreationController::class, 'Show'])->name('fancreations-show');
+
 
 
 require __DIR__.'/auth.php';

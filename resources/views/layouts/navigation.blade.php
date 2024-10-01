@@ -6,7 +6,7 @@
             <x-nav.link :href="route('home')" :active="request()->routeIs('home')">
                 {{ __('home') }}
             </x-nav.link>
-            <x-nav.link :href="route('creations')" :active="request()->routeIs('creations')">
+            <x-nav.link :href="route('fancreations')" :active="request()->routeIs('fancreations.*')">
                 {{ __('Fan creations') }}
             </x-nav.link>
             <x-nav.dropdown>
@@ -78,7 +78,7 @@
                     <x-nav.responsive-link :href="route('home')" :active="request()->routeIs('home')">
                         {{ __('home') }}
                     </x-nav.responsive-link>
-                    <x-nav.responsive-link :href="route('home')" :active="request()->routeIs('home')">
+                    <x-nav.responsive-link :href="route('fancreations')" :active="request()->routeIs('fancreations.*')">
                         {{ __('Fan creations') }}
                     </x-nav.responsive-link>
                     <x-nav.dropdown>
