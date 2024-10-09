@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->json('tags')->nullable();
             $table->string('thumbnail')->nullable();
-            $table->longText('description');
+            $table->longText('description')->nullable();
             $table->string('location')->nullable();
             $table->set('art_permission', ['yes', 'ask', 'no'])->default('yes');
             $table->set('writing_permission', ['yes', 'ask', 'no'])->default('yes');

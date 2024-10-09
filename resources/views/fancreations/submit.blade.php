@@ -18,7 +18,7 @@
                     name="name"
                     id="name"
                     class="w-full text-stone-950"
-                    required
+                    {{-- required --}}
                 />
             </div>
 
@@ -30,7 +30,7 @@
                     name="slug"
                     id="slug"
                     class="w-full text-stone-950"
-                    required
+                    {{-- required --}}
                 />
             </div>
 
@@ -90,9 +90,8 @@
                 </select>
                 <div x-show="location == 'Other'" x-cloak>
                     <x-input.text
-                    wire:model="location"
+                    wire:model="otherLocation"
                     type="text"
-                    name="location"
                     id="otherLocation"
                     class="w-full text-stone-950 mt-1"
                     placeholder="Other Location"
@@ -163,7 +162,7 @@
         <div x-show="element == 'gallery'" x-cloak>
             <div class="mt-4">
                 <x-input.label for="image" value="{{ __('Image') }}" />
-                <x-input.text
+                {{-- <x-input.text
                     wire:model="imgText"
                     type="text"
                     name="imgText"
@@ -179,7 +178,7 @@
                     id="imgLink"
                     class="w-full text-stone-950 mt-1"
                     placeholder="Url"
-                />
+                /> --}}
                 <div class="flex justify-end mt-2">
                     <button class="inline-flex items-center px-4 py-2 bg-teal-500 border border-transparent rounded-md font-semibold text-xs text-stone-50 uppercase tracking-widest hover:bg-teal-300 active:bg-teal-300 focus:outline-none transition ease-in-out duration-150">
                         <i class="fa-solid fa-plus"></i>
@@ -189,6 +188,14 @@
         </div>
 
         <div class="mt-6 flex justify-end items-center">
+            @if (session()->has('postMessage'))
+                <div x-data="{show: true}" x-init="setTimeout(() => show = false, 3000)" x-show="show">
+                    <div class="alert alert-success" onload="timeout()" id="success">
+                        {{ session('postMessage') }}
+                    </div>
+                </div>
+            @endif
+
             <a href="{{ route('fancreations') }}">
                 <x-button.secondary class="ml-3">
                     {{ __('Back') }}

@@ -18,6 +18,9 @@ class FanCreationController extends Controller
     public function Show(string $slug)
     {
         $post = FanCreations::where('slug', $slug)->first();
+        if($post->tags != null){
+            $post->tags = implode( ', ', $post->tags );
+        };
 
         return view('fancreations.show', [
             'post' => $post,

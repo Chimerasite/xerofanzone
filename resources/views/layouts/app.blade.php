@@ -31,22 +31,10 @@
             <!-- Page content -->
             <main class="flex flex-row h-full lg:px-5 text-stone-50 lg:p-6 space-x-6">
                 <!-- Sub navigation -->
-                @if(isset($subnav) or isset($removelayout))
-                    @if(isset($subnav))
-                        <div class="w-full px-5 lg:my-0 my-6 space-x-6 flex flex-row">
-                            <div class="bg-stone-600 w-80 h-full p-6 rounded-md ">
-                                {{ $subnav }}
-                            </div>
-                            <!-- main content -->
-                            <div class="bg-stone-500 w-full p-6 rounded-md">
-                                {{ $slot }}
-                            </div>
-                        </div>
-                    @elseif(isset($removelayout))
-                        <div class="w-full">
-                            {{ $slot }}
-                        </div>
-                    @endif
+                @if(isset($subnav))
+                    <div class="w-full">
+                        {{ $slot }}
+                    </div>
                 @else
                     <div class="bg-stone-500 lg:w-5/6 w-full lg:m-auto mx-5 my-6 p-8 rounded-md">
                         {{ $slot }}

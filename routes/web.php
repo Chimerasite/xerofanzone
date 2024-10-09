@@ -32,7 +32,7 @@ Route::get('/statistics/cometclusters/calculator', [CometController::class, 'Mat
 
 // Creations
 Route::get('/fan-creations', [FanCreationController::class, 'Index'])->name('fancreations');
-Route::get('/fan-creations/create', [FanCreationController::class, 'Create'])->name('fancreations-create');
+Route::get('/fan-creations/create', [FanCreationController::class, 'Create'])->middleware(['auth'])->name('fancreations-create');
 Route::get('/fan-creations/{post:slug}', [FanCreationController::class, 'Show'])->name('fancreations-show');
 
 

@@ -14,7 +14,7 @@ class FanCreations extends Model
     protected $fillable = [
             'user_id',
             'name',
-            'key',
+            'slug',
             'tags',
             'thumbnail',
             'description',
