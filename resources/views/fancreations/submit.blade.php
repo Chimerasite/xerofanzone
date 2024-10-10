@@ -6,11 +6,11 @@
         <button :class=" element == 'gallery' ? 'bg-teal-500' : ''" class="w-full rounded-md" x-on:click="element = 'gallery'">Gallery</button>
     </div>
 
-    <form wire:submit="createPost" class="px-6 pb-6">
+    <form wire:submit.prevent="createPost" onkeydown="return event.key != 'Enter';" class="px-6 pb-6">
         @csrf
         <div x-show="element == 'main'" x-cloak>
             <div class="mt-4">
-                <x-input.label for="name" value="{{ __('Title') }}" />
+                <x-input.label for="name" value="{{ __('Title') }}*" />
                 <x-input.text
                     wire:model="name"
                     wire:keyup="generateSlug"
@@ -18,24 +18,26 @@
                     name="name"
                     id="name"
                     class="w-full text-stone-950"
-                    {{-- required --}}
                 />
             </div>
 
             <div class="mt-4">
-                <x-input.label for="slug" value="{{ __('Slug') }}" />
+                <x-input.label for="slug">
+                    {{ __('Slug') }}* <x-input.tip value="The slug is the part that shows at the end of the link to your post. It has to be unique and can't be the same in multiple post." />
+                </x-input.label>
                 <x-input.text
                     wire:model="slug"
                     type="text"
                     name="slug"
                     id="slug"
                     class="w-full text-stone-950"
-                    {{-- required --}}
                 />
             </div>
 
             <div class="mt-4">
-                <x-input.label for="thumbnail" value="{{ __('Thumbnail') }}" />
+                <x-input.label for="thumbnail">
+                    {{ __('Thumbnail') }} <x-input.tip value="This will show on the list of all posts and as main image on your posts individual page." />
+                </x-input.label>
                 <x-input.text
                     wire:model="thumbnail"
                     type="url"
@@ -48,18 +50,28 @@
 
         <div x-show="element == 'info'" x-cloak>
             <div class="mt-4">
-                <x-input.label for="tags" value="{{ __('Tags') }}" />
-                <div class="flex justify-end space-x-3">
-                    <x-input.text
-                        wire:model="tags"
-                        type="text"
-                        name="tags"
-                        id="tags"
-                        class="w-full text-stone-950"                    />
+                <x-input.label for="tags" value="{{ __('Tags') }}">
+                    {{ __('Tags') }} <x-input.tip value="This will show on the list of all posts and as main image on your posts individual page." />
+                </x-input.label>
 
-                    <button class="inline-flex items-center px-4 py-2 bg-teal-500 border border-transparent rounded-md font-semibold text-xs text-stone-50 uppercase tracking-widest hover:bg-teal-300 active:bg-teal-300 focus:outline-none transition ease-in-out duration-150">
-                        <i class="fa-solid fa-plus"></i>
-                    </button>
+                <div class="tags-input">
+                    <div class="flex space-x-4">
+                        <x-input.text
+                            type="text"
+                            wire:keyup.enter="addTagList"
+                            wire:model="tags"
+                            id="input-tag"
+                            class="w-full text-stone-950"
+                        />
+                        <span wire:click="addTagList" class="inline-flex items-center px-4 py-2 bg-teal-500 border border-transparent rounded-md font-semibold text-xs text-stone-50 uppercase tracking-widest hover:bg-teal-300 active:bg-teal-300 focus:outline-none transition ease-in-out duration-150">
+                            <i class="fa-solid fa-plus"></i>
+                        </span>
+                    </div>
+                    <ul id="tags" >
+                        @foreach($tagList as $key)
+                            <li>{{ $key }} <i class="fa-solid fa-xmark delete-button" wire:click="removeTagList('{{ $key }}')" class=""></i></li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
 
@@ -189,9 +201,16 @@
 
         <div class="mt-6 flex justify-end items-center">
             @if (session()->has('postMessage'))
-                <div x-data="{show: true}" x-init="setTimeout(() => show = false, 3000)" x-show="show">
-                    <div class="alert alert-success" onload="timeout()" id="success">
+                <div x-data="{show: true}" x-init="setTimeout(() => show = false, 5000)" x-show="show">
+                    <div class="alert alert-success text-green-500 font-bold bg-stone-100 py-1 px-4 rounded-md" onload="timeout()" id="success">
                         {{ session('postMessage') }}
+                    </div>
+                </div>
+            @endif
+            @if (session()->has('errorMessage'))
+                <div x-data="{show: true}" x-init="setTimeout(() => show = false, 5000)" x-show="show">
+                    <div class="alert alert-error text-red-600 font-bold bg-stone-100 py-1 px-4 rounded-md" onload="timeout()" id="error">
+                        {{ session('errorMessage') }}
                     </div>
                 </div>
             @endif
@@ -207,6 +226,12 @@
             </x-button.primary>
         </div>
     </form>
-
+    @script
+        <script>
+            function addTag() {
+                console.log('test');
+            }
+        </script>
+    @endscript
 </div>
 

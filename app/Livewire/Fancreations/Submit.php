@@ -10,7 +10,9 @@ use App\Models\FanCreations;
 
 class Submit extends Component
 {
-    public $name, $slug, $thumbnail, $tags, $description, $contact, $external_link, $art_permission, $writing_permission, $public;
+    public $name, $slug, $thumbnail, $description, $contact, $external_link, $art_permission, $writing_permission, $public;
+    public $tags;
+    public $tagList = [];
     public $location, $otherLocation;
 
     public function generateSlug()
@@ -18,13 +20,42 @@ class Submit extends Component
         $this->slug = Str::slug($this->name);
     }
 
+    public function addTagList()
+    {
+        if($this->tags != "") {
+            $this->tags = ucfirst($this->tags);
+            array_push($this->tagList,$this->tags);
+        }
+        $this->tags = "";
+    }
+
+    public function removeTagList($key)
+    {
+        $val = array_search($key, $this->tagList);
+        if($val !== false) {
+            unset($this->tagList[$val]);
+        }
+    }
+
     public function createPost()
     {
+        //check if required fields are filled in and unique if needed
+        if($this->name == null){
+            session()->flash('errorMessage', 'Please enter a Title for your post.');
+            return;
+        }
+        if($this->slug == null){
+            session()->flash('errorMessage', 'Please enter a Slug for your post.');
+            return;
+        }
+
+        if(FanCreations::where('slug', $this->slug)->first() != null){
+            session()->flash('errorMessage', 'This Slug already exists.');
+            return;
+        }
+
         //make sure slug is right format
         $this->slug = Str::slug($this->slug);
-
-        //turn tags string into array
-        $tagsArray = explode( ', ', $this->tags );
 
         //when using other location add comment
         if($this->location == 'Other'){
@@ -48,7 +79,7 @@ class Submit extends Component
             'user_id' => Auth::User()->id,
             'name' => $this->name,
             'slug' => $this->slug,
-            'tags' => $tagsArray,
+            'tags' => $this->tagList,
             'thumbnail' => $this->thumbnail,
             'description' => $this->description,
             'location' => $this->location,
@@ -65,6 +96,8 @@ class Submit extends Component
 
     public function render()
     {
+        $allTags = FanCreations::all();
+        
         return view('fancreations.submit');
     }
 }

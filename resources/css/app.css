@@ -3,25 +3,49 @@
 @tailwind utilities;
 
 h1 {
-    @apply text-3xl  font-bold
+    @apply text-3xl  font-bold;
 }
 
 h2 {
-    @apply text-2xl font-bold
+    @apply text-2xl font-bold;
 }
 
 h3 {
-    @apply text-xl font-bold
+    @apply text-xl font-bold;
 }
 
 h4 {
-    @apply text-lg font-bold
+    @apply text-lg font-bold;
 }
 
 h5 {
-    @apply text-base font-bold
+    @apply text-base font-bold;
 }
 
 h6 {
-    @apply text-sm font-bold
+    @apply text-sm font-bold;
+}
+
+.tags-input {
+    @apply inline-block relative w-full;
+}
+
+.tags-input ul {
+    @apply list-none p-0 m-0;
+}
+
+.tags-input li {
+    @apply inline-block bg-stone-100 text-stone-950 rounded-md px-3 py-1 mr-2 mt-2;
+}
+
+.tags-input input[type="text"] {
+    @apply border-0 outline-0 p-1;
+}
+
+.tags-input input[type="text"]:focus {
+    @apply outline-0;
+}
+
+.tags-input .delete-button {
+    @apply bg-transparent border-0 text-stone-600 hover:text-teal-500 cursor-pointer ml-2;
 }

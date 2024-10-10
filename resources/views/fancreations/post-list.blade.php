@@ -15,7 +15,7 @@
                     </p>
                 </div>
             @else
-                <div class="mt-4">
+                <div class="">
                     Please Login to create posts.
                 </div>
             @endif
