@@ -1,4 +1,4 @@
-<div class="lg:w-1/2 m-auto" x-data="{ element: 'extra' }">
+<div class="lg:w-1/2 m-auto" x-data="{ element: 'info' }">
     <div class="flex justify-around bg-stone-600 rounded-md w-full h-8">
         <button :class=" element == 'main' ? 'bg-teal-500' : ''" class="w-full rounded-md" x-on:click="element = 'main'">Main</button>
         <button :class=" element == 'info' ? 'bg-teal-500' : ''" class="w-full rounded-md" x-on:click="element = 'info'">Info</button>
@@ -6,7 +6,7 @@
         <button :class=" element == 'gallery' ? 'bg-teal-500' : ''" class="w-full rounded-md" x-on:click="element = 'gallery'">Gallery</button>
     </div>
 
-    <form wire:submit.prevent="createPost" onkeydown="return event.key != 'Enter';" class="px-6 pb-6">
+    <form wire:submit.prevent="updatePost" onkeydown="return event.key != 'Enter';" class="px-6 pb-6">
         @csrf
         <div x-show="element == 'main'" x-cloak>
             <div class="mt-4">
@@ -96,20 +96,14 @@
                 <x-input.label for="location">
                     {{ __('Location') }} <x-input.tip value="Link your Post to a location, create someplace new or leave empty" />
                 </x-input.label>
-                <select wire:model.defer="location" x-model="location" id="location" name="location" class="block w-full rounded-md border-0 shadow-sm ring-1 ring-inset ring-stone-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 text-stone-950 cursor-pointer">
+                <select wire:model='location' id="location" name="location" class="block w-full rounded-md border-0 shadow-sm ring-1 ring-inset ring-stone-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 text-stone-950 cursor-pointer">
                     <option value="" disabled>Choose a location</option>
-                    <option class="text-stone-950" value="OWAI-6">OWAI-6</option>
-                    <option class="text-stone-950" value="Harbor">Harbor</option>
-                    <option class="text-stone-950" value="Jurupa Forest">Jurupa Forest</option>
-                    <option class="text-stone-950" value="Aberion">Aberion</option>
-                    <option class="text-stone-950" value="Kubai Desert">Kubai Desert</option>
-                    <option class="text-stone-950" value="B'Haddu">B'Haddu</option>
-                    <option class="text-stone-950" value="Earle Sea">Earle Sea</option>
-                    <option class="text-stone-950" value="Torini">Torini</option>
-                    <option class="text-stone-950" value="Zae'ka">Zae'ka</option>
+                    @foreach($allLocations as $location)
+                        <option class="text-stone-950" value="{{ $location }}">{{ $location }}</option>
+                    @endforeach
                     <option class="text-stone-950" value="Other">Other...</option>
                 </select>
-                <div x-show="location == 'Other'" x-cloak>
+                <div x-show="$wire.location == 'Other'" x-cloak>
                     <x-input.text
                     wire:model="otherLocation"
                     type="text"
@@ -137,7 +131,7 @@
 
             <div class="mt-4">
                 <x-input.label for="external_link">
-                    {{ __('Tags') }} <x-input.tip value="Add a link to an external place for your Post." />
+                    {{ __('External Link') }} <x-input.tip value="Add a link to an external place for your Post." />
                 </x-input.label>
                 <x-input.text
                     wire:model="external_link"
@@ -234,23 +228,17 @@
                 </div>
             @endif
 
-            <a href="{{ route('fancreations') }}">
+            <a href="{{ route('fancreations-show', $post->slug) }}">
                 <x-button.secondary class="ml-3">
                     {{ __('Back') }}
                 </x-button.secondary>
             </a>
 
             <x-button.primary class="ml-3">
-                {{ __('Add') }}
+                {{ __('Update') }}
             </x-button.primary>
         </div>
     </form>
-    @script
-        <script>
-            function addTag() {
-                console.log('test');
-            }
-        </script>
-    @endscript
 </div>
+
 

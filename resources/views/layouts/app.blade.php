@@ -20,7 +20,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased cursor-default">
         <div class="min-h-screen bg-stone-800">
             <!-- Banner -->
             <img src="/assets/img/banner.png" alt="{{ __('Xero Fanzone Banner') }}">

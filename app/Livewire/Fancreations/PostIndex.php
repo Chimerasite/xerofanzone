@@ -7,14 +7,14 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\FanCreations;
 use App\Models\Users;
 
-class PostList extends Component
+class PostIndex extends Component
 {
     public $posts;
     public $filtered = false;
 
     public function mount()
     {
-        $this->posts = FanCreations::all()->where('public', true)->sortBy('updated_at');
+        $this->posts = FanCreations::all()->where('public', true)->sortByDesc('updated_at');
     }
 
     public function myPosts()
@@ -25,13 +25,13 @@ class PostList extends Component
 
     public function resetFilter()
     {
-        $this->posts = FanCreations::all()->where('public', true)->sortBy('updated_at');
+        $this->posts = FanCreations::all()->where('public', true)->sortByDesc('updated_at');
         $this->filtered = false;
     }
 
     public function render()
     {
-        return view('fancreations.post-list',[
+        return view('fancreations.post-index',[
             'posts' => $this->posts,
         ]);
     }

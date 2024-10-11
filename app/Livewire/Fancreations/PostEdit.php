@@ -3,21 +3,50 @@
 namespace App\Livewire\Fancreations;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Users;
 use App\Models\FanCreations;
+use App\Models\Locations;
 
-class Submit extends Component
+class PostEdit extends Component
 {
-    public $name, $slug, $thumbnail, $description, $contact, $external_link, $art_permission, $writing_permission, $public;
-    public $location, $otherLocation;
-    public $tags;
+    public $post, $name, $slug, $thumbnail, $description, $contact, $external_link, $art_permission, $writing_permission, $public, $location, $otherLocation, $tags;
+    public $allLocations = [];
     public $tagList = [];
     public $allTags = [];
 
     public function mount()
     {
+        //assign value to basics
+        $this->name = $this->post->name;
+        $this->slug = $this->post->slug;
+        $this->thumbnail = $this->post->thumbnail;
+        $this->description = $this->post->description;
+        $this->contact = $this->post->contact;
+        $this->external_link = $this->post->external_link;
+        $this->art_permission = $this->post->art_permission;
+        $this->writing_permission = $this->post->writing_permission;
+        $this->public = $this->post->public;
+
+        //assign value to location
+        $locations = DB::table('locations')->select('name', 'type')->orderByRaw("CASE WHEN type = 'Planet' THEN 1 WHEN type = 'Region' THEN 2 ELSE 3 END")->get();
+        foreach($locations as $location) {
+            array_push($this->allLocations,$location->name);
+        }
+
+        if(in_array($this->post->location, $this->allLocations)){
+            $this->location = $this->post->location;
+        } else {
+            $this->location = 'Other';
+            $this->otherLocation = $this->post->location;
+        }
+
+        //assign value to tags
+        $this->tagList = $this->post->tags;
+
+        //create list with all used tags for datalist
         $var = FanCreations::where('public', true)->get('tags');
 
         foreach($var as $key) {
@@ -53,20 +82,20 @@ class Submit extends Component
         }
     }
 
-    public function createPost()
+    public function updatePost()
     {
         //check if required fields are filled in and unique if needed
-        if($this->name == null){
+        if(! $this->name){
             session()->flash('errorMessage', 'Please enter a Title for your post.');
             return;
         }
 
-        if($this->slug == null){
+        if(! $this->slug){
             session()->flash('errorMessage', 'Please enter a Slug for your post.');
             return;
         }
 
-        if(FanCreations::where('slug', $this->slug)->first() != null){
+        if(FanCreations::where('slug', $this->slug)->where('id', '!=', $this->post->id)->first() != null){
             session()->flash('errorMessage', 'This Slug already exists.');
             return;
         }
@@ -92,7 +121,7 @@ class Submit extends Component
             $this->public = false;
         }
 
-        FanCreations::create([
+        FanCreations::where('id', $this->post->id)->update([
             'user_id' => Auth::User()->id,
             'name' => $this->name,
             'slug' => $this->slug,
@@ -107,14 +136,11 @@ class Submit extends Component
             'external_link' => $this->external_link,
         ]);
 
-        session()->flash('postMessage', 'Post added succesfully');
-        $this->reset();
+        session()->flash('postMessage', 'Post updated succesfully');
     }
 
     public function render()
     {
-
-
-        return view('fancreations.submit');
+        return view('fancreations.post-edit');
     }
 }

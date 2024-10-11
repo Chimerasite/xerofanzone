@@ -9,7 +9,7 @@
             <x-permission-pill permission="{{ $post->art_permission }}" icon="fa-pencil-ruler" info="for use in art" />
             <x-permission-pill permission="{{ $post->writing_permission }}" icon="fa-file-alt" info="for use in writing" />
             @if(Auth::user() && Auth::User()->id == $post->user_id)
-                <a href="{{ route('fancreations') }}">
+                <a href="{{ route('fancreations-edit', $post->slug) }}">
                     <x-button.primary>
                         <i class="fa-solid fa-cog mr-1"></i> {{ __("Edit Post") }}
                     </x-button.primary>
@@ -45,18 +45,22 @@
             </div>
             <div class="mt-4 ml-4 space-y-1">
                 <div>
-                    <i class="fa-solid fa-location-dot"></i> <span class="font-bold">{{ __('Location') }}: </span><i>{{ $post->location }}</i>
-                </div>
-                @if($post->contact)
-                    <p>
-                        <a href="{{ $post->contact }}" class="hover:text-teal-300 font-bold" target="_blanc">
-                            <i class="fa-solid fa-user"></i> <span class="hover:underline">Contact Creator</span>
-                        </a>
+                    <i class="fa-solid fa-location-dot"></i> <span class="font-bold cursor-default">{{ __('Location') }}: </span>
+                    <a href="{{ $location->link ?? ''}}" class="{{ $location ? 'hover:text-teal-300 hover:underline' : 'cursor-default'}}">
+                        <i>{{ $location->name ?? $post->location }}</i>
+                    </a>
+
+        </div>
+        @if($post->contact)
+            <p>
+                <a href="{{ $post->contact }}" class="hover:text-teal-300 font-bold">
+                    <i class="fa-solid fa-user"></i> <span class="hover:underline">Contact {{ $post->user->name ?? 'Creator'}}</span>
+                </a>
                     </p>
                 @endif
                 @if($post->external_link)
                     <p>
-                        <a href="{{ $post->external_link }}" class="hover:text-teal-300 font-bold" target="_blanc">
+                        <a href="{{ $post->external_link }}" class="hover:text-teal-300 font-bold">
                             <i class="fa-solid fa-link"></i> <span class="hover:underline">External Link</span>
                         </a>
                     </p>
