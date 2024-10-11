@@ -1,8 +1,8 @@
 <div class="flex lg:flex-row flex-col text-stone-50 lg:space-x-6" x-data="{ open: false }">
     <div class="w-80 lg:flex hidden">
         <div class="bg-stone-600 w-full p-6 rounded-md">
-            @if (Auth::user())
-                <div  class="space-y-2">
+            <div  class="space-y-2 mb-4">
+                @if (Auth::user())
                     <p>
                         <a href="{{ route('fancreations-create') }}" class="hover:text-teal-500">
                             Create new post <i class="fa-solid fa-plus fa-sm ml-1"></i>
@@ -13,12 +13,19 @@
                             View my posts <i class="fa-solid fa-tag fa-sm ml-1"></i>
                         </a>
                     </p>
+                @else
+                    <div>
+                        Please Login to create posts.
+                    </div>
+                @endif
+            </div>
+            <hr>
+            <div class="mt-4">
+                <div>
+                    <h5>{{ __('Location') }}</h5>
+
                 </div>
-            @else
-                <div class="">
-                    Please Login to create posts.
-                </div>
-            @endif
+            </div>
         </div>
     </div>
     <div class="lg:hidden flex bg-stone-600">
@@ -55,13 +62,51 @@
     </div>
     <div class="w-full lg:px-0 px-5 lg:my-0 my-6">
         <div class="bg-stone-500 rounded-md p-6 w-full">
-            @if($filtered)
-                <a wire:click="resetFilter" class="absolute">
-                    <x-button.inline class="ml-3">
-                        <i class="fa-solid fa-chevron-left"></i>
-                    </x-button.inline>
-                </a>
-            @endif
+            <div class="flex justify-between pb-4">
+                <span>
+                    @if($filtered)
+                        <a wire:click="resetFilter">
+                            <x-button.inline class="ml-3">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </x-button.inline>
+                        </a>
+                    @endif
+                </span>
+                <div class="relative mr-6" x-data="{ open: false }" @click.away="open = false" @close.stop="open = false">
+                    <div @click="open = ! open">
+                        <button type="button" class="text-stone-50 w-40 py-2 px-4 bg-teal-500 rounded-md hover:bg-teal-300 hover:shadow-md focus:outline-none transition ease-in-out duration-150">
+                            {{ __('Order By') }} <i class="fa-solid fa-chevron-down text-xs ml-2"></i>
+                        </button>
+                    </div>
+
+                    <div x-show="open"
+                        wire:model="orderBy"
+                        class="absolute z-50 w-40 bg-stone-900 rounded-md mt-1"
+                        style="display: none;"
+                        @click="open = false">
+                        <div class="space-y-1">
+                            <div class="py-2 px-4 text-teal-500 hover:bg-stone-950 hover:text-white-500 rounded-md" wire:click="orderBy('created_at','sortByDesc')">
+                                {{ __('Newest') }}
+                            </div>
+                            <div class="py-2 px-4 text-teal-500 hover:bg-stone-950 hover:text-white-500 rounded-md" wire:click="orderBy('created_at','sortBy')">
+                                {{ __('Oldest') }}
+                            </div>
+                            <div class="py-2 px-4 text-teal-500 hover:bg-stone-950 hover:text-white-500 rounded-md" wire:click="orderBy('name','sortBy')">
+                                {{ __('Name A-Z') }}
+                            </div>
+                            <div class="py-2 px-4 text-teal-500 hover:bg-stone-950 hover:text-white-500 rounded-md" wire:click="orderBy('name','sortByDesc')">
+                                {{ __('Name Z-A') }}
+                            </div>
+                            <div class="py-2 px-4 text-teal-500 hover:bg-stone-950 hover:text-white-500 rounded-md" wire:click="orderBy('location','sortBy')">
+                                {{ __('Location A-Z') }}
+                            </div>
+                            <div class="py-2 px-4 text-teal-500 hover:bg-stone-950 hover:text-white-500 rounded-md" wire:click="orderBy('location','sortByDesc')">
+                                {{ __('Location Z-A') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="flex justify-center flex-wrap gap-x-8 gap-y-4 my-4">
                 @foreach($posts as $post)
                     <a href="{{ route('fancreations-show', $post->slug) }}" class="text-center group rounded-md hover:bg-teal-500 ">

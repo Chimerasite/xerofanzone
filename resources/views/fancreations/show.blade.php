@@ -30,8 +30,6 @@
             <div>
                 {{ $post->description }}
             </div>
-
-
         </div>
 
 
@@ -49,13 +47,12 @@
                     <a href="{{ $location->link ?? ''}}" class="{{ $location ? 'hover:text-teal-300 hover:underline' : 'cursor-default'}}">
                         <i>{{ $location->name ?? $post->location }}</i>
                     </a>
-
-        </div>
-        @if($post->contact)
-            <p>
-                <a href="{{ $post->contact }}" class="hover:text-teal-300 font-bold">
-                    <i class="fa-solid fa-user"></i> <span class="hover:underline">Contact {{ $post->user->name ?? 'Creator'}}</span>
-                </a>
+                </div>
+                @if($post->contact)
+                    <p>
+                        <a href="{{ $post->contact }}" class="hover:text-teal-300 font-bold">
+                            <i class="fa-solid fa-user"></i> <span class="hover:underline">Contact {{ $post->user->name ?? 'Creator'}}</span>
+                        </a>
                     </p>
                 @endif
                 @if($post->external_link)
