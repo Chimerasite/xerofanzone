@@ -11,9 +11,25 @@ use App\Models\FanCreations;
 class Submit extends Component
 {
     public $name, $slug, $thumbnail, $description, $contact, $external_link, $art_permission, $writing_permission, $public;
+    public $location, $otherLocation;
     public $tags;
     public $tagList = [];
-    public $location, $otherLocation;
+    public $allTags = [];
+
+    public function mount()
+    {
+        $var = FanCreations::where('public', true)->get('tags');
+
+        foreach($var as $key) {
+            if($key->tags) {
+                foreach($key->tags as $tag) {
+                    if(! in_array($tag, $this->allTags) && $tag != "") {
+                        array_push($this->allTags,$tag);
+                    }
+                }
+            }
+        }
+    }
 
     public function generateSlug()
     {
@@ -44,6 +60,7 @@ class Submit extends Component
             session()->flash('errorMessage', 'Please enter a Title for your post.');
             return;
         }
+
         if($this->slug == null){
             session()->flash('errorMessage', 'Please enter a Slug for your post.');
             return;
@@ -96,8 +113,8 @@ class Submit extends Component
 
     public function render()
     {
-        $allTags = FanCreations::all();
-        
+
+
         return view('fancreations.submit');
     }
 }
