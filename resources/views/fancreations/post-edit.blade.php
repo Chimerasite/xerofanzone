@@ -1,4 +1,4 @@
-<div class="lg:w-1/2 m-auto" x-data="{ element: 'info' }">
+<div class="lg:w-1/2 m-auto" x-data="{ element: 'main' }">
     <div class="flex justify-around bg-stone-600 rounded-md w-full h-8">
         <button :class=" element == 'main' ? 'bg-teal-500' : ''" class="w-full rounded-md" x-on:click="element = 'main'">Main</button>
         <button :class=" element == 'info' ? 'bg-teal-500' : ''" class="w-full rounded-md" x-on:click="element = 'info'">Info</button>

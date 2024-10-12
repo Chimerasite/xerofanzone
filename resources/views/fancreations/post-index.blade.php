@@ -20,11 +20,128 @@
                 @endif
             </div>
             <hr>
-            <div class="mt-4">
-                <div>
-                    <h5>{{ __('Location') }}</h5>
-
+            <div class="mt-4 space-y-2">
+                <div x-data="{ dropdown: false }">
+                    <div @click="dropdown = ! dropdown" class="flex justify-between items-center">
+                        <h5>{{ __('Name') }}</h5>
+                        <span>
+                            <span :class="{'hidden': dropdown, 'inline-flex': ! dropdown }" class="inline-flex items-center px-2 tracking-widest"><i class="fa-solid fa-sm fa-chevron-down ml-1"></i></span>
+                            <span :class="{'hidden': ! dropdown, 'inline-flex': dropdown }" class="inline-flex items-center px-2 tracking-widest"><i class="fa-solid fa-sm fa-chevron-up ml-1"></i></span>
+                        </span>
+                    </div>
+                    <div x-cloak x-show="dropdown" class="mt-1 space-y-1">
+                        <x-input.text
+                                wire:model="name"
+                                wire:keyup="filterPosts"
+                                type="text"
+                                class="w-full"
+                            />
+                    </div>
                 </div>
+                <div x-data="{ dropdown: false }">
+                    <div @click="dropdown = ! dropdown" class="flex justify-between items-center">
+                        <h5>{{ __('Location') }}</h5>
+                        <span>
+                            <span :class="{'hidden': dropdown, 'inline-flex': ! dropdown }" class="inline-flex items-center px-2 tracking-widest"><i class="fa-solid fa-sm fa-chevron-down ml-1"></i></span>
+                            <span :class="{'hidden': ! dropdown, 'inline-flex': dropdown }" class="inline-flex items-center px-2 tracking-widest"><i class="fa-solid fa-sm fa-chevron-up ml-1"></i></span>
+                        </span>
+                    </div>
+                    <div x-cloak x-show="dropdown" class="pl-1 mt-1 space-y-1">
+                        @foreach ( $allLocations as $location )
+                        <div>
+                            <x-input.checkbox
+                                value="{{ $location }}"
+                                wire:model="locationFilter"
+                                wire:click="filterPosts"
+                            />
+                            <label for="{{ $location }}">{{ $location }}</label>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                <div x-data="{ dropdown: false }">
+                    <div @click="dropdown = ! dropdown" class="flex justify-between items-center">
+                        <h5>{{ __('Tags') }}</h5>
+                        <span>
+                            <span :class="{'hidden': dropdown, 'inline-flex': ! dropdown }" class="inline-flex items-center px-2 tracking-widest"><i class="fa-solid fa-sm fa-chevron-down ml-1"></i></span>
+                            <span :class="{'hidden': ! dropdown, 'inline-flex': dropdown }" class="inline-flex items-center px-2 tracking-widest"><i class="fa-solid fa-sm fa-chevron-up ml-1"></i></span>
+                        </span>
+                    </div>
+                    <div x-cloak x-show="dropdown" class="pl-1 mt-1 space-y-1">
+                        tags here
+                    </div>
+                </div>
+                <div x-data="{ dropdown: false }">
+                    <div @click="dropdown = ! dropdown" class="flex justify-between items-center">
+                        <h5>{{ __('Art Permission') }}</h5>
+                        <span>
+                            <span :class="{'hidden': dropdown, 'inline-flex': ! dropdown }" class="inline-flex items-center px-2 tracking-widest"><i class="fa-solid fa-sm fa-chevron-down ml-1"></i></span>
+                            <span :class="{'hidden': ! dropdown, 'inline-flex': dropdown }" class="inline-flex items-center px-2 tracking-widest"><i class="fa-solid fa-sm fa-chevron-up ml-1"></i></span>
+                        </span>
+                    </div>
+                    <div x-cloak x-show="dropdown" class="pl-1 mt-1 space-y-1">
+                        <div>
+                            <x-input.checkbox
+                                value="yes"
+                                wire:model="artFilter"
+                                wire:click="filterPosts"
+                            />
+                            <label for="yes">Yes</label>
+                        </div>
+                        <div>
+                            <x-input.checkbox
+                                value="ask"
+                                wire:model="artFilter"
+                                wire:click="filterPosts"
+                            />
+                            <label for="ask">Ask First</label>
+                        </div>
+                        <div>
+                            <x-input.checkbox
+                                value="no"
+                                wire:model="artFilter"
+                                wire:click="filterPosts"
+                            />
+                            <label for="no">No</label>
+                        </div>
+                    </div>
+                </div>
+                <div x-data="{ dropdown: false }">
+                    <div @click="dropdown = ! dropdown" class="flex justify-between items-center">
+                        <h5>{{ __('Writing Permission') }}</h5>
+                        <span>
+                            <span :class="{'hidden': dropdown, 'inline-flex': ! dropdown }" class="inline-flex items-center px-2 tracking-widest"><i class="fa-solid fa-sm fa-chevron-down ml-1"></i></span>
+                            <span :class="{'hidden': ! dropdown, 'inline-flex': dropdown }" class="inline-flex items-center px-2 tracking-widest"><i class="fa-solid fa-sm fa-chevron-up ml-1"></i></span>
+                        </span>
+                    </div>
+                    <div x-cloak x-show="dropdown" class="pl-1 mt-1 space-y-1">
+                        <div>
+                            <x-input.checkbox
+                                value="yes"
+                                wire:model="writingFilter"
+                                wire:click="filterPosts"
+                            />
+                            <label for="yes">Yes</label>
+                        </div>
+                        <div>
+                            <x-input.checkbox
+                                value="ask"
+                                wire:model="writingFilter"
+                                wire:click="filterPosts"
+                            />
+                            <label for="ask">Ask First</label>
+                        </div>
+                        <div>
+                            <x-input.checkbox
+                                value="no"
+                                wire:model="writingFilter"
+                                wire:click="filterPosts"
+                            />
+                            <label for="no">No</label>
+                        </div>
+                    </div>
+                </div>
+                {{-- <button wire:click="checkFilters" class="bg-red-600 p-2 m-4">Check filters</button> --}}
             </div>
         </div>
     </div>
@@ -75,12 +192,12 @@
                 <div class="relative mr-6" x-data="{ open: false }" @click.away="open = false" @close.stop="open = false">
                     <div @click="open = ! open">
                         <button type="button" class="text-stone-50 w-40 py-2 px-4 bg-teal-500 rounded-md hover:bg-teal-300 hover:shadow-md focus:outline-none transition ease-in-out duration-150">
-                            {{ __('Order By') }} <i class="fa-solid fa-chevron-down text-xs ml-2"></i>
+                            {{ __('Order By') }} <i :class="{'hidden': ! open, 'inline-flex': open }" class="fa-solid fa-chevron-up text-xs ml-3"></i>
+                                                 <i :class="{'hidden': open, 'inline-flex': ! open }" class="fa-solid fa-chevron-down text-xs ml-3"></i>
                         </button>
                     </div>
 
                     <div x-show="open"
-                        wire:model="orderBy"
                         class="absolute z-50 w-40 bg-stone-900 rounded-md mt-1"
                         style="display: none;"
                         @click="open = false">

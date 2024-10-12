@@ -34,7 +34,7 @@
 
 
         <div>
-            <div class="relative w-96 h-72 overflow-hidden flex items-center justify-center bg-stone-950">
+            <div class="relative w-96 h-72 rounded-md overflow-hidden flex items-center justify-center bg-stone-950">
                 @if ($post->thumbnail)
                     <img src="{{ $post->thumbnail }}" class="absolute block object-cover h-full w-full">
                 @else
@@ -70,7 +70,7 @@
             <h2>Gallery</h2>
             <div class="flex flex-wrap justify-center w-full">
                 {{-- @foreach($images as $image) --}}
-                    <img class="size-64 m-4" src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=">
+                    <img class="size-64 m-4 rounded-md" src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=">
                 {{-- @endforeach --}}
             </div>
         </div>
