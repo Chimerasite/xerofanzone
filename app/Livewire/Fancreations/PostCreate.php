@@ -8,15 +8,21 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Users;
 use App\Models\FanCreations;
+use Livewire\Attributes\On;
 
 class PostCreate extends Component
 {
-    public $name, $slug, $thumbnail, $description, $contact, $external_link, $art_permission, $writing_permission, $public;
+    public $name, $slug, $thumbnail, $description, $contact, $art_permission, $writing_permission, $public;
     public $location, $otherLocation;
     public $allLocations = [];
     public $tags;
     public $tagList = [];
     public $allTags = [];
+    public $external_link_name, $external_link;
+    public $imageCount = 1;
+    public $imageList = [];
+    public $imgText;
+    public $imgLink = [];
 
     public function mount()
     {
@@ -24,6 +30,8 @@ class PostCreate extends Component
         foreach($locations as $location) {
             array_push($this->allLocations,$location->name);
         }
+
+        array_push($this->imageList,[$this->imageCount]);
 
         $var = FanCreations::where('public', true)->get('tags');
 
@@ -60,8 +68,81 @@ class PostCreate extends Component
         }
     }
 
+    public function addImageField()
+    {
+        //!
+        //check if number already exists in array if yes ++ again
+        //!
+
+        $this->imageCount ++;
+
+        array_push($this->imageList,[$this->imageCount]);
+    }
+
+    public function removeImageField($key)
+    {
+        $this->imageCount --;
+
+        $item;
+
+        foreach ($this->imageList as $listItem) {
+            if($listItem[0] == $key) {
+                $item = array_search($listItem, $this->imageList);
+            }
+        }
+
+        unset($this->imageList[$item]);
+    }
+
+    #[On('saveImageText')]
+    public function saveImageText($newText, $key)
+    {
+        $item;
+
+        foreach ($this->imageList as $listItem) {
+            if($listItem[0] == $key) {
+                $item = array_search($listItem, $this->imageList);
+            }
+        }
+
+        if(array_key_exists(1, $this->imageList[$item])) {
+            $this->imageList[$item][1] = $newText;
+        } else {
+            array_push($this->imageList[$item], $newText);
+        }
+    }
+
+    #[On('saveImageLink')]
+    public function saveImageLink($newLink, $key)
+    {
+        $item;
+
+        foreach ($this->imageList as $listItem) {
+            if($listItem[0] == $key) {
+                $item = array_search($listItem, $this->imageList);
+            }
+        }
+
+        if(array_key_exists(2, $this->imageList[$item])) {
+            $this->imageList[$item][2] = $newLink;
+        } else {
+            array_push($this->imageList[$item], $newLink);
+        }
+    }
+
+
+    public function saveImageData()
+    {
+        //can you put array push into wire model?
+        //maybe create an existing array and get the fields to write into it
+        //also dont forget a remove image option
+
+    }
+
     public function createPost()
     {
+        dd($this->imgText,$this->imgLink);
+
         //check if required fields are filled in and unique if needed
         if($this->name == null){
             session()->flash('errorMessage', 'Please enter a Title for your post.');
@@ -111,7 +192,8 @@ class PostCreate extends Component
             'writing_permission' => $this->writing_permission,
             'public' => $this->public,
             'contact' => $this->contact,
-            'external_link' => $this->external_link,
+            'external_link' => ['name' => $this->external_link_name, 'link' => $this->external_link],
+            'images' => $this->imageList
         ]);
 
         session()->flash('postMessage', 'Post added succesfully');

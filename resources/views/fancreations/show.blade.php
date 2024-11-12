@@ -57,8 +57,8 @@
                 @endif
                 @if($post->external_link)
                     <p>
-                        <a href="{{ $post->external_link }}" class="hover:text-teal-300 font-bold">
-                            <i class="fa-solid fa-link"></i> <span class="hover:underline">External Link</span>
+                        <a href="{{ $post->external_link['link'] }}" class="hover:text-teal-300 font-bold">
+                            <i class="fa-solid fa-link"></i> <span class="hover:underline">{{ $post->external_link['name'] }}</span>
                         </a>
                     </p>
                 @endif

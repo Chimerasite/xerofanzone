@@ -12,10 +12,11 @@ use App\Models\Locations;
 
 class PostEdit extends Component
 {
-    public $post, $name, $slug, $thumbnail, $description, $contact, $external_link, $art_permission, $writing_permission, $public, $location, $otherLocation, $tags;
+    public $post, $name, $slug, $thumbnail, $description, $contact, $art_permission, $writing_permission, $public, $location, $otherLocation, $tags;
     public $allLocations = [];
     public $tagList = [];
     public $allTags = [];
+    public $external_link_name, $external_link;
 
     public function mount()
     {
@@ -25,7 +26,8 @@ class PostEdit extends Component
         $this->thumbnail = $this->post->thumbnail;
         $this->description = $this->post->description;
         $this->contact = $this->post->contact;
-        $this->external_link = $this->post->external_link;
+        $this->external_link_name = $this->post->external_link['name'];
+        $this->external_link = $this->post->external_link['link'];
         $this->art_permission = $this->post->art_permission;
         $this->writing_permission = $this->post->writing_permission;
         $this->public = $this->post->public;
@@ -82,6 +84,11 @@ class PostEdit extends Component
         }
     }
 
+    public function addImageField()
+    {
+        dd('wieh');
+    }
+
     public function updatePost()
     {
         //check if required fields are filled in and unique if needed
@@ -133,7 +140,7 @@ class PostEdit extends Component
             'writing_permission' => $this->writing_permission,
             'public' => $this->public,
             'contact' => $this->contact,
-            'external_link' => $this->external_link,
+            'external_link' => ['name' => $this->external_link_name, 'link' => $this->external_link],
         ]);
 
         session()->flash('postMessage', 'Post updated succesfully');

@@ -30,6 +30,7 @@ class FanCreations extends Model
 
     protected $casts = [
         'tags' => 'array',
+        'external_link' => 'array',
         'images' => 'array',
     ];
 

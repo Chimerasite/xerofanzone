@@ -97,7 +97,7 @@
                     {{ __('Location') }} <x-input.tip value="Link your Post to a location, create someplace new or leave empty" />
                 </x-input.label>
                 <select wire:model='location' id="location" name="location" class="block w-full rounded-md border-0 shadow-sm ring-1 ring-inset ring-stone-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 text-stone-950 cursor-pointer">
-                    <option value="" disabled>Choose a location</option>
+                    <option value="">Choose a location</option>
                     @foreach($allLocations as $location)
                         <option class="text-stone-950" value="{{ $location }}">{{ $location }}</option>
                     @endforeach
@@ -134,11 +134,20 @@
                     {{ __('External Link') }} <x-input.tip value="Add a link to an external place for your Post." />
                 </x-input.label>
                 <x-input.text
+                    wire:model="external_link_name"
+                    type="text"
+                    name="external_link_name"
+                    id="external_link_name"
+                    class="w-full text-stone-950"
+                    placeholder="Name"
+                />
+                <x-input.text
                     wire:model="external_link"
                     type="url"
                     name="external_link"
                     id="external_link"
-                    class="w-full text-stone-950"
+                    class="w-full text-stone-950 mt-1"
+                    placeholder="Link"
                 />
             </div>
 
@@ -186,28 +195,30 @@
 
         <div x-show="element == 'gallery'" x-cloak>
             <div class="mt-4">
-                <x-input.label for="image" value="{{ __('Image') }}" />
-                {{-- <x-input.text
-                    wire:model="imgText"
-                    type="text"
-                    name="imgText"
-                    id="imgText"
-                    class="w-full text-stone-950"
-                    placeholder="Title"
+                <x-input.label for="image" value="{{ __('Images') }}" />
+                @foreach()
+                    <x-input.text
+                        wire:model="imgText"
+                        type="text"
+                        name="imgText"
+                        id="imgText"
+                        class="w-full text-stone-950"
+                        placeholder="Title"
 
-                />
-                <x-input.text
-                    wire:model="imgLink"
-                    type="url"
-                    name="imgLink"
-                    id="imgLink"
-                    class="w-full text-stone-950 mt-1"
-                    placeholder="Url"
-                /> --}}
+                    />
+                    <x-input.text
+                        wire:model="imgLink"
+                        type="url"
+                        name="imgLink"
+                        id="imgLink"
+                        class="w-full text-stone-950 mt-1"
+                        placeholder="Url"
+                    />
+                @endforeach
                 <div class="flex justify-end mt-2">
-                    <button class="inline-flex items-center px-4 py-2 bg-teal-500 border border-transparent rounded-md font-semibold text-xs text-stone-50 uppercase tracking-widest hover:bg-teal-300 active:bg-teal-300 focus:outline-none transition ease-in-out duration-150">
+                    <span wire:click="addImageField" class="inline-flex items-center px-4 py-2 bg-teal-500 border border-transparent rounded-md font-semibold text-xs text-stone-50 uppercase tracking-widest hover:bg-teal-300 active:bg-teal-300 focus:outline-none transition ease-in-out duration-150">
                         <i class="fa-solid fa-plus"></i>
-                    </button>
+                    </span>
                 </div>
             </div>
         </div>

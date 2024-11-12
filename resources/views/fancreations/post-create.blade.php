@@ -1,4 +1,4 @@
-<div class="lg:w-1/2 m-auto" x-data="{ element: 'main' }">
+<div class="lg:w-1/2 m-auto" x-data="{ element: 'gallery' }">
     <div class="flex justify-around bg-stone-600 rounded-md w-full h-8">
         <button :class=" element == 'main' ? 'bg-teal-500' : ''" class="w-full rounded-md" x-on:click="element = 'main'">Main</button>
         <button :class=" element == 'info' ? 'bg-teal-500' : ''" class="w-full rounded-md" x-on:click="element = 'info'">Info</button>
@@ -134,11 +134,20 @@
                     {{ __('External Link') }} <x-input.tip value="Add a link to an external place for your Post." />
                 </x-input.label>
                 <x-input.text
+                    wire:model="external_link_name"
+                    type="text"
+                    name="external_link_name"
+                    id="external_link_name"
+                    class="w-full text-stone-950"
+                    placeholder="Name"
+                />
+                <x-input.text
                     wire:model="external_link"
                     type="url"
                     name="external_link"
                     id="external_link"
-                    class="w-full text-stone-950"
+                    class="w-full text-stone-950 mt-1"
+                    placeholder="Link"
                 />
             </div>
 
@@ -187,28 +196,41 @@
         <div x-show="element == 'gallery'" x-cloak>
             <div class="mt-4">
                 <x-input.label for="image" value="{{ __('Image') }}" />
-                {{-- <x-input.text
-                    wire:model="imgText"
-                    type="text"
-                    name="imgText"
-                    id="imgText"
-                    class="w-full text-stone-950"
-                    placeholder="Title"
+                @foreach($imageList as $image)
+                        <i>Image {{ $image[0] }}</i> <span wire:click="removeImageField('{{ $image[0] }}')" class="inline-flex items-center p-2 font-semibold text-xs text-stone-50 uppercase tracking-widest hover:text-teal-500 active:text-teal-500 transition ease-in-out duration-150">
+                            <i class="fa-solid fa-xmark"></i>
+                        </span>
+                        <x-input.text
+                            onkeyup="saveTextInput({{ $image[0] }})"
+                            type="text"
+                            id="imgText{{ $image[0] }}"
+                            class="w-full text-stone-950 mt-1"
+                            placeholder="Title"
 
-                />
-                <x-input.text
-                    wire:model="imgLink"
-                    type="url"
-                    name="imgLink"
-                    id="imgLink"
-                    class="w-full text-stone-950 mt-1"
-                    placeholder="Url"
-                /> --}}
-                <div class="flex justify-end mt-2">
-                    <button class="inline-flex items-center px-4 py-2 bg-teal-500 border border-transparent rounded-md font-semibold text-xs text-stone-50 uppercase tracking-widest hover:bg-teal-300 active:bg-teal-300 focus:outline-none transition ease-in-out duration-150">
+                        />
+                        <x-input.text
+                            onkeyup="saveLinkInput({{ $image[0] }})"
+                            type="url"
+                            id="imgLink{{ $image[0] }}"
+                            class="w-full text-stone-950 mt-1"
+                            placeholder="Url"
+                        />
+                        @if(!$loop->last)
+                            <hr class="my-4">
+                        @endif
+                @endforeach
+                <div class="flex justify-end mt-4">
+                    <span wire:click="addImageField" class="inline-flex items-center px-4 py-2 bg-teal-500 border border-transparent rounded-md font-semibold text-xs text-stone-50 uppercase tracking-widest hover:bg-teal-300 active:bg-teal-300 focus:outline-none transition ease-in-out duration-150">
                         <i class="fa-solid fa-plus"></i>
-                    </button>
+                    </span>
                 </div>
+                @foreach($imageList as $key)
+                    [
+                    @foreach($key as $lock)
+                        {{ $lock }}
+                    @endforeach
+                    ]
+                @endforeach
             </div>
         </div>
 
@@ -240,4 +262,24 @@
         </div>
     </form>
 </div>
+
+
+<script>
+    function saveTextInput(key) {
+        let text = document.getElementById('imgText' + key).value;
+        Livewire.dispatch('saveImageText', {
+                            newText: text,
+                            key: key
+                        });
+    }
+
+    function saveLinkInput(key) {
+        let link = document.getElementById('imgLink' + key).value;
+        Livewire.dispatch('saveImageLink', {
+                            newLink: link,
+                            key: key
+                        });
+    }
+</script>
+
 

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->set('writing_permission', ['yes', 'ask', 'no'])->default('yes');
             $table->boolean('public')->default(false);
             $table->string('contact')->nullable();
-            $table->string('external_link')->nullable();
+            $table->json('external_link')->nullable();
             $table->json('images')->nullable();
             $table->timestamps();
         });
