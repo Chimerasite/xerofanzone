@@ -31,7 +31,7 @@ class PostCreate extends Component
             array_push($this->allLocations,$location->name);
         }
 
-        array_push($this->imageList,[$this->imageCount]);
+        $this->imageList += [$this->imageCount => ['text' => '', 'image' => '']];
 
         $var = FanCreations::where('public', true)->get('tags');
 
@@ -70,13 +70,13 @@ class PostCreate extends Component
 
     public function addImageField()
     {
-        //!
-        //check if number already exists in array if yes ++ again
-        //!
-
         $this->imageCount ++;
 
-        array_push($this->imageList,[$this->imageCount]);
+        if (array_key_exists($this->imageCount, $this->imageList)) {
+            $this->imageCount ++;
+        }
+
+        $this->imageList += [$this->imageCount => ['text' => '', 'image' => '']];
     }
 
     public function removeImageField($key)
@@ -85,13 +85,9 @@ class PostCreate extends Component
 
         $item;
 
-        foreach ($this->imageList as $listItem) {
-            if($listItem[0] == $key) {
-                $item = array_search($listItem, $this->imageList);
-            }
+        if (array_key_exists($key, $this->imageList)) {
+            unset($this->imageList[$key]);
         }
-
-        unset($this->imageList[$item]);
     }
 
     #[On('saveImageText')]
@@ -99,16 +95,10 @@ class PostCreate extends Component
     {
         $item;
 
-        foreach ($this->imageList as $listItem) {
-            if($listItem[0] == $key) {
-                $item = array_search($listItem, $this->imageList);
-            }
-        }
-
-        if(array_key_exists(1, $this->imageList[$item])) {
-            $this->imageList[$item][1] = $newText;
+        if(array_key_exists($key, $this->imageList)) {
+            $this->imageList[$key]['text'] = $newText;
         } else {
-            array_push($this->imageList[$item], $newText);
+            //dont do anything this shouldnt ever happen
         }
     }
 
@@ -117,32 +107,15 @@ class PostCreate extends Component
     {
         $item;
 
-        foreach ($this->imageList as $listItem) {
-            if($listItem[0] == $key) {
-                $item = array_search($listItem, $this->imageList);
-            }
-        }
-
-        if(array_key_exists(2, $this->imageList[$item])) {
-            $this->imageList[$item][2] = $newLink;
+        if(array_key_exists($key, $this->imageList)) {
+            $this->imageList[$key]['image'] = $newLink;
         } else {
-            array_push($this->imageList[$item], $newLink);
+            //dont do anything this shouldnt ever happen
         }
-    }
-
-
-    public function saveImageData()
-    {
-        //can you put array push into wire model?
-        //maybe create an existing array and get the fields to write into it
-        //also dont forget a remove image option
-
     }
 
     public function createPost()
     {
-        dd($this->imgText,$this->imgLink);
-
         //check if required fields are filled in and unique if needed
         if($this->name == null){
             session()->flash('errorMessage', 'Please enter a Title for your post.');

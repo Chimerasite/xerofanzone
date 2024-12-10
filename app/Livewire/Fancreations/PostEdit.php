@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Users;
 use App\Models\FanCreations;
 use App\Models\Locations;
+use Livewire\Attributes\On;
 
 class PostEdit extends Component
 {
@@ -17,6 +18,10 @@ class PostEdit extends Component
     public $tagList = [];
     public $allTags = [];
     public $external_link_name, $external_link;
+    public $imageCount;
+    public $imageList = [];
+    public $imgText;
+    public $imgLink = [];
 
     public function mount()
     {
@@ -31,6 +36,7 @@ class PostEdit extends Component
         $this->art_permission = $this->post->art_permission;
         $this->writing_permission = $this->post->writing_permission;
         $this->public = $this->post->public;
+        $this->imageList = $this->post->images;
 
         //assign value to location
         $locations = DB::table('locations')->select('name', 'type')->orderByRaw("CASE WHEN type = 'Planet' THEN 1 WHEN type = 'Region' THEN 2 ELSE 3 END")->get();
@@ -60,6 +66,11 @@ class PostEdit extends Component
                 }
             }
         }
+
+        //correct image count
+        foreach($this->imageList as $item) {
+            $this->imageCount ++;
+        }
     }
 
     public function generateSlug()
@@ -86,7 +97,48 @@ class PostEdit extends Component
 
     public function addImageField()
     {
-        dd('wieh');
+        $this->imageCount ++;
+
+        if (array_key_exists($this->imageCount, $this->imageList)) {
+            $this->imageCount ++;
+        }
+
+        $this->imageList += [$this->imageCount => ['text' => '', 'image' => '']];
+    }
+
+    public function removeImageField($key)
+    {
+        $this->imageCount --;
+
+        $item;
+
+        if (array_key_exists($key, $this->imageList)) {
+            unset($this->imageList[$key]);
+        }
+    }
+
+    #[On('saveImageText')]
+    public function saveImageText($newText, $key)
+    {
+        $item;
+
+        if(array_key_exists($key, $this->imageList)) {
+            $this->imageList[$key]['text'] = $newText;
+        } else {
+            //dont do anything this shouldnt ever happen
+        }
+    }
+
+    #[On('saveImageLink')]
+    public function saveImageLink($newLink, $key)
+    {
+        $item;
+
+        if(array_key_exists($key, $this->imageList)) {
+            $this->imageList[$key]['image'] = $newLink;
+        } else {
+            //dont do anything this shouldnt ever happen
+        }
     }
 
     public function updatePost()
@@ -141,6 +193,7 @@ class PostEdit extends Component
             'public' => $this->public,
             'contact' => $this->contact,
             'external_link' => ['name' => $this->external_link_name, 'link' => $this->external_link],
+            'images' => $this->imageList
         ]);
 
         session()->flash('postMessage', 'Post updated succesfully');

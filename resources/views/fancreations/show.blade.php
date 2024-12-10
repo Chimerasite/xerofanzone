@@ -55,7 +55,7 @@
                         </a>
                     </p>
                 @endif
-                @if($post->external_link)
+                @if($post->external_link['link'] != null)
                     <p>
                         <a href="{{ $post->external_link['link'] }}" class="hover:text-teal-300 font-bold">
                             <i class="fa-solid fa-link"></i> <span class="hover:underline">{{ $post->external_link['name'] }}</span>
@@ -65,14 +65,34 @@
             </div>
         </div>
     </div>
-    {{-- @if($images) --}}
+    @if($images)
         <div>
             <h2>Gallery</h2>
             <div class="flex flex-wrap justify-center w-full">
-                {{-- @foreach($images as $image) --}}
-                    <img class="size-64 m-4 rounded-md" src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=">
-                {{-- @endforeach --}}
+                @foreach($images as $image)
+                    @if($image['image'])
+                        <div x-data=""
+                            x-on:click.prevent="$dispatch('open-modal', 'Image{{ $loop->index }}')"
+                            class="group relative m-4 rounded-md size-64"
+                        >
+                            <img class="absolute block object-cover h-full w-full rounded-md" src='{{ $image['image'] }}'>
+                            <div class="absolute hidden group-hover:block top-0 left-0 right-0 bottom-0 bg-teal-500 bg-opacity-85 rounded-md">
+                                <div class="absolute w-full h-full p-4 flex justify-center items-center font-bold text-xl text-center"> {{ $image['text'] }} </div>
+                            </div>
+                        </div>
+
+                        <x-modal name="Image{{ $loop->index }}" bgColor="bg-transparent" shadow="" focusable>
+                            <div class="flex justify-center">
+                                <img class="rounded-md" src='{{ $image['image'] }}'>
+                            </div>
+                            <div class="font-bold text-xl w-full text-center pt-1"> {{ $image['text'] }} </div>
+                        </x-modal>
+                    @endif
+                @endforeach
             </div>
         </div>
-    {{-- @endif --}}
+    @endif
+
 </x-app-layout>
+
+
