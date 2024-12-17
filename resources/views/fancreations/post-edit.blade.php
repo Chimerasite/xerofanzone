@@ -196,32 +196,34 @@
         <div x-show="element == 'gallery'" x-cloak>
             <div class="mt-4">
                 <x-input.label for="image" value="{{ __('Images') }}" />
-                @foreach($imageList as $key=>$image)
-                        <i>Image</i>
-                        <span wire:click="removeImageField('{{ $key }}')" class="inline-flex items-center p-2 ml-2 font-semibold text-xs text-stone-50 uppercase tracking-widest hover:text-teal-500 active:text-teal-500 transition ease-in-out duration-150">
-                            <i class="fa-solid fa-xmark"></i>
-                        </span>
-                        <x-input.text
-                            onkeyup="saveTextInput({{ $key }})"
-                            type="text"
-                            id="imgText{{ $key }}"
-                            value="{{ $image['text'] }}"
-                            class="w-full text-stone-950 mt-1"
-                            placeholder="Title"
+                @if($imageList != null)
+                    @foreach($imageList as $key=>$image)
+                            <i>Image</i>
+                            <span wire:click="removeImageField('{{ $key }}')" class="inline-flex items-center p-2 ml-2 font-semibold text-xs text-stone-50 uppercase tracking-widest hover:text-teal-500 active:text-teal-500 transition ease-in-out duration-150">
+                                <i class="fa-solid fa-xmark"></i>
+                            </span>
+                            <x-input.text
+                                onkeyup="saveTextInput({{ $key }})"
+                                type="text"
+                                id="imgText{{ $key }}"
+                                value="{{ $image['text'] }}"
+                                class="w-full text-stone-950 mt-1"
+                                placeholder="Title"
 
-                        />
-                        <x-input.text
-                            onkeyup="saveLinkInput({{ $key }})"
-                            type="url"
-                            id="imgLink{{ $key }}"
-                            value="{{ $image['image'] }}"
-                            class="w-full text-stone-950 mt-1"
-                            placeholder="Url"
-                        />
-                        @if(!$loop->last)
-                            <hr class="my-4">
-                        @endif
-                @endforeach
+                            />
+                            <x-input.text
+                                onkeyup="saveLinkInput({{ $key }})"
+                                type="url"
+                                id="imgLink{{ $key }}"
+                                value="{{ $image['image'] }}"
+                                class="w-full text-stone-950 mt-1"
+                                placeholder="Url"
+                            />
+                            @if(!$loop->last)
+                                <hr class="my-4">
+                            @endif
+                    @endforeach
+                @endif
                 <div class="flex justify-end mt-2">
                     <span wire:click="addImageField" class="inline-flex items-center px-4 py-2 bg-teal-500 border border-transparent rounded-md font-semibold text-xs text-stone-50 uppercase tracking-widest hover:bg-teal-300 active:bg-teal-300 focus:outline-none transition ease-in-out duration-150">
                         <i class="fa-solid fa-plus"></i>

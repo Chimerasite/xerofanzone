@@ -31,11 +31,11 @@
                     </div>
                     <div x-cloak x-show="dropdown" class="mt-1 space-y-1">
                         <x-input.text
-                                wire:model="name"
-                                wire:keyup="filterPosts"
-                                type="text"
-                                class="w-full"
-                            />
+                            wire:model="name"
+                            wire:keyup="filterPosts"
+                            type="text"
+                            class="w-full"
+                        />
                     </div>
                 </div>
                 <div x-data="{ dropdown: false }">
@@ -67,8 +67,25 @@
                             <span :class="{'hidden': ! dropdown, 'inline-flex': dropdown }" class="inline-flex items-center px-2 tracking-widest"><i class="fa-solid fa-sm fa-chevron-up ml-1"></i></span>
                         </span>
                     </div>
-                    <div x-cloak x-show="dropdown" class="pl-1 mt-1 space-y-1">
-                        tags here
+                    <div x-cloak x-show="dropdown" class="pl-1 mt-1">
+                        <x-input.text
+                            wire:model="tagSearch"
+                            wire:keyup="filterTags"
+                            type="text"
+                            class="w-full"
+                        />
+                        <div class="pl-1 mt-1 space-y-1 h-44 overflow-y-auto">
+                            @foreach($tagList as $tag)
+                                <div>
+                                    <x-input.checkbox
+                                            value="{{ $tag }}"
+                                            wire:model="tagFilter"
+                                            wire:click="filterPosts"
+                                        />
+                                    <label for="yes">{{ $tag }}</label>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
                 <div x-data="{ dropdown: false }">
@@ -141,7 +158,6 @@
                         </div>
                     </div>
                 </div>
-                {{-- <button wire:click="checkFilters" class="bg-red-600 p-2 m-4">Check filters</button> --}}
             </div>
         </div>
     </div>
@@ -184,7 +200,7 @@
                     @if($filtered)
                         <a wire:click="resetFilter">
                             <x-button.inline class="ml-3">
-                                <i class="fa-solid fa-chevron-left"></i>
+                                <i class="fa-solid fa-chevron-left"></i> Reset Filters
                             </x-button.inline>
                         </a>
                     @endif

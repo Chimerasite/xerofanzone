@@ -18,10 +18,17 @@ class PostIndex extends Component
 
     public $name;
 
+    public $allTags = [];
+    public $tagList = [];
+    public $tagFilter = [];
+    public $tagSearch;
+
     public $allLocations = [];
     public $locationFilter = [];
+
     public $artFilter = [];
     public $writingFilter = [];
+
     public $filtered = false;
 
     public function mount()
@@ -34,6 +41,17 @@ class PostIndex extends Component
         foreach($locations as $location) {
             array_push($this->allLocations,$location->name);
         }
+
+        foreach($this->allPosts as $post){
+            if($post->tags != '[]'){
+                $post->tags = str_replace(['[', ']', '"'], '', $post->tags);
+                $post->tags = explode(", ", $post->tags);
+                $this->allTags = array_merge($this->allTags, $post->tags);
+            }
+        }
+        sort($this->allTags);
+        $this->allTags = array_unique($this->allTags);
+        $this->tagList = $this->allTags;
     }
 
     public function myPosts()
@@ -48,6 +66,11 @@ class PostIndex extends Component
         $this->filtered = false;
         $this->order = 'sortByDesc';
         $this->orderKey = 'created_at';
+        $this->name  = "";
+        $this->tagFilter  = [];
+        $this->locationFilter  = [];
+        $this->artFilter  = [];
+        $this->writingFilter = [];
     }
 
     public function orderBy($key, $order)
@@ -57,40 +80,53 @@ class PostIndex extends Component
         $this->orderKey = $key;
     }
 
+    public function filterTags()
+    {
+        $input = preg_quote($this->tagSearch, '~');
+        $results = preg_grep('~' . $input . '~i', $this->allTags);
+        $this->tagList = $results;
+    }
+
     public function filterPosts()
     {
         if($this->order == 'sortByDesc') {
-            $order = 'orderByDesc';
+            $order = 'desc';
         } else {
-            $order = 'orderBy';
+            $order = 'asc';
         }
-        $key = $this->orderKey;
 
         $filters = [];
         if(! empty($this->name) || $this->name != "") {
-            array_push($filters, ['name' => $this->name]);
+            $filters += ['name' => $this->name];
+            $this->filtered = true;
+        } if(! empty($this->tagFilter)) {
+            $filters += ['tags' => $this->tagFilter];
+            $this->filtered = true;
         } if(! empty($this->locationFilter)) {
-            array_push($filters, ['location' => $this->locationFilter]);
+            $filters += ['location' => $this->locationFilter];
+            $this->filtered = true;
         } if(! empty($this->artFilter)) {
-            array_push($filters, ['art_permission' => $this->artFilter]);
+            $filters += ['art_permission' => $this->artFilter];
+            $this->filtered = true;
         } if(! empty($this->writingFilter)) {
-            array_push($filters, ['writing_permission' => $this->writingFilter]);
+            $filters += ['writing_permission' => $this->writingFilter];
+            $this->filtered = true;
         }
 
-        dd($filters);
-
-        if(! empty($this->locationFilter)){
-            $this->posts = DB::table('fan_creations')->where('public', true)->$order($key)->whereIn('location', $this->locationFilter)->get();
-        } elseif($this->name || $this->name != "") {
-            $this->posts = DB::table('fan_creations')->where('public', true)->$order($key)->where('name', 'LIKE', '%'.$this->name.'%')->get();
-        }else {
-            $this->posts = DB::table('fan_creations')->where('public', true)->$order($key)->get();
+        $listing = DB::table('fan_creations')->where('public', true)->orderBy($this->orderKey, $order);
+        foreach($filters as $key=>$filter){
+            if($key == 'name') {
+                $listing->where($key, 'LIKE', '%'.$filter.'%');
+            } elseif($key == 'tags') {
+                $listing->whereJsonContains('tags', $filter);
+            } else{
+                $listing->whereIn($key, $filter);
+            }
         }
-    }
 
-    public function checkFilters()
-    {
-        dd($this->locationFilter, $this->name, $this->order, $this->orderKey, $this->artFilter);
+        $result = $listing->get();
+
+        $this->posts = $result;
     }
 
     public function render()

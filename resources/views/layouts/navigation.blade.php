@@ -40,7 +40,7 @@
                         <x-nav.dropdown-link :href="route('dashboard')">
                             {{ __('Profile') }}
                         </x-nav.dropdown-link>
-                        <x-nav.dropdown-link :href="route('profile.edit')">
+                        <x-nav.dropdown-link :href="route('settings.edit')">
                             {{ __('Settings') }}
                         </x-nav.dropdown-link>
                         <!-- Authentication -->
@@ -112,7 +112,7 @@
                                 <x-nav.dropdown-link :href="route('dashboard')">
                                     {{ __('Profile') }}
                                 </x-nav.dropdown-link>
-                                <x-nav.dropdown-link :href="route('profile.edit')">
+                                <x-nav.dropdown-link :href="route('settings.edit')">
                                     {{ __('Settings') }}
                                 </x-nav.dropdown-link>
                                 <!-- Authentication -->

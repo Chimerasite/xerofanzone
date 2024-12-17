@@ -68,8 +68,10 @@ class PostEdit extends Component
         }
 
         //correct image count
-        foreach($this->imageList as $item) {
-            $this->imageCount ++;
+        if($this->imageList != null){
+            foreach($this->imageList as $item) {
+                $this->imageCount ++;
+            }
         }
     }
 
