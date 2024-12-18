@@ -12,6 +12,7 @@ class AdminController extends Controller
     {
         return view('admin.show', [
             'role' => Role::all(),
+            'menu' => 'settings',
         ]);
     }
 }

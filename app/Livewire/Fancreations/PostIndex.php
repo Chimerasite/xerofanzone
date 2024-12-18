@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\FanCreations;
 use App\Models\Users;
 use App\Models\Locations;
+use App\Models\Config;
 
 class PostIndex extends Component
 {
@@ -31,6 +32,8 @@ class PostIndex extends Component
 
     public $filtered = false;
 
+    public $config;
+
     public function mount()
     {
         $this->allPosts = DB::table('fan_creations')->where('public', true)->get();
@@ -52,6 +55,8 @@ class PostIndex extends Component
         sort($this->allTags);
         $this->allTags = array_unique($this->allTags);
         $this->tagList = $this->allTags;
+
+        $this->config = Config::where('data', 'create posts')->get('value')->first()->value;
     }
 
     public function myPosts()

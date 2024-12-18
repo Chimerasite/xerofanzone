@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Users;
 use App\Models\FanCreations;
 use App\Models\Locations;
+use App\Models\Config;
 use Livewire\Attributes\On;
 
 class PostEdit extends Component
@@ -22,6 +23,7 @@ class PostEdit extends Component
     public $imageList = [];
     public $imgText;
     public $imgLink = [];
+    public $config;
 
     public function mount()
     {
@@ -73,6 +75,8 @@ class PostEdit extends Component
                 $this->imageCount ++;
             }
         }
+
+        $this->config = Config::where('data', 'edit posts')->get('value')->first()->value;
     }
 
     public function generateSlug()

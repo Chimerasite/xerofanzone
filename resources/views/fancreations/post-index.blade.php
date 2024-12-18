@@ -3,11 +3,18 @@
         <div class="bg-stone-600 w-full p-6 rounded-md">
             <div  class="space-y-2 mb-4">
                 @if (Auth::user())
-                    <p>
-                        <a href="{{ route('fancreations-create') }}" class="hover:text-teal-500">
-                            Create new post <i class="fa-solid fa-plus fa-sm ml-1"></i>
-                        </a>
-                    </p>
+                    @if( $config == 1 )
+                        <p>
+                            <a href="{{ route('fancreations-create') }}" class="hover:text-teal-500">
+                                Create new post <i class="fa-solid fa-plus fa-sm ml-1"></i>
+                            </a>
+                        </p>
+                    @elseif ( $config == 0 )
+                        <p>
+                            <i>uploads are currently closed</i>
+                        </p>
+                    @endif
+
                     <p>
                         <a wire:click="myPosts" class="hover:text-teal-500 cursor-pointer">
                             View my posts <i class="fa-solid fa-tag fa-sm ml-1"></i>
@@ -173,12 +180,18 @@
             <!-- Navigation Links -->
             <div class="flex flex-col space-y-3 mx-10 my-6">
                 @if (Auth::user())
-                    <div class="space-y-2 mt-4">
-                        <p>
-                            <a href="{{ route('fancreations-create') }}" class="hover:text-teal-500">
-                                Create new post <i class="fa-solid fa-plus fa-sm ml-1"></i>
-                            </a>
-                        </p>
+                    <div class="space-y-2 mt-6">
+                        @if( $config == 1 )
+                            <p>
+                                <a href="{{ route('fancreations-create') }}" class="hover:text-teal-500">
+                                    Create new post <i class="fa-solid fa-plus fa-sm ml-1"></i>
+                                </a>
+                            </p>
+                        @elseif ( $config == 0 )
+                            <p>
+                                <i>uploads are currently closed</i>
+                            </p>
+                        @endif
                         <p>
                             <a wire:click="myPosts" class="hover:text-teal-500">
                                 View my posts <i class="fa-solid fa-tag fa-sm ml-1"></i>

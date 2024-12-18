@@ -14,19 +14,25 @@
                     </a>
                 </p>
             </div>
-            @if (Auth::user())
+            {{-- @if (Auth::user()) --}}
                 <div class="space-y-2 mt-4">
-                    <p>
-                        <a href="{{ route('stats.comets-update') }}" class="hover:text-teal-500">
-                            Add Comet Cluster Data <i class="fa-solid fa-plus fa-sm ml-1"></i>
-                        </a>
-                    </p>
+                    @if( $config == 1 )
+                        <p>
+                            <a href="{{ route('stats.comets-update') }}" class="hover:text-teal-500">
+                                Add Comet Cluster Data <i class="fa-solid fa-plus fa-sm ml-1"></i>
+                            </a>
+                        </p>
+                    @elseif ( $config == 0 )
+                        <p>
+                            <i>Uploads are currently closed</i>
+                        </p>
+                    @endif
                 </div>
-            @else
+            {{-- @else
                 <div class="mt-4">
                     Please Login to add data.
                 </div>
-            @endif
+            @endif --}}
         </div>
     </div>
     <!-- Responsive subnav -->
@@ -53,19 +59,25 @@
                         </a>
                     </p>
                 </div>
-                @if (Auth::user())
+                {{-- @if (Auth::user()) --}}
                     <div class="space-y-2 mt-4">
-                        <p>
-                            <a href="{{ route('stats.comets-update') }}" class="hover:text-teal-500">
-                                Add Comet Cluster Data <i class="fa-solid fa-plus fa-sm ml-1"></i>
-                            </a>
-                        </p>
+                        @if( $config == 1 )
+                            <p>
+                                <a href="{{ route('stats.comets-update') }}" class="hover:text-teal-500">
+                                    Add Comet Cluster Data <i class="fa-solid fa-plus fa-sm ml-1"></i>
+                                </a>
+                            </p>
+                        @elseif ( $config == 0 )
+                            <p>
+                                <i>Uploads are currently closed</i>
+                            </p>
+                        @endif
                     </div>
-                @else
+                {{-- @else
                     <div class="mt-4">
                         Please Login to add data.
                     </div>
-                @endif
+                @endif --}}
             </div>
         </div>
     </div>

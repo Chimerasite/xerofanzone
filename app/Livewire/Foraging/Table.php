@@ -5,6 +5,8 @@ namespace App\Livewire\Foraging;
 use App\Models\ForagingLocations;
 use App\Models\ForagingStats;
 use App\Models\Items;
+use App\Models\Config;
+use App\Models\Role;
 
 use Livewire\Component;
 
@@ -20,6 +22,13 @@ class Table extends Component
     public $type = '';
     public $start = '';
     public $end = '';
+    public $config, $role;
+
+    public function mount()
+    {
+        $this->config = Config::where('data', 'upload forages')->get('value')->first()->value;
+        $this->role = Role::where('is_admin', 2)->get('mass_edit_foraging')->first()->mass_edit_foraging;
+    }
 
     public function add($forage) //plus 1 on item
     {

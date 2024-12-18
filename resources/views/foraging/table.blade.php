@@ -25,14 +25,20 @@
                 </div>
             </div>
             <hr>
-            @if (Auth::user())
+            {{-- @if (Auth::user()) --}}
                 <div class="space-y-2 mt-4">
-                    <p>
-                        <a href="{{ route('stats.foraging-update') }}" class="hover:text-teal-500">
-                            Add Foraging Data <i class="fa-solid fa-plus fa-sm ml-1"></i>
-                        </a>
-                    </p>
-                    @if (Auth::user() && Auth::user()->is_admin == 1)
+                    @if( $config == 1 )
+                        <p>
+                            <a href="{{ route('stats.foraging-update') }}" class="hover:text-teal-500">
+                                Add Foraging Data <i class="fa-solid fa-plus fa-sm ml-1"></i>
+                            </a>
+                        </p>
+                    @elseif ( $config == 0 )
+                        <p>
+                            <i>Uploads are currently closed</i>
+                        </p>
+                    @endif
+                    @if (Auth::user() && (Auth::user()->is_admin == 1 || $role == 1 ))
                         @if ($massedit)
                             <p>
                                 <a href="{{ route('stats.foraging') }}" class="hover:text-teal-500">
@@ -58,11 +64,11 @@
                         @endif
                     @endif
                 </div>
-            @else
+            {{-- @else
                 <div class="mt-4">
                     Please Login to add data.
                 </div>
-            @endif
+            @endif --}}
         </div>
     </div>
     <div class="lg:hidden flex bg-stone-600">
@@ -100,13 +106,19 @@
                     </div>
                 </div>
                 <hr>
-                @if (Auth::user())
+                {{-- @if (Auth::user()) --}}
                     <div class="space-y-2 mt-4">
-                        <p>
-                            <a href="{{ route('stats.foraging-update') }}" class="hover:text-teal-500">
-                                Add Foraging Data <i class="fa-solid fa-plus fa-sm ml-1"></i>
-                            </a>
-                        </p>
+                        @if( $config == 1 )
+                            <p>
+                                <a href="{{ route('stats.foraging-update') }}" class="hover:text-teal-500">
+                                    Add Foraging Data <i class="fa-solid fa-plus fa-sm ml-1"></i>
+                                </a>
+                            </p>
+                        @elseif ( $config == 0 )
+                            <p>
+                                <i>Uploads are currently closed</i>
+                            </p>
+                        @endif
                         @if (Auth::user() && Auth::user()->is_admin == 1)
                             @if ($massedit)
                                 <p>
@@ -133,11 +145,11 @@
                             @endif
                         @endif
                     </div>
-                @else
+                {{-- @else
                     <div class="mt-4">
                         Please Login to add data.
                     </div>
-                @endif
+                @endif --}}
             </div>
         </div>
     </div>

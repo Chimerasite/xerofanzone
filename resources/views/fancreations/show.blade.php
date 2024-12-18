@@ -8,7 +8,7 @@
         <div class="flex space-x-3">
             <x-permission-pill permission="{{ $post->art_permission }}" icon="fa-pencil-ruler" info="for use in art" />
             <x-permission-pill permission="{{ $post->writing_permission }}" icon="fa-file-alt" info="for use in writing" />
-            @if(Auth::user() && Auth::User()->id == $post->user_id)
+            @if(Auth::user() && (Auth::User()->id == $post->user_id || (Auth::user()->is_admin == 1 && $adminRole == 1) || (Auth::user()->is_admin == 2 && $modRole == 1)))
                 <a href="{{ route('fancreations-edit', $post->slug) }}">
                     <x-button.primary>
                         <i class="fa-solid fa-cog mr-1"></i> {{ __("Edit Post") }}

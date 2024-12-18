@@ -24,12 +24,12 @@ Route::middleware('auth')->group(function () {
 
 // Foraging
 Route::get('/statistics/foraging', [ForagingController::class, 'Index'])->name('stats.foraging');
-Route::get('/statistics/foraging/update', [ForagingController::class, 'Update'])->middleware(['auth'])->name('stats.foraging-update');
+Route::get('/statistics/foraging/upload', [ForagingController::class, 'Update'])->name('stats.foraging-update');
 Route::get('/statistics/foraging/edit', [ForagingController::class, 'Edit'])->middleware(['auth', 'ad_mod'])->name('stats.foraging-edit');
 
 // Comets
 Route::get('/statistics/cometclusters', [CometController::class, 'Index'])->name('stats.comets');
-Route::get('/statistics/cometclusters/update', [CometController::class, 'Update'])->middleware(['auth'])->name('stats.comets-update');
+Route::get('/statistics/cometclusters/upload', [CometController::class, 'Update'])->name('stats.comets-update');
 Route::get('/statistics/cometclusters/calculator', [CometController::class, 'Math'])->name('stats.comets-math');
 
 // Creations

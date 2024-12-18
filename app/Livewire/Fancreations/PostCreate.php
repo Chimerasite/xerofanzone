@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Users;
 use App\Models\FanCreations;
+use App\Models\Config;
 use Livewire\Attributes\On;
 
 class PostCreate extends Component
@@ -23,6 +24,7 @@ class PostCreate extends Component
     public $imageList = [];
     public $imgText;
     public $imgLink = [];
+    public $config;
 
     public function mount()
     {
@@ -44,6 +46,8 @@ class PostCreate extends Component
                 }
             }
         }
+
+        $this->config = Config::where('data', 'create posts')->get('value')->first()->value;
     }
 
     public function generateSlug()
