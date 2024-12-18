@@ -126,7 +126,7 @@ class Table extends Component
             $start = substr($location->start_date, 5);
             $end = substr($location->end_date, 5);
 
-            if(in_array($location->type, ['Standard', 'Monthly']) || ($location->type == 'Event' && ($today >= $start) && ($today <= $end) )) {
+            if(in_array($location->type, ['standard', 'monthly']) || ($location->type == 'event' && ($today >= $start) && ($today <= $end) )) {
                 $things = $forages->where('foraging_location_id', $location->id);
 
                 if($things->first() != null){

@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ForagingController;
 use App\Http\Controllers\CometController;
 use App\Http\Controllers\FanCreationController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -24,7 +25,7 @@ Route::middleware('auth')->group(function () {
 // Foraging
 Route::get('/statistics/foraging', [ForagingController::class, 'Index'])->name('stats.foraging');
 Route::get('/statistics/foraging/update', [ForagingController::class, 'Update'])->middleware(['auth'])->name('stats.foraging-update');
-Route::get('/statistics/foraging/edit', [ForagingController::class, 'Edit'])->middleware(['auth', 'admin'])->name('stats.foraging-edit');
+Route::get('/statistics/foraging/edit', [ForagingController::class, 'Edit'])->middleware(['auth', 'ad_mod'])->name('stats.foraging-edit');
 
 // Comets
 Route::get('/statistics/cometclusters', [CometController::class, 'Index'])->name('stats.comets');
@@ -37,6 +38,10 @@ Route::get('/fan-creations/create', [FanCreationController::class, 'Create'])->m
 Route::get('/fan-creations/{post:slug}', [FanCreationController::class, 'Show'])->name('fancreations-show');
 Route::get('/fan-creations/{post:slug}/edit', [FanCreationController::class, 'Edit'])->middleware(['auth', 'post_owner:{post:slug}'])->name('fancreations-edit');
 
+//Admin
+Route::middleware(['auth', 'ad_mod'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'show'])->name('admin.show');
+});
 
 
 require __DIR__.'/auth.php';

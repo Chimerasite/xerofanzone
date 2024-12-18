@@ -152,7 +152,7 @@
                         $count = $count + $key->amount;
                     }
 
-                    if($location->type == 'Event'){
+                    if($location->type == 'event'){
                         $today = date('m-d');
                         $start = substr($location->start_date, 5);
                         $end = substr($location->end_date, 5);
@@ -164,7 +164,7 @@
                         }
                     }
                 @endphp
-                @if(($massedit) || (in_array($location->type, ['Standard', 'Monthly']) || ($location->type == 'Event' && $eventShow == true)))
+                @if(($massedit) || (in_array($location->type, ['standard', 'monthly']) || ($location->type == 'event' && $eventShow == true)))
                     <div class="col-span-1 my-4 rounded-md shadow-md px-2 py-4" style="background-color: {{ $location->color }}">
                         <div class="relative flex items-center pb-4">
                             <h4 class="text-center w-full text-stone-50">{{ $location->name }}</h4>

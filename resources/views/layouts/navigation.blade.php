@@ -43,6 +43,11 @@
                         <x-nav.dropdown-link :href="route('settings.edit')">
                             {{ __('Settings') }}
                         </x-nav.dropdown-link>
+                        @if (Auth::user() && Auth::user()->is_admin == 1)
+                            <x-nav.dropdown-link :href="route('admin.show')">
+                                {{ __('Admin Panel') }}
+                            </x-nav.dropdown-link>
+                        @endif
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -115,6 +120,11 @@
                                 <x-nav.dropdown-link :href="route('settings.edit')">
                                     {{ __('Settings') }}
                                 </x-nav.dropdown-link>
+                                @if (Auth::user() && Auth::user()->is_admin == 1)
+                                    <x-nav.dropdown-link :href="route('admin.show')">
+                                        {{ __('Admin Panel') }}
+                                    </x-nav.dropdown-link>
+                                @endif
                                 <!-- Authentication -->
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
