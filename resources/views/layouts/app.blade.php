@@ -18,6 +18,9 @@
         <!-- Scripts -->
         <script src="{{ asset('js/script.js') }}"></script>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script src="https://www.google.com/recaptcha/api.js"></script>
+
+        <!-- Styles -->
         @livewireStyles
     </head>
     <body class="font-sans antialiased cursor-default">
@@ -43,6 +46,7 @@
             </main>
         </div>
         @livewireScripts
+        @stack('scripts')
     </body>
     <footer class="flex justify-center bg-stone-950 text-teal-500 px-4 py-2">
        <i class="fa-solid fa-arrow-down mr-2 mt-1"></i> This is the footer, credits and stuff should go here  ;p
