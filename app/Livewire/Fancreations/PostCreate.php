@@ -20,11 +20,13 @@ class PostCreate extends Component
     public $tagList = [];
     public $allTags = [];
     public $external_link_name, $external_link;
+    public $linkedCount = 1;
+    public $linkedList = [];
     public $imageCount = 1;
     public $imageList = [];
     public $imgText;
     public $imgLink = [];
-    public $config;
+    public $config = 1;
 
     public function mount()
     {
@@ -32,6 +34,8 @@ class PostCreate extends Component
         foreach($locations as $location) {
             array_push($this->allLocations,$location->name);
         }
+
+        $this->linkedList += [$this->linkedCount => ['name' => '', 'thumbnail' => '', 'link' => '', 'role' => '']];
 
         $this->imageList += [$this->imageCount => ['text' => '', 'image' => '']];
 
@@ -69,6 +73,76 @@ class PostCreate extends Component
         $val = array_search($key, $this->tagList);
         if($val !== false) {
             unset($this->tagList[$val]);
+        }
+    }
+
+    public function addLinkedField()
+    {
+        $this->linkedCount ++;
+
+        if (array_key_exists($this->linkedCount, $this->linkedList)) {
+            $this->linkedCount ++;
+        }
+
+        $this->linkedList += [$this->linkedCount => ['name' => '', 'thumbnail' => '']];
+    }
+
+    public function removeLinkedField($key)
+    {
+        $this->linkedCount --;
+
+        $item;
+
+        if (array_key_exists($key, $this->linkedList)) {
+            unset($this->linkedList[$key]);
+        }
+    }
+
+    #[On('saveLinkedName')]
+    public function saveLinkedName($newName, $key)
+    {
+        $item;
+
+        if(array_key_exists($key, $this->linkedList)) {
+            $this->linkedList[$key]['name'] = $newName;
+        } else {
+            //dont do anything this shouldnt ever happen
+        }
+    }
+
+    #[On('saveLinkedRole')]
+    public function saveLinkedRole($newRole, $key)
+    {
+        $item;
+
+        if(array_key_exists($key, $this->linkedList)) {
+            $this->linkedList[$key]['role'] = $newRole;
+        } else {
+            //dont do anything this shouldnt ever happen
+        }
+    }
+
+    #[On('saveLinkedThumbnail')]
+    public function saveLinkedThumbnail($newThumbnail, $key)
+    {
+        $item;
+
+        if(array_key_exists($key, $this->linkedList)) {
+            $this->linkedList[$key]['thumbnail'] = $newThumbnail;
+        } else {
+            //dont do anything this shouldnt ever happen
+        }
+    }
+
+    #[On('saveLinkedLink')]
+    public function saveLinkedLink($newLink, $key)
+    {
+        $item;
+
+        if(array_key_exists($key, $this->linkedList)) {
+            $this->linkedList[$key]['link'] = $newLink;
+        } else {
+            //dont do anything this shouldnt ever happen
         }
     }
 
@@ -170,6 +244,7 @@ class PostCreate extends Component
             'public' => $this->public,
             'contact' => $this->contact,
             'external_link' => ['name' => $this->external_link_name, 'link' => $this->external_link],
+            'linked_characters' => $this->linkedList,
             'images' => $this->imageList
         ]);
 

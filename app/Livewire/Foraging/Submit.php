@@ -68,8 +68,23 @@ class Submit extends Component
 
     public function render()
     {
+        $locations = ForagingLocations::all();
+
+        $filteredLocations= $locations->where(function ($location) {
+                $today = date('m-d');
+                $start = substr($location->start_date, 5);
+                $end = substr($location->end_date, 5);
+                if(in_array($location->type, ['standard', 'monthly']) || ($location->type == 'event' && ($today >= $start) && ($today <= $end) )) {
+                    return $location;
+                }
+            })->sortby(function ($location) {
+                if($location->name == 'Crater') {
+                    return $location;
+                }
+        });
+
         return view('foraging.submit', [
-            'locations' => ForagingLocations::all(),
+            'locations' => $filteredLocations,
             'forages' => ForagingStats::all()->sortby('forageable.name'),
             'forageables' => Items::all()->where('forageable', true)->sortby('name'),
         ]);

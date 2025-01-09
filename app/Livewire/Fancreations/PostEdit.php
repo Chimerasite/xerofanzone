@@ -19,11 +19,11 @@ class PostEdit extends Component
     public $tagList = [];
     public $allTags = [];
     public $external_link_name, $external_link;
+    public $linkedCount;
+    public $linkedList = [];
     public $imageCount;
     public $imageList = [];
-    public $imgText;
-    public $imgLink = [];
-    public $config;
+    public $config = 1;
 
     public function mount()
     {
@@ -38,6 +38,7 @@ class PostEdit extends Component
         $this->art_permission = $this->post->art_permission;
         $this->writing_permission = $this->post->writing_permission;
         $this->public = $this->post->public;
+        $this->linkedList = $this->post->linked_characters;
         $this->imageList = $this->post->images;
 
         //assign value to location
@@ -66,6 +67,13 @@ class PostEdit extends Component
                         array_push($this->allTags,$tag);
                     }
                 }
+            }
+        }
+
+        //correct linked count
+        if($this->linkedList != null){
+            foreach($this->linkedList as $item) {
+                $this->linkedCount ++;
             }
         }
 
@@ -98,6 +106,76 @@ class PostEdit extends Component
         $val = array_search($key, $this->tagList);
         if($val !== false) {
             unset($this->tagList[$val]);
+        }
+    }
+
+    public function addLinkedField()
+    {
+        $this->linkedCount ++;
+
+        if (array_key_exists($this->linkedCount, $this->linkedList)) {
+            $this->linkedCount ++;
+        }
+
+        $this->linkedList += [$this->linkedCount => ['name' => '', 'thumbnail' => '']];
+    }
+
+    public function removeLinkedField($key)
+    {
+        $this->linkedCount --;
+
+        $item;
+
+        if (array_key_exists($key, $this->linkedList)) {
+            unset($this->linkedList[$key]);
+        }
+    }
+
+    #[On('saveLinkedName')]
+    public function saveLinkedName($newName, $key)
+    {
+        $item;
+
+        if(array_key_exists($key, $this->linkedList)) {
+            $this->linkedList[$key]['name'] = $newName;
+        } else {
+            //dont do anything this shouldnt ever happen
+        }
+    }
+
+    #[On('saveLinkedRole')]
+    public function saveLinkedRole($newRole, $key)
+    {
+        $item;
+
+        if(array_key_exists($key, $this->linkedList)) {
+            $this->linkedList[$key]['role'] = $newRole;
+        } else {
+            //dont do anything this shouldnt ever happen
+        }
+    }
+
+    #[On('saveLinkedThumbnail')]
+    public function saveLinkedThumbnail($newThumbnail, $key)
+    {
+        $item;
+
+        if(array_key_exists($key, $this->linkedList)) {
+            $this->linkedList[$key]['thumbnail'] = $newThumbnail;
+        } else {
+            //dont do anything this shouldnt ever happen
+        }
+    }
+
+    #[On('saveLinkedLink')]
+    public function saveLinkedLink($newLink, $key)
+    {
+        $item;
+
+        if(array_key_exists($key, $this->linkedList)) {
+            $this->linkedList[$key]['thumbnail'] = $newLink;
+        } else {
+            //dont do anything this shouldnt ever happen
         }
     }
 
@@ -199,6 +277,7 @@ class PostEdit extends Component
             'public' => $this->public,
             'contact' => $this->contact,
             'external_link' => ['name' => $this->external_link_name, 'link' => $this->external_link],
+            'linked_characters' => $this->linkedList,
             'images' => $this->imageList
         ]);
 

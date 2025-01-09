@@ -127,11 +127,11 @@ class Table extends Component
         $bestVal = '';
 
         $vals = [];
+        $today = date('m-d');
         foreach($locations as $location){
             $calcValue = 0;
             $calcAmount = 0;
 
-            $today = date('m-d');
             $start = substr($location->start_date, 5);
             $end = substr($location->end_date, 5);
 
@@ -157,7 +157,7 @@ class Table extends Component
 
 
         $sortedLocations= $locations->sortby(function ($location) {
-            if($location->id == 10) {
+            if($location->name == 'Crater') {
                 return $location;
             }
         });

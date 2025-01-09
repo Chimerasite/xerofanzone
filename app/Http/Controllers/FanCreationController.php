@@ -26,9 +26,9 @@ class FanCreationController extends Controller
         $adminRole = Role::where('is_admin', 1)->get('edit_posts')->first()->edit_posts;
         $modRole = Role::where('is_admin', 2)->get('edit_posts')->first()->edit_posts;
 
-
         return view('fancreations.show', [
             'post' => $post,
+            'linkedCharacters' => $post->linked_characters,
             'images' => $post->images,
             'location' => $location,
             'adminRole' => $adminRole,

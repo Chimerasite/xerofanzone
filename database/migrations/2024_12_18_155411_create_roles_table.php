@@ -19,7 +19,7 @@ return new class extends Migration
             $table->boolean('edit_posts')->default(false);
             $table->boolean('edit_locations')->default(false);
             $table->boolean('edit_foraging_locations')->default(false);
-            $table->boolean('items')->default(false);
+            $table->boolean('edit_items')->default(false);
             $table->boolean('mass_edit_foraging')->default(false);
             $table->timestamps();
         });

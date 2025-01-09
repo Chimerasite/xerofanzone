@@ -25,6 +25,7 @@ return new class extends Migration
             $table->boolean('public')->default(false);
             $table->string('contact')->nullable();
             $table->json('external_link')->nullable();
+            $table->json('linked_characters')->nullable();
             $table->json('images')->nullable();
             $table->timestamps();
         });

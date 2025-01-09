@@ -18,7 +18,7 @@
         </div>
     </div>
 
-    <div class="flex justify-between space-x-12 mb-20">
+    <div class="flex justify-between space-x-12 mb-6">
         <div class="w-2/3 space-y-3">
             <div>
                 <h1>{{ $post->name }}</h1>
@@ -65,10 +65,31 @@
             </div>
         </div>
     </div>
-    @if($images)
+    @if(array_slice($linkedCharacters, 0, 1)[0]['thumbnail'])
+        <div class="mb-6">
+            <h2>Linked Characters</h2>
+            <div class="mt-1 flex flex-wrap w-full">
+                @foreach($linkedCharacters as $character)
+                    @if($character['link'])
+                        <a href="{{ $character['thumbnail'] }}" class="group hover:bg-teal-500 rounded-md">
+                            <img class="rounded-md size-40 group-hover:opacity-75" src='{{ $character['thumbnail'] }}'>
+                            <div class="text-center mt-1">
+                                <div class="font-bold text-lg">{{ $character['name'] }}</div>
+                                @if ($character['role'])
+                                    <div class="text-sm"><i>{{ $character['role'] }}</i></div>
+                                @endif
+                            </div>
+                        </a>
+                    @endif
+                @endforeach
+            </div>
+        </div>
+    @endif
+
+    @if(array_slice($images, 0, 1)[0]['image'])
         <div>
             <h2>Gallery</h2>
-            <div class="flex flex-wrap justify-center w-full">
+            <div class="mt-1 flex flex-wrap justify-center w-full">
                 @foreach($images as $image)
                     @if($image['image'])
                         <div x-data=""

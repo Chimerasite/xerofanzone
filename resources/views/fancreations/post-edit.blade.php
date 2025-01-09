@@ -1,9 +1,10 @@
-<div class="lg:w-1/2 m-auto" x-data="{ element: 'main' }">
+<div class="lg:w-1/2 m-auto" x-data="{ element: 'linked' }">
     @if( $config == 1 )
         <div class="flex justify-around bg-stone-600 rounded-md w-full h-8">
             <button :class=" element == 'main' ? 'bg-teal-500' : ''" class="w-full rounded-md" x-on:click="element = 'main'">Main</button>
             <button :class=" element == 'info' ? 'bg-teal-500' : ''" class="w-full rounded-md" x-on:click="element = 'info'">Info</button>
             <button :class=" element == 'extra' ? 'bg-teal-500' : ''" class="w-full rounded-md" x-on:click="element = 'extra'">Extra</button>
+            <button :class=" element == 'linked' ? 'bg-teal-500' : ''" class="w-full rounded-md" x-on:click="element = 'linked'">Link Characters</button>
             <button :class=" element == 'gallery' ? 'bg-teal-500' : ''" class="w-full rounded-md" x-on:click="element = 'gallery'">Gallery</button>
         </div>
 
@@ -194,17 +195,81 @@
                 </div>
             </div>
 
+            <div x-show="element == 'linked'" x-cloak>
+                <div class="mt-4">
+                    <x-input.label for="linked" value="{{ __('Linked Characters') }}" />
+                    @if($linkedList != null)
+                        <div class="pt-1">
+                            @foreach($linkedList as $key=>$linked)
+                                <i class="underline underline-offset-2">Linked Character</i>
+                                <span wire:click="removeLinkedField('{{ $key }}')" class="inline-flex items-center p-2 font-semibold text-xs text-stone-50 uppercase tracking-widest hover:text-teal-500 active:text-teal-500 transition ease-in-out duration-150">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </span>
+                                <div class="grid sm:grid-cols-8 grid-cols-1">
+                                    <label class="col-span-1 self-center">Name: </label>
+                                    <x-input.text
+                                        onkeyup="saveLinkedName({{ $key }})"
+                                        type="text"
+                                        id="linkedName{{ $key }}"
+                                        value="{{ $linked['name'] }}"
+                                        class="w-full text-stone-950 mt-1 col-span-7"
+                                        placeholder="Name"
+
+                                    />
+                                    <label class="col-span-1 self-center">Role: </label>
+                                    <x-input.text
+                                        onkeyup="saveLinkedRole({{ $key }})"
+                                        type="url"
+                                        id="linkedRole{{ $key }}"
+                                        value="{{ $linked['role'] }}"
+                                        class="w-full text-stone-950 mt-1 col-span-7"
+                                        placeholder="Role"
+                                    />
+                                    <label class="col-span-1 self-center">Thumbnail: </label>
+                                    <x-input.text
+                                        onkeyup="saveLinkedThumbnail({{ $key }})"
+                                        type="url"
+                                        id="linkedThumbnail{{ $key }}"
+                                        value="{{ $linked['thumbnail'] }}"
+                                        class="w-full text-stone-950 mt-1 col-span-7"
+                                        placeholder="Thumbnail Url"
+                                    />
+                                    <label class="col-span-1 self-center">Link: </label>
+                                    <x-input.text
+                                        onkeyup="saveLinkedLink({{ $key }})"
+                                        type="url"
+                                        id="linkedLink{{ $key }}"
+                                        value="{{ $linked['link'] }}"
+                                        class="w-full text-stone-950 mt-1 col-span-7"
+                                        placeholder="Link"
+                                    />
+                                </div>
+                                @if(!$loop->last)
+                                    <hr class="my-4">
+                                @endif
+                            @endforeach
+                        </div>
+                    @endif
+                    <div class="flex justify-end mt-2">
+                        <span wire:click="addLinkedField" class="inline-flex items-center px-4 py-2 bg-teal-500 border border-transparent rounded-md font-semibold text-xs text-stone-50 uppercase tracking-widest hover:bg-teal-300 active:bg-teal-300 focus:outline-none transition ease-in-out duration-150">
+                            <i class="fa-solid fa-plus"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
             <div x-show="element == 'gallery'" x-cloak>
                 <div class="mt-4">
                     <x-input.label for="image" value="{{ __('Images') }}" />
                     @if($imageList != null)
-                        @foreach($imageList as $key=>$image)
-                                <i>Image</i>
-                                <span wire:click="removeImageField('{{ $key }}')" class="inline-flex items-center p-2 ml-2 font-semibold text-xs text-stone-50 uppercase tracking-widest hover:text-teal-500 active:text-teal-500 transition ease-in-out duration-150">
+                        <div class="pt-1">
+                            @foreach($imageList as $key=>$image)
+                                <i class="underline underline-offset-2">Image</i>
+                                <span wire:click="removeImageField('{{ $key }}')" class="inline-flex items-center p-2 font-semibold text-xs text-stone-50 uppercase tracking-widest hover:text-teal-500 active:text-teal-500 transition ease-in-out duration-150">
                                     <i class="fa-solid fa-xmark"></i>
                                 </span>
                                 <x-input.text
-                                    onkeyup="saveTextInput({{ $key }})"
+                                    onkeyup="saveImageText({{ $key }})"
                                     type="text"
                                     id="imgText{{ $key }}"
                                     value="{{ $image['text'] }}"
@@ -213,7 +278,7 @@
 
                                 />
                                 <x-input.text
-                                    onkeyup="saveLinkInput({{ $key }})"
+                                    onkeyup="saveImageLink({{ $key }})"
                                     type="url"
                                     id="imgLink{{ $key }}"
                                     value="{{ $image['image'] }}"
@@ -223,7 +288,8 @@
                                 @if(!$loop->last)
                                     <hr class="my-4">
                                 @endif
-                        @endforeach
+                            @endforeach
+                        </div>
                     @endif
                     <div class="flex justify-end mt-2">
                         <span wire:click="addImageField" class="inline-flex items-center px-4 py-2 bg-teal-500 border border-transparent rounded-md font-semibold text-xs text-stone-50 uppercase tracking-widest hover:bg-teal-300 active:bg-teal-300 focus:outline-none transition ease-in-out duration-150">
@@ -269,7 +335,7 @@
 
 
 <script>
-    function saveTextInput(key) {
+    function saveImageText(key) {
         let text = document.getElementById('imgText' + key).value;
         Livewire.dispatch('saveImageText', {
                             newText: text,
@@ -277,9 +343,41 @@
                         });
     }
 
-    function saveLinkInput(key) {
+    function saveImageLink(key) {
         let link = document.getElementById('imgLink' + key).value;
         Livewire.dispatch('saveImageLink', {
+                            newLink: link,
+                            key: key
+                        });
+    }
+
+    function saveLinkedName(key) {
+        let name = document.getElementById('linkedName' + key).value;
+        Livewire.dispatch('saveLinkedName', {
+                            newName: name,
+                            key: key
+                        });
+    }
+
+    function saveLinkedRole(key) {
+        let role = document.getElementById('linkedRole' + key).value;
+        Livewire.dispatch('saveLinkedRole', {
+                            newRole: role,
+                            key: key
+                        });
+    }
+
+    function saveLinkedThumbnail(key) {
+        let thumbnail = document.getElementById('linkedThumbnail' + key).value;
+        Livewire.dispatch('saveLinkedThumbnail', {
+                            newThumbnail: thumbnail,
+                            key: key
+                        });
+    }
+
+    function saveLinkedLink(key) {
+        let link = document.getElementById('linkedLink' + key).value;
+        Livewire.dispatch('saveLinkedLink', {
                             newLink: link,
                             key: key
                         });
