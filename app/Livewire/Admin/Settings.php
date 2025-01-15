@@ -75,6 +75,6 @@ class Settings extends Component
 
     public function render()
     {
-        return view('admin.settings');
+        return view('admin.partials.settings');
     }
 }

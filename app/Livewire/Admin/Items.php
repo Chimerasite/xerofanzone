@@ -62,7 +62,7 @@ class Items extends Component
 
     public function render()
     {
-        return view('admin.items', [
+        return view('admin.partials.items', [
             'items' => Item::all(),
         ]);
     }

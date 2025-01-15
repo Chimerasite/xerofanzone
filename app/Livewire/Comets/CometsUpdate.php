@@ -8,7 +8,7 @@ use App\Models\CometStats;
 use App\Models\Config;
 use Illuminate\Support\Facades\Auth;
 
-class Submit extends Component
+class CometsUpdate extends Component
 {
     public $comet;
     public $amount;
@@ -42,7 +42,7 @@ class Submit extends Component
 
     public function render()
     {
-        return view('comets.submit',[
+        return view('comets.comets-update',[
             'cometTypes' => Items::where('name', 'like','%Comet Cluster%')->get()->sortbydesc('name'),
         ]);
     }

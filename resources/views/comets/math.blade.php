@@ -13,7 +13,7 @@
         <hr class="mt-6 border-1 rounded-md">
     </div>
 
-    @livewire('Comets.Calculator')
+    @livewire('Comets.comets-math')
     <div class="w-full flex justify-end mt-6 ">
         <a href="{{ route('stats.comets') }}">
             <x-button.secondary class="ml-3">

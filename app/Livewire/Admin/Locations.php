@@ -58,7 +58,7 @@ class Locations extends Component
 
     public function render()
     {
-        return view('admin.locations', [
+        return view('admin.partials.locations', [
             'locations' => Location::all(),
         ]);
     }

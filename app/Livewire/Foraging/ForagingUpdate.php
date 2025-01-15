@@ -9,7 +9,7 @@ use App\Models\Items;
 use App\Models\Config;
 use Illuminate\Support\Facades\Auth;
 
-class Submit extends Component
+class ForagingUpdate extends Component
 {
     public $amount;
     public $location;
@@ -83,7 +83,7 @@ class Submit extends Component
                 }
         });
 
-        return view('foraging.submit', [
+        return view('foraging.foraging-update', [
             'locations' => $filteredLocations,
             'forages' => ForagingStats::all()->sortby('forageable.name'),
             'forageables' => Items::all()->where('forageable', true)->sortby('name'),

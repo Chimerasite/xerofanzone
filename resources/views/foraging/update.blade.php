@@ -9,5 +9,5 @@
             Please do not add data from before February 1st 2024
         <i class="fa-solid fa-triangle-exclamation ml-2"></i>
     </div>
-    @livewire('Foraging.Submit')
+    @livewire('Foraging.foraging-update')
 </x-app-layout>

@@ -6,7 +6,7 @@ use Livewire\Component;
 use App\Models\CometStats;
 use App\Models\Items;
 
-class Calculator extends Component
+class CometsMath extends Component
 {
     public $minimum = "0";
     public $maximum = "0";
@@ -56,6 +56,6 @@ class Calculator extends Component
 
     public function render()
     {
-        return view('comets.calculator');
+        return view('comets.comets-math');
     }
 }

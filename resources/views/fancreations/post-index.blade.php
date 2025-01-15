@@ -194,7 +194,7 @@
                                 </p>
                             @endif
                             <p>
-                                <a wire:click="myPosts" class="hover:text-teal-500">
+                                <a wire:click="myPosts" x-on:click="open = false" class="hover:text-teal-500">
                                     View my posts <i class="fa-solid fa-tag fa-sm ml-1"></i>
                                 </a>
                             </p>

@@ -64,7 +64,7 @@ class Foraging extends Component
 
     public function render()
     {
-        return view('admin.foraging', [
+        return view('admin.partials.foraging', [
             'locations' => ForagingLocations::all(),
         ]);
     }

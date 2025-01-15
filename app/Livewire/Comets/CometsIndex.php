@@ -7,7 +7,7 @@ use App\Models\Items;
 use App\Models\CometStats;
 use App\Models\Config;
 
-class Table extends Component
+class CometsIndex extends Component
 {
     public $config;
 
@@ -18,7 +18,7 @@ class Table extends Component
 
     public function render()
     {
-        return view('comets.table', [
+        return view('comets.comets-index', [
             'cometTypes' => Items::where('name', 'like','%Comet Cluster%')->get()->sortbydesc('name'),
             'cometStats' => CometStats::all(),
         ]);

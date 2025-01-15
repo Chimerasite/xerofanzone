@@ -1,4 +1,4 @@
 <x-app-layout>
     <x-slot:subnav></x-slot>
-    @livewire('Comets.Table', [])
+    @livewire('Comets.comets-index', [])
 </x-app-layout>

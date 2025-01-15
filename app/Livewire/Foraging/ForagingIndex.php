@@ -10,7 +10,7 @@ use App\Models\Role;
 
 use Livewire\Component;
 
-class Table extends Component
+class ForagingIndex extends Component
 {
     public $massedit;
 
@@ -162,7 +162,7 @@ class Table extends Component
             }
         });
 
-        return view('foraging.table', [
+        return view('foraging.foraging-index', [
             'bestVal' => $bestVal,
             'locations' => $sortedLocations,
             'forages' => $forages->sortby('item.name'),
@@ -171,4 +171,6 @@ class Table extends Component
         ]);
     }
 }
+
+
 

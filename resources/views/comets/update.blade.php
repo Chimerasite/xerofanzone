@@ -4,5 +4,5 @@
             <i class="fa-solid fa-chevron-left"></i>
         </x-button.inline>
     </a>
-    @livewire('Comets.Submit')
+    @livewire('Comets.comets-update')
 </x-app-layout>
