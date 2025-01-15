@@ -4,8 +4,8 @@
             {{ __('Terms Of Service') }}
         </h2>
         <p class="text-sm mt-1">
-            Created: 15 January 2025, 18:03:59 CET<br>
-            Last updated: 15 January 2025, 18:03:59 CET
+            Created: 15 January 2025, 21:05:42 CET<br>
+            Last updated: 15 January 2025, 21:05:42 CET
         </p>
     </div>
     <div class="py-12">

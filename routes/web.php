@@ -16,7 +16,7 @@ Route::get('/profile', function () {
     return view('profile.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/settings', [ProfileController::class, 'edit'])->name('settings.edit');
     Route::patch('/settings', [ProfileController::class, 'update'])->name('settings.update');
     Route::delete('/settings', [ProfileController::class, 'destroy'])->name('settings.destroy');
@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function () {
 // Foraging
 Route::get('/statistics/foraging', [ForagingController::class, 'index'])->name('stats.foraging');
 Route::get('/statistics/foraging/upload', [ForagingController::class, 'update'])->name('stats.foraging-update');
-Route::get('/statistics/foraging/edit', [ForagingController::class, 'edit'])->middleware(['auth', 'ad_mod'])->name('stats.foraging-edit');
+Route::get('/statistics/foraging/edit', [ForagingController::class, 'edit'])->middleware(['auth', 'ad_mod', 'verified'])->name('stats.foraging-edit');
 
 // Comets
 Route::get('/statistics/cometclusters', [CometController::class, 'index'])->name('stats.comets');
@@ -34,9 +34,9 @@ Route::get('/statistics/cometclusters/calculator', [CometController::class, 'mat
 
 // Creations
 Route::get('/fan-creations', [FanCreationController::class, 'index'])->name('fancreations');
-Route::get('/fan-creations/create', [FanCreationController::class, 'create'])->middleware(['auth'])->name('fancreations-create');
+Route::get('/fan-creations/create', [FanCreationController::class, 'create'])->middleware(['auth', 'verified'])->name('fancreations-create');
 Route::get('/fan-creations/{post:slug}', [FanCreationController::class, 'show'])->name('fancreations-show');
-Route::get('/fan-creations/{post:slug}/edit', [FanCreationController::class, 'edit'])->middleware(['auth', 'post_owner:{post:slug}'])->name('fancreations-edit');
+Route::get('/fan-creations/{post:slug}/edit', [FanCreationController::class, 'edit'])->middleware(['auth', 'post_owner:{post:slug}', 'verified'])->name('fancreations-edit');
 
 // Footer
 Route::get('/terms', function () {
@@ -51,7 +51,7 @@ Route::get('/credits', function () {
 
 
 //Admin
-Route::middleware(['auth', 'ad_mod'])->group(function () {
+Route::middleware(['auth', 'ad_mod', 'verified'])->group(function () {
     Route::get('/admin', [AdminController::class, 'show'])->name('admin.show');
 });
 
