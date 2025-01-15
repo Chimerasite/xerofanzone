@@ -11,14 +11,14 @@ use App\Models\Role;
 
 class FanCreationController extends Controller
 {
-    public function Index()
+    public function index()
     {
         return view('fancreations.index', [
             'posts' => FanCreations::all(),
         ]);
     }
 
-    public function Show(string $slug)
+    public function show(string $slug)
     {
         $post = FanCreations::where('slug', $slug)->first();
         $post->tags = implode( ', ', $post->tags );
@@ -36,19 +36,19 @@ class FanCreationController extends Controller
         ]);
     }
 
-    public function Create()
+    public function create()
     {
         return view('fancreations.create');
     }
 
-    public function Edit(string $slug)
+    public function edit(string $slug)
     {
         return view('fancreations.edit', [
             'post' => FanCreations::where('slug', $slug)->first(),
         ]);
     }
 
-    public function Destroy()
+    public function destroy()
     {
         //
     }

@@ -7,17 +7,17 @@ use Illuminate\Http\Request;
 
 class ForagingController extends Controller
 {
-    public function Index()
+    public function index()
     {
         return view('foraging.index');
     }
 
-    public function Edit()
+    public function edit()
     {
         return view('foraging.edit');
     }
 
-    public function Update()
+    public function update()
     {
         return view('foraging.update');
     }

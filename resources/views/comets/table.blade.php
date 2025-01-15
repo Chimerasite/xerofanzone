@@ -1,4 +1,4 @@
-<div class="flex lg:flex-row flex-col text-stone-50 lg:space-x-6" x-data="{ open: false }">
+<div class="grow flex lg:flex-row flex-col text-stone-50 lg:space-x-6" x-data="{ open: false }">
     <!-- Primary subnav -->
     <div class="w-80 lg:flex hidden">
         <div class="bg-stone-600 w-full p-6 rounded-md">
@@ -82,7 +82,7 @@
         </div>
     </div>
     <div class="w-full lg:px-0 px-5 lg:my-0 my-6 text-stone-950">
-        <div class="bg-stone-500 rounded-md p-6 grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 w-full">
+        <div class="bg-stone-500 rounded-md p-6 grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 w-full h-full">
             @foreach($cometTypes as $cometType)
                 @php
                     $min = $cometStats->where('item_id', $cometType->id)->sortby('amount')->first()->amount;

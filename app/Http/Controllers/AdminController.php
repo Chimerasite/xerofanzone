@@ -8,7 +8,7 @@ use App\Models\Role;
 
 class AdminController extends Controller
 {
-    public function Show()
+    public function show()
     {
         return view('admin.show', [
             'role' => Role::all(),

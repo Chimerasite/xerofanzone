@@ -7,17 +7,17 @@ use Illuminate\Http\Request;
 
 class CometController extends Controller
 {
-    public function Index()
+    public function index()
     {
         return view('comets.index');
     }
 
-    public function Update()
+    public function update()
     {
         return view('comets.update');
     }
 
-    public function Math()
+    public function math()
     {
         return view('comets.math');
     }

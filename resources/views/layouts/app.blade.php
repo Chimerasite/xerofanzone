@@ -24,22 +24,23 @@
         @livewireStyles
     </head>
     <body class="font-sans antialiased cursor-default">
-        <div class="min-h-screen bg-stone-800">
-            <!-- Banner -->
-            <img src="/assets/img/banner.png" alt="{{ __('Xero Fanzone Banner') }}">
+        <div class="min-h-screen bg-stone-800 flex flex-col">
+            <div>
+                <!-- Banner -->
+                <img src="/assets/img/banner.png" alt="{{ __('Xero Fanzone Banner') }}">
 
-            <!-- Navigation menu -->
-            @include('layouts.navigation')
-
+                <!-- Navigation menu -->
+                @include('layouts.navigation')
+            </div>
             <!-- Page content -->
-            <main class="flex flex-row h-full lg:px-5 text-stone-50 lg:p-6 space-x-6">
+            <main class="flex flex-col grow lg:px-5 text-stone-50 lg:p-6 space-x-6">
                 <!-- Sub navigation -->
                 @if(isset($subnav))
-                    <div class="w-full">
+                    <div class="w-full flex flex-col grow">
                         {{ $slot }}
                     </div>
                 @else
-                    <div class="bg-stone-500 lg:w-5/6 w-full lg:m-auto mx-5 my-6 p-8 rounded-md">
+                    <div class="bg-stone-500 lg:w-5/6 w-full lg:m-auto mx-5 my-6 p-8 rounded-md grow">
                         {{ $slot }}
                     </div>
                 @endisset
@@ -48,7 +49,16 @@
         @livewireScripts
         @stack('scripts')
     </body>
-    <footer class="flex justify-center bg-stone-950 text-teal-500 px-4 py-2">
-       <i class="fa-solid fa-arrow-down mr-2 mt-1"></i> This is the footer, credits and stuff should go here  ;p
+    <footer class="flex items-center flex-col bg-stone-950 text-teal-500 px-4 py-2 space-y-1">
+        <div class="uppercase space-x-3">
+            <a class="hover:text-stone-50" href="{{ route('home') }}">Home</a>
+            <a class="hover:text-stone-50" href="{{ route('terms') }}">Terms</a>
+            <a class="hover:text-stone-50" href="{{ route('privacy') }}">Privacy</a>
+            <a class="hover:text-stone-50" href="mailto:xfz@chimerasite.com">Contact</a>
+            <a class="hover:text-stone-50" href="{{ route('credits') }}">Credits</a>
+        </div>
+        <div class="text-stone-50 text-sm">
+            &copy; Chimerasite <?php echo date("Y"); ?> - V2.0.0 <i>Beta</i>
+        </div>
     </footer>
 </html>

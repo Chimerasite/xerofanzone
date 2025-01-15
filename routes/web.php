@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ForagingController;
 use App\Http\Controllers\CometController;
@@ -7,9 +8,8 @@ use App\Http\Controllers\FanCreationController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+
+Route::get('/', [HomeController::class, 'show'])->name('home');
 
 //Profile
 Route::get('/profile', function () {
@@ -23,20 +23,32 @@ Route::middleware('auth')->group(function () {
 });
 
 // Foraging
-Route::get('/statistics/foraging', [ForagingController::class, 'Index'])->name('stats.foraging');
-Route::get('/statistics/foraging/upload', [ForagingController::class, 'Update'])->name('stats.foraging-update');
-Route::get('/statistics/foraging/edit', [ForagingController::class, 'Edit'])->middleware(['auth', 'ad_mod'])->name('stats.foraging-edit');
+Route::get('/statistics/foraging', [ForagingController::class, 'index'])->name('stats.foraging');
+Route::get('/statistics/foraging/upload', [ForagingController::class, 'update'])->name('stats.foraging-update');
+Route::get('/statistics/foraging/edit', [ForagingController::class, 'edit'])->middleware(['auth', 'ad_mod'])->name('stats.foraging-edit');
 
 // Comets
-Route::get('/statistics/cometclusters', [CometController::class, 'Index'])->name('stats.comets');
-Route::get('/statistics/cometclusters/upload', [CometController::class, 'Update'])->name('stats.comets-update');
-Route::get('/statistics/cometclusters/calculator', [CometController::class, 'Math'])->name('stats.comets-math');
+Route::get('/statistics/cometclusters', [CometController::class, 'index'])->name('stats.comets');
+Route::get('/statistics/cometclusters/upload', [CometController::class, 'update'])->name('stats.comets-update');
+Route::get('/statistics/cometclusters/calculator', [CometController::class, 'math'])->name('stats.comets-math');
 
 // Creations
-Route::get('/fan-creations', [FanCreationController::class, 'Index'])->name('fancreations');
-Route::get('/fan-creations/create', [FanCreationController::class, 'Create'])->middleware(['auth'])->name('fancreations-create');
-Route::get('/fan-creations/{post:slug}', [FanCreationController::class, 'Show'])->name('fancreations-show');
-Route::get('/fan-creations/{post:slug}/edit', [FanCreationController::class, 'Edit'])->middleware(['auth', 'post_owner:{post:slug}'])->name('fancreations-edit');
+Route::get('/fan-creations', [FanCreationController::class, 'index'])->name('fancreations');
+Route::get('/fan-creations/create', [FanCreationController::class, 'create'])->middleware(['auth'])->name('fancreations-create');
+Route::get('/fan-creations/{post:slug}', [FanCreationController::class, 'show'])->name('fancreations-show');
+Route::get('/fan-creations/{post:slug}/edit', [FanCreationController::class, 'edit'])->middleware(['auth', 'post_owner:{post:slug}'])->name('fancreations-edit');
+
+// Footer
+Route::get('/terms', function () {
+    return view('info.terms');
+})->name('terms');
+Route::get('/privacy', function () {
+    return view('info.privacy');
+})->name('privacy');
+Route::get('/credits', function () {
+    return view('info.credits');
+})->name('credits');
+
 
 //Admin
 Route::middleware(['auth', 'ad_mod'])->group(function () {

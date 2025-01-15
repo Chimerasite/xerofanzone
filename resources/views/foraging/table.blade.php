@@ -1,4 +1,4 @@
-<div class="flex lg:flex-row flex-col text-stone-50 lg:space-x-6" x-data="{ open: false }">
+<div class="grow flex lg:flex-row flex-col text-stone-50 lg:space-x-6" x-data="{ open: false }">
     <div class="w-80 lg:flex hidden">
         <div class="bg-stone-600 w-full p-6 rounded-md">
             <h4 class="text-teal-500 uppercase text-center mb-4">{{ __('Foraging Stats') }}</h4>
@@ -154,7 +154,7 @@
         </div>
     </div>
     <div class="w-full lg:px-0 px-5 lg:my-0 my-6 text-stone-950">
-        <div class="bg-stone-500 rounded-md p-6 grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 w-full">
+        <div class="bg-stone-500 rounded-md p-6 grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 w-full h-full">
             @foreach($locations as $location)
                 @php
                     $count = 0;
