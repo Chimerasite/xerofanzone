@@ -1,10 +1,10 @@
 <x-app-layout>
-    <div class="text-center space-y-4 w-1/2 m-auto mb-8">
+    <div class="text-center space-y-4 lg:w-1/2 sm:w-3/4 m-auto mb-8">
         <h1>Welcome to the Xero Fan Zone</h1>
         <hr>
     </div>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-10">
-        <div class="w-1/2 m-auto text-justify space-y-3">
+        <div class="lg:w-1/2 sm:w-3/4 m-auto text-justify space-y-3">
             <p>
                 Dive into this space for fans of Project Xero, where creativity and community come together. Explore fan-created locations, share your own ideas, track foraging statistics and more. Whether you're here to browse or contribute, the Xero Fan Zone is your space to celebrate everything Xero.
             </p>

@@ -3,8 +3,8 @@
     <div class="mb-8">
         <form wire:submit.prevent="updateSettings" onkeydown="return event.key != 'Enter';" class="px-6 pb-6">
             @csrf
-            <div class="flex flex-wrap justify-around w-full">
-                <div class="space-y-2 w-1/3">
+            <div class="flex flex-wrap md:flex-row flex-col justify-around w-full">
+                <div class="space-y-2 md:w-1/3">
                     <div class="flex space-x-4 mt-4">
                         <x-input.label for="uploadForages">
                             {{ __('Upload Forages') }}
@@ -74,7 +74,7 @@
                         </label>
                     </div>
                 </div>
-                <div class="space-y-2 w-1/3">
+                <div class="space-y-2 md:w-1/3">
                     <div class="mt-4">
                         <x-input.label for="foragePassword">
                             {{ __('Forage upload password') }}
@@ -116,8 +116,8 @@
         <h3>Permissions</h3>
         <form wire:submit.prevent="updatePermissions" onkeydown="return event.key != 'Enter';" class="px-6 pb-6">
             @csrf
-            <div class="flex flex-wrap justify-around w-full">
-                <div class="space-y-2 w-1/3">
+            <div class="flex flex-wrap md:flex-row flex-col justify-around w-full md:space-y-0 space-y-4">
+                <div class="space-y-2 md:w-1/3">
                     <h4>Moderators</h4>
                     <div class="flex space-x-4 mt-4">
                         <x-input.label for="modsEditSettings">
@@ -220,7 +220,7 @@
                         </label>
                     </div>
                 </div>
-                <div class="space-y-2 w-1/3">
+                <div class="space-y-2 md:w-1/3">
                     <h4>Admins</h4>
                     <div class="flex space-x-4 mt-4">
                         <x-input.label for="adminEditPosts">

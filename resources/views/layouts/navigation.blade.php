@@ -138,7 +138,12 @@
                             </x-slot>
                         </x-nav.dropdown>
                     @else
-                        <a href="{{ route('login') }}" class="hover:text-teal-100 mr-4">Login</a> <a href="{{ route('register') }}" class="hover:text-teal-100">Register</a>
+                        <x-nav.responsive-link :href="route('login')">
+                            {{ __('Login') }}
+                        </x-nav.responsive-link>
+                        <x-nav.responsive-link :href="route('register')">
+                            {{ __('Register') }}
+                        </x-nav.responsive-link>
                     @endif
                 </div>
             </div>

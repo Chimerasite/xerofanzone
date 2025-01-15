@@ -40,7 +40,7 @@
                         {{ $slot }}
                     </div>
                 @else
-                    <div class="bg-stone-500 lg:w-5/6 w-full lg:m-auto mx-5 my-6 p-8 rounded-md grow">
+                    <div class="bg-stone-500 lg:w-5/6 w-full m-auto my-6 p-8 md:rounded-md grow">
                         {{ $slot }}
                     </div>
                 @endisset
@@ -50,7 +50,7 @@
         @stack('scripts')
     </body>
     <footer class="flex items-center flex-col bg-stone-950 text-teal-500 px-4 py-2 space-y-1">
-        <div class="uppercase space-x-3">
+        <div class="uppercase space-x-3 text-center">
             <a class="hover:text-stone-50" href="{{ route('home') }}">Home</a>
             <a class="hover:text-stone-50" href="{{ route('terms') }}">Terms</a>
             <a class="hover:text-stone-50" href="{{ route('privacy') }}">Privacy</a>

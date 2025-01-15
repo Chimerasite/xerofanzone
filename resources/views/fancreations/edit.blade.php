@@ -4,5 +4,7 @@
             <i class="fa-solid fa-chevron-left"></i>
         </x-button.inline>
     </a>
-    @livewire('Fancreations.post-edit', ['post' => $post])
+    <div class="lg:mt-0 mt-8">
+        @livewire('Fancreations.post-edit', ['post' => $post])
+    </div>
 </x-app-layout>

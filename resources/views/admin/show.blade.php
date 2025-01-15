@@ -6,7 +6,7 @@
     </div>
     <hr class="m-auto" style="width: 50%;">
     <div class="mt-4" x-data="{ element: '{{ Auth::user()->is_admin == 1 ? 'settings' : ($role->where('is_admin', 2)->first()->edit_settings == 1 ? 'settings' : ($role->where('is_admin', 2)->first()->edit_locations == 1 ? 'locations' : ($role->where('is_admin', 2)->first()->edit_foraging_locations == 1 ? 'foraging' : ($role->where('is_admin', 2)->first()->edit_items == 1 ? 'items' : '' )))) }}' }">
-        <div class="flex justify-around bg-stone-600 rounded-md w-full h-8 mb-8">
+        <div class="flex md:flex-row flex-col justify-around bg-stone-600 rounded-md w-full md:h-8 mb-8 md:space-y-0 space-y-1">
             @if( $role->where('is_admin', 2)->first()->edit_settings == 1 || Auth::user()->is_admin == 1)
                 <button :class=" element == 'settings' ? 'bg-teal-500' : ''" class="w-full rounded-md" x-on:click="element = 'settings'">Settings</button>
             @endif

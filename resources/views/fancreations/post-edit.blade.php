@@ -1,6 +1,6 @@
-<div class="lg:w-1/2 m-auto" x-data="{ element: 'linked' }">
+<div class="xl:w-1/2 md:w-3/4 m-auto" x-data="{ element: 'main' }">
     @if( $config == 1 )
-        <div class="flex justify-around bg-stone-600 rounded-md w-full h-8">
+        <div class="flex md:flex-row flex-col justify-around bg-stone-600 rounded-md w-full  md:h-8 md:space-y-0 space-y-1">
             <button :class=" element == 'main' ? 'bg-teal-500' : ''" class="w-full rounded-md" x-on:click="element = 'main'">Main</button>
             <button :class=" element == 'info' ? 'bg-teal-500' : ''" class="w-full rounded-md" x-on:click="element = 'info'">Info</button>
             <button :class=" element == 'extra' ? 'bg-teal-500' : ''" class="w-full rounded-md" x-on:click="element = 'extra'">Extra</button>

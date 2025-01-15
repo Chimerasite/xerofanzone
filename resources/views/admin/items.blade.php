@@ -1,6 +1,6 @@
 <div class="w-full">
-    <div class="flex flex-wrap justify-around space-x-4 w-full">
-        <div class="space-y-2 w-1/3">
+    <div class="flex flex-wrap justify-around md:space-x-4 w-full">
+        <div class="space-y-2 md:w-1/3 w-full">
             <form wire:submit.prevent="updateItem" onkeydown="return event.key != 'Enter';" class="px-6 pb-6 space-y-2">
                 @csrf
                 <h4>Update Item</h4>
@@ -71,7 +71,7 @@
                 </div>
             </form>
         </div>
-        <div class="space-y-2 w-1/3">
+        <div class="space-y-2 md:w-1/3 w-full">
             <form wire:submit.prevent="newItem" onkeydown="return event.key != 'Enter';" class="px-6 pb-6 space-y-2">
                 @csrf
                 <h4>New Item</h4>
@@ -132,7 +132,7 @@
             </form>
         </div>
     </div>
-    <table class="w-2/3 m-auto text-stone-900 mt-8">
+    <table class="md:w-2/3 w-full m-auto text-stone-900 mt-8">
         <tr class="bg-teal-500 text-stone-50">
             <th class="border-b border-stone-900 pl-2">Name</th>
             <th class="border-b border-x border-stone-900 text-center">Value</th>

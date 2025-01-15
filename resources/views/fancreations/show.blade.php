@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="flex justify-between items-center space-x-3 mb-6">
         <a href="{{ route('fancreations') }}">
-            <x-button.inline class="ml-3">
+            <x-button.inline >
                 <i class="fa-solid fa-chevron-left"></i>
             </x-button.inline>
         </a>
@@ -18,8 +18,8 @@
         </div>
     </div>
 
-    <div class="flex justify-between space-x-12 mb-6">
-        <div class="w-2/3 space-y-3">
+    <div class="flex justify-between lg:flex-row flex-col lg:items-start items-center gap-6 lg:space-x-12 mb-6">
+        <div class="lg:w-2/3 space-y-3">
             <div>
                 <h1>{{ $post->name }}</h1>
                 <div>
@@ -33,8 +33,8 @@
         </div>
 
 
-        <div>
-            <div class="relative w-96 h-72 rounded-md overflow-hidden flex items-center justify-center bg-stone-950">
+        <div class="md:w-96 w-full">
+            <div class="relative lg:w-96 h-72 rounded-md overflow-hidden flex items-center justify-center bg-stone-950">
                 @if ($post->thumbnail)
                     <img src="{{ $post->thumbnail }}" class="absolute block object-cover h-full w-full">
                 @else
@@ -68,7 +68,7 @@
     @if(array_slice($linkedCharacters, 0, 1)[0]['thumbnail'])
         <div class="mb-6">
             <h2>Linked Characters</h2>
-            <div class="mt-1 flex flex-wrap w-full">
+            <div class="mt-1 flex flex-wrap md:justify-start justify-center w-full">
                 @foreach($linkedCharacters as $character)
                     @if($character['link'])
                         <a href="{{ $character['thumbnail'] }}" class="group hover:bg-teal-500 rounded-md">

@@ -171,38 +171,180 @@
     <div class="lg:hidden flex bg-stone-600">
         <!-- Hamburger -->
         <div class="flex items-center h-12 justify-start w-screen text-stone-50 px-4 z-30">
-            <button @click="open = ! open" onclick="lockscroll()">
+             <button @click="open = ! open" > {{-- onclick="lockscroll()" --}}
                 <span :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex items-center px-4 py-2 border border-stone-50 rounded-md font-semibold text-xs text-stone-50 uppercase tracking-widest">Menu<i class="fa-solid fa-caret-right ml-1"></i></span>
                 <span :class="{'hidden': ! open, 'inline-flex': open }" class="inline-flex items-center px-4 py-2 bg-teal-500 rounded-md font-semibold text-xs text-stone-50 uppercase tracking-widest">Menu<i class="fa-solid fa-caret-left ml-1"></i></span>
             </button>
         </div>
         <div x-cloak x-show="open" class="absolute z-20 flex flex-col justify-between w-screen h-screen bg-stone-600 text-white">
             <!-- Navigation Links -->
-            <div class="flex flex-col space-y-3 mx-10 my-6">
-                @if (Auth::user())
-                    <div class="space-y-2 mt-6">
-                        @if( $config == 1 )
+            <div class="flex flex-col space-y-3 mx-10 my-8">
+                <div>
+                    @if (Auth::user())
+                        <div class="space-y-2 mt-6">
+                            @if( $config == 1 )
+                                <p>
+                                    <a href="{{ route('fancreations-create') }}" class="hover:text-teal-500">
+                                        Create new post <i class="fa-solid fa-plus fa-sm ml-1"></i>
+                                    </a>
+                                </p>
+                            @elseif ( $config == 0 )
+                                <p>
+                                    <i>uploads are currently closed</i>
+                                </p>
+                            @endif
                             <p>
-                                <a href="{{ route('fancreations-create') }}" class="hover:text-teal-500">
-                                    Create new post <i class="fa-solid fa-plus fa-sm ml-1"></i>
+                                <a wire:click="myPosts" class="hover:text-teal-500">
+                                    View my posts <i class="fa-solid fa-tag fa-sm ml-1"></i>
                                 </a>
                             </p>
-                        @elseif ( $config == 0 )
-                            <p>
-                                <i>uploads are currently closed</i>
-                            </p>
-                        @endif
-                        <p>
-                            <a wire:click="myPosts" class="hover:text-teal-500">
-                                View my posts <i class="fa-solid fa-tag fa-sm ml-1"></i>
-                            </a>
-                        </p>
+                        </div>
+                    @else
+                        <div class="mt-6">
+                            Please Login to create posts.
+                        </div>
+                    @endif
+                </div>
+                <hr>
+                <div class="mt-4 space-y-2">
+                    <div x-data="{ dropdown: false }">
+                        <div @click="dropdown = ! dropdown" class="flex justify-between items-center">
+                            <h5>{{ __('Name') }}</h5>
+                            <span>
+                                <span :class="{'hidden': dropdown, 'inline-flex': ! dropdown }" class="inline-flex items-center px-2 tracking-widest"><i class="fa-solid fa-sm fa-chevron-down ml-1"></i></span>
+                                <span :class="{'hidden': ! dropdown, 'inline-flex': dropdown }" class="inline-flex items-center px-2 tracking-widest"><i class="fa-solid fa-sm fa-chevron-up ml-1"></i></span>
+                            </span>
+                        </div>
+                        <div x-cloak x-show="dropdown" class="mt-1 space-y-1">
+                            <x-input.text
+                                wire:model="name"
+                                wire:keyup="filterPosts"
+                                type="text"
+                                class="w-full"
+                            />
+                        </div>
                     </div>
-                @else
-                    <div class="mt-4">
-                        Please Login to create posts.
+                    <div x-data="{ dropdown: false }">
+                        <div @click="dropdown = ! dropdown" class="flex justify-between items-center">
+                            <h5>{{ __('Location') }}</h5>
+                            <span>
+                                <span :class="{'hidden': dropdown, 'inline-flex': ! dropdown }" class="inline-flex items-center px-2 tracking-widest"><i class="fa-solid fa-sm fa-chevron-down ml-1"></i></span>
+                                <span :class="{'hidden': ! dropdown, 'inline-flex': dropdown }" class="inline-flex items-center px-2 tracking-widest"><i class="fa-solid fa-sm fa-chevron-up ml-1"></i></span>
+                            </span>
+                        </div>
+                        <div x-cloak x-show="dropdown" class="pl-1 mt-1 space-y-1">
+                            @foreach ( $allLocations as $location )
+                            <div>
+                                <x-input.checkbox
+                                    value="{{ $location }}"
+                                    wire:model="locationFilter"
+                                    wire:click="filterPosts"
+                                />
+                                <label for="{{ $location }}">{{ $location }}</label>
+                            </div>
+                            @endforeach
+                        </div>
                     </div>
-                @endif
+                    <div x-data="{ dropdown: false }">
+                        <div @click="dropdown = ! dropdown" class="flex justify-between items-center">
+                            <h5>{{ __('Tags') }}</h5>
+                            <span>
+                                <span :class="{'hidden': dropdown, 'inline-flex': ! dropdown }" class="inline-flex items-center px-2 tracking-widest"><i class="fa-solid fa-sm fa-chevron-down ml-1"></i></span>
+                                <span :class="{'hidden': ! dropdown, 'inline-flex': dropdown }" class="inline-flex items-center px-2 tracking-widest"><i class="fa-solid fa-sm fa-chevron-up ml-1"></i></span>
+                            </span>
+                        </div>
+                        <div x-cloak x-show="dropdown" class="pl-1 mt-1">
+                            <x-input.text
+                                wire:model="tagSearch"
+                                wire:keyup="filterTags"
+                                type="text"
+                                class="w-full"
+                            />
+                            <div class="pl-1 mt-1 space-y-1 h-44 overflow-y-auto">
+                                @foreach($tagList as $tag)
+                                    <div>
+                                        <x-input.checkbox
+                                                value="{{ $tag }}"
+                                                wire:model="tagFilter"
+                                                wire:click="filterPosts"
+                                            />
+                                        <label for="yes">{{ $tag }}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    <div x-data="{ dropdown: false }">
+                        <div @click="dropdown = ! dropdown" class="flex justify-between items-center">
+                            <h5>{{ __('Art Permission') }}</h5>
+                            <span>
+                                <span :class="{'hidden': dropdown, 'inline-flex': ! dropdown }" class="inline-flex items-center px-2 tracking-widest"><i class="fa-solid fa-sm fa-chevron-down ml-1"></i></span>
+                                <span :class="{'hidden': ! dropdown, 'inline-flex': dropdown }" class="inline-flex items-center px-2 tracking-widest"><i class="fa-solid fa-sm fa-chevron-up ml-1"></i></span>
+                            </span>
+                        </div>
+                        <div x-cloak x-show="dropdown" class="pl-1 mt-1 space-y-1">
+                            <div>
+                                <x-input.checkbox
+                                    value="yes"
+                                    wire:model="artFilter"
+                                    wire:click="filterPosts"
+                                />
+                                <label for="yes">Yes</label>
+                            </div>
+                            <div>
+                                <x-input.checkbox
+                                    value="ask"
+                                    wire:model="artFilter"
+                                    wire:click="filterPosts"
+                                />
+                                <label for="ask">Ask First</label>
+                            </div>
+                            <div>
+                                <x-input.checkbox
+                                    value="no"
+                                    wire:model="artFilter"
+                                    wire:click="filterPosts"
+                                />
+                                <label for="no">No</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div x-data="{ dropdown: false }">
+                        <div @click="dropdown = ! dropdown" class="flex justify-between items-center">
+                            <h5>{{ __('Writing Permission') }}</h5>
+                            <span>
+                                <span :class="{'hidden': dropdown, 'inline-flex': ! dropdown }" class="inline-flex items-center px-2 tracking-widest"><i class="fa-solid fa-sm fa-chevron-down ml-1"></i></span>
+                                <span :class="{'hidden': ! dropdown, 'inline-flex': dropdown }" class="inline-flex items-center px-2 tracking-widest"><i class="fa-solid fa-sm fa-chevron-up ml-1"></i></span>
+                            </span>
+                        </div>
+                        <div x-cloak x-show="dropdown" class="pl-1 mt-1 space-y-1">
+                            <div>
+                                <x-input.checkbox
+                                    value="yes"
+                                    wire:model="writingFilter"
+                                    wire:click="filterPosts"
+                                />
+                                <label for="yes">Yes</label>
+                            </div>
+                            <div>
+                                <x-input.checkbox
+                                    value="ask"
+                                    wire:model="writingFilter"
+                                    wire:click="filterPosts"
+                                />
+                                <label for="ask">Ask First</label>
+                            </div>
+                            <div>
+                                <x-input.checkbox
+                                    value="no"
+                                    wire:model="writingFilter"
+                                    wire:click="filterPosts"
+                                />
+                                <label for="no">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
