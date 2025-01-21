@@ -117,7 +117,7 @@ class PostEdit extends Component
             $this->linkedCount ++;
         }
 
-        $this->linkedList += [$this->linkedCount => ['name' => '', 'thumbnail' => '']];
+        $this->linkedList += [$this->linkedCount => ['name' => '', 'thumbnail' => '', 'role' => '', 'link' => '']];
     }
 
     public function removeLinkedField($key)
@@ -173,7 +173,7 @@ class PostEdit extends Component
         $item;
 
         if(array_key_exists($key, $this->linkedList)) {
-            $this->linkedList[$key]['thumbnail'] = $newLink;
+            $this->linkedList[$key]['link'] = $newLink;
         } else {
             //dont do anything this shouldnt ever happen
         }
@@ -223,6 +223,14 @@ class PostEdit extends Component
         } else {
             //dont do anything this shouldnt ever happen
         }
+    }
+
+    public function deletePost()
+    {
+        $toDelete = FanCreations::findOrFail($this->post->id);
+        $toDelete->delete();
+
+        return to_route('fancreations');
     }
 
     public function updatePost()

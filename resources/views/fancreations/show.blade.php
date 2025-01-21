@@ -71,7 +71,7 @@
             <div class="mt-1 flex flex-wrap md:justify-start justify-center w-full">
                 @foreach($linkedCharacters as $character)
                     @if($character['link'])
-                        <a href="{{ $character['thumbnail'] }}" class="group hover:bg-teal-500 rounded-md">
+                        <a href="{{ $character['link'] }}" class="group hover:bg-teal-500 rounded-md">
                             <img class="rounded-md size-40 group-hover:opacity-75" src='{{ $character['thumbnail'] }}'>
                             <div class="text-center mt-1">
                                 <div class="font-bold text-lg">{{ $character['name'] }}</div>

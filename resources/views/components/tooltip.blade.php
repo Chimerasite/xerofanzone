@@ -1,5 +1,6 @@
 <span
     x-data="{ tooltip: false }"
+    x-cloak
     x-on:mouseover="tooltip = true"
     x-on:mouseleave="tooltip = false"
     class="relative inline cursor-pointer">

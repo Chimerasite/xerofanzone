@@ -1,6 +1,6 @@
 <div class="xl:w-1/2 md:w-3/4 m-auto" x-data="{ element: 'main' }">
     @if( $config == 1 )
-        <div class="flex md:flex-row flex-col justify-around bg-stone-600 rounded-md w-full  md:h-8 md:space-y-0 space-y-1">
+        <div class="flex md:flex-row flex-col justify-around bg-stone-600 rounded-md w-full md:h-8 md:space-y-0 space-y-1">
             <button :class=" element == 'main' ? 'bg-teal-500' : ''" class="w-full rounded-md" x-on:click="element = 'main'">Main</button>
             <button :class=" element == 'info' ? 'bg-teal-500' : ''" class="w-full rounded-md" x-on:click="element = 'info'">Info</button>
             <button :class=" element == 'extra' ? 'bg-teal-500' : ''" class="w-full rounded-md" x-on:click="element = 'extra'">Extra</button>
@@ -219,11 +219,11 @@
                                     <label class="col-span-1 self-center">Role: </label>
                                     <x-input.text
                                         onkeyup="saveLinkedRole({{ $key }})"
-                                        type="url"
+                                        type="text"
                                         id="linkedRole{{ $key }}"
                                         value="{{ $linked['role'] }}"
                                         class="w-full text-stone-950 mt-1 col-span-7"
-                                        placeholder="Role"
+                                        placeholder="Role of Character in Location (optional)"
                                     />
                                     <label class="col-span-1 self-center">Thumbnail: </label>
                                     <x-input.text
@@ -232,7 +232,7 @@
                                         id="linkedThumbnail{{ $key }}"
                                         value="{{ $linked['thumbnail'] }}"
                                         class="w-full text-stone-950 mt-1 col-span-7"
-                                        placeholder="Thumbnail Url"
+                                        placeholder="Link to Thumbnail Image"
                                     />
                                     <label class="col-span-1 self-center">Link: </label>
                                     <x-input.text
@@ -241,7 +241,7 @@
                                         id="linkedLink{{ $key }}"
                                         value="{{ $linked['link'] }}"
                                         class="w-full text-stone-950 mt-1 col-span-7"
-                                        placeholder="Link"
+                                        placeholder="Link to Character (optional)"
                                     />
                                 </div>
                                 @if(!$loop->last)
@@ -299,31 +299,58 @@
                 </div>
             </div>
 
-            <div class="mt-6 flex justify-end items-center">
-                @if (session()->has('postMessage'))
-                    <div x-data="{show: true}" x-init="setTimeout(() => show = false, 5000)" x-show="show">
-                        <div class="alert alert-success text-green-500 font-bold bg-stone-100 py-1 px-4 rounded-md" onload="timeout()" id="success">
-                            {{ session('postMessage') }}
+            <div class="mt-6 flex justify-between sm:items-center">
+                <div>
+                    <span
+                          x-on:click.prevent="$dispatch('open-modal', 'confirm-post-deletion')"
+                          class="inline-flex items-center px-4 py-2 mr-3 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-stone-50 uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                        {{ __('Delete') }}
+                    </span>
+                </div>
+
+                <x-modal name="confirm-post-deletion" focusable>
+                    <div class="text-center p-4">
+                        <h3 class="text-stone-950 mb-2">Do you really want to delete this post?</h3>
+                        <span class="text-stone-600">
+                            {{ __('Once this post is deleted, all of its resources and data will be permanently deleted.') }}
+                        </span>
+                        <div class="mt-6 flex justify-end space-x-2">
+                            <span x-on:click="$dispatch('close')" class="inline-flex items-center px-4 py-2 bg-stone-600 rounded-md font-semibold text-xs text-stone-50 uppercase tracking-widest shadow-sm hover:bg-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-500 disabled:opacity-25 transition ease-in-out duration-150">
+                                {{ __('Cancel') }}
+                            </span>
+                            <span wire:click="deletePost" class="inline-flex items-center px-4 py-2 mr-3 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-stone-50 uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                {{ __('Delete Post') }}
+                            </span>
                         </div>
                     </div>
-                @endif
-                @if (session()->has('errorMessage'))
-                    <div x-data="{show: true}" x-init="setTimeout(() => show = false, 5000)" x-show="show">
-                        <div class="alert alert-error text-red-600 font-bold bg-stone-100 py-1 px-4 rounded-md" onload="timeout()" id="error">
-                            {{ session('errorMessage') }}
+                </x-modal>
+
+                <div class="flex flex-wrap justify-end sm:gap-0 gap-2">
+                    @if (session()->has('postMessage'))
+                        <div x-data="{show: true}" x-init="setTimeout(() => show = false, 5000)" x-show="show">
+                            <div class="alert alert-success text-green-500 font-bold bg-stone-100 py-1 px-4 rounded-md" onload="timeout()" id="success">
+                                {{ session('postMessage') }}
+                            </div>
                         </div>
-                    </div>
-                @endif
+                    @endif
+                    @if (session()->has('errorMessage'))
+                        <div x-data="{show: true}" x-init="setTimeout(() => show = false, 5000)" x-show="show">
+                            <div class="alert alert-error text-red-600 font-bold bg-stone-100 py-1 px-4 rounded-md" onload="timeout()" id="error">
+                                {{ session('errorMessage') }}
+                            </div>
+                        </div>
+                    @endif
 
-                <a href="{{ route('fancreations-show', $post->slug) }}">
-                    <x-button.secondary class="ml-3">
-                        {{ __('Back') }}
-                    </x-button.secondary>
-                </a>
+                    <a href="{{ route('fancreations-show', $post->slug) }}">
+                        <x-button.secondary class="ml-3">
+                            {{ __('Back') }}
+                        </x-button.secondary>
+                    </a>
 
-                <x-button.primary class="ml-3">
-                    {{ __('Update') }}
-                </x-button.primary>
+                    <x-button.primary class="ml-3">
+                        {{ __('Update') }}
+                    </x-button.primary>
+                </div>
             </div>
         </form>
     @elseif ( $config == 0 )

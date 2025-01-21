@@ -217,18 +217,18 @@
                                 <label class="col-span-1 self-center">Role: </label>
                                 <x-input.text
                                     onkeyup="saveLinkedRole({{ $key }})"
-                                    type="url"
+                                    type="text"
                                     id="linkedRole{{ $key }}"
                                     class="w-full text-stone-950 mt-1 col-span-7"
-                                    placeholder="Role"
+                                    placeholder="Role of Character in Location (optional)"
                                 />
-                                <label class="col-span-1 self-center">Thumbnail: </label>
+                                <label class="col-span-1 self-center">Thumbnail: *</label>
                                 <x-input.text
                                     onkeyup="saveLinkedThumbnail({{ $key }})"
                                     type="url"
                                     id="linkedThumbnail{{ $key }}"
                                     class="w-full text-stone-950 mt-1 col-span-7"
-                                    placeholder="Thumbnail Url"
+                                    placeholder="Link to Thumbnail Image"
                                 />
                                 <label class="col-span-1 self-center">Link: </label>
                                 <x-input.text
@@ -236,7 +236,7 @@
                                     type="url"
                                     id="linkedLink{{ $key }}"
                                     class="w-full text-stone-950 mt-1 col-span-7"
-                                    placeholder="Link"
+                                    placeholder="Link to Character (optional)"
                                 />
                             </div>
                             @if(!$loop->last)

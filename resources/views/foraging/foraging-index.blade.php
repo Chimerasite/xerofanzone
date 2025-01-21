@@ -1,4 +1,4 @@
-<div class="grow flex lg:flex-row flex-col text-stone-50 lg:space-x-6" x-data="{ open: false }">
+<div class="grow flex lg:flex-row flex-col text-stone-50 lg:space-x-6" x-data="{ open: false }" x-cloak>
     <div class="w-80 lg:flex hidden">
         <div class="bg-stone-600 w-full p-6 rounded-md">
             <h4 class="text-teal-500 uppercase text-center mb-4">{{ __('Foraging Stats') }}</h4>
