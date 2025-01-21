@@ -81,7 +81,7 @@
                             type="text"
                             class="w-full"
                         />
-                        <div class="pl-1 mt-1 space-y-1 h-44 overflow-y-auto">
+                        <div class="pl-1 mt-1 space-y-1 max-h-44 overflow-y-auto">
                             @foreach($tagList as $tag)
                                 <div>
                                     <x-input.checkbox
@@ -260,7 +260,7 @@
                                 type="text"
                                 class="w-full"
                             />
-                            <div class="pl-1 mt-1 space-y-1 h-44 overflow-y-auto">
+                            <div class="pl-1 mt-1 space-y-1 max-h-44 overflow-y-auto">
                                 @foreach($tagList as $tag)
                                     <div>
                                         <x-input.checkbox

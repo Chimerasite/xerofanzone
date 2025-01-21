@@ -47,9 +47,11 @@ class PostIndex extends Component
 
         foreach($this->allPosts as $post){
             if($post->tags != '[]'){
-                $post->tags = str_replace(['[', ']', '"'], '', $post->tags);
-                $post->tags = explode(", ", $post->tags);
-                $this->allTags = array_merge($this->allTags, $post->tags);
+                $item = str_replace(['[', ']', '"'], '', $post->tags);
+                $item = preg_replace('/\\\\u([\da-fA-F]{4})/', '&#x\1;', $item);
+                $item = html_entity_decode($item);
+                $item = explode(",", $item);
+                $this->allTags = array_merge($this->allTags, $item);
             }
         }
         sort($this->allTags);
