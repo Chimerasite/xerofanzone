@@ -12,19 +12,19 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="space-y-2">
                 <p>
-                    Welcome to the Xero Fan Zone, a fan-created platform hosted by Chimerasite.com. By accessing or using the Xero Fan Zone, you agree to comply with these Terms of Service. Please read them carefully.
+                    Welcome to the Xero Fanzone, a fan-created platform hosted by Chimerasite.com. By accessing or using the Xero Fanzone, you agree to comply with these Terms of Service. Please read them carefully.
                 </p>
             </div>
             <div class="space-y-2">
                 <h3>Introduction</h3>
                 <p>
-                    The Xero Fan Zone is a community-driven platform that allows users to share and interact with fan-created content. While hosted on Chimerasite.com, the Xero Fan Zone is independently developed and not officially affiliated with Project Xero and its creators.
+                    The Xero Fanzone is a community-driven platform that allows users to share and interact with fan-created content. While hosted on Chimerasite.com, the Xero Fanzone is independently developed and not officially affiliated with Project Xero and its creators.
                 </p>
             </div>
             <div class="space-y-2">
                 <h3>Eligibility</h3>
                 <p>
-                    By using the Xero Fan Zone, you confirm that:
+                    By using the Xero Fanzone, you confirm that:
                     <ul class="list-disc list-inside">
                         <li>You are at least 13 years old.</li>
                         <li>You have the legal capacity to agree to these Terms of Service.</li>
@@ -47,7 +47,7 @@
                 <h3>Content Ownership and Licensing</h3>
                 <p>
                     <ul class="list-disc list-inside">
-                        <li>Content you create and upload remains your property. By posting on the Xero Fan Zone, you grant us permission to display your content within the platform.</li>
+                        <li>Content you create and upload remains your property. By posting on the Xero Fanzone, you grant us permission to display your content within the platform.</li>
                         <li>You must have the rights to any content you upload. Do not post copyrighted, offensive, not safe for work or infringing material.</li>
                     </ul>
                 </p>
@@ -78,7 +78,7 @@
                 <h3>Disclaimers</h3>
                 <p>
                     <ul class="list-disc list-inside pb-1">
-                        <li>The Xero Fan Zone is a fan project and is not affiliated with the official Project Xero or its creators.</li>
+                        <li>The Xero Fanzone is a fan project and is not affiliated with the official Project Xero or its creators.</li>
                         <li>All content is provided “as is.” We make no guarantees about the accuracy, reliability, or availability of the platform.</li>
                         <li>We are not responsible for user-generated content or third-party links.</li>
                     </ul>
@@ -87,7 +87,7 @@
             <div class="space-y-2">
                 <h3>Limitation of Liability</h3>
                 <p>
-                    Chimerasite.com and the Xero Fan Zone are not liable for:
+                    Chimerasite.com and the Xero Fanzone are not liable for:
                     <ul class="list-disc list-inside pb-1">
                         <li>Any direct, indirect, incidental, or consequential damages arising from your use of the platform.</li>
                         <li>Any issues caused by unauthorized access to your account or data.</li>
@@ -119,7 +119,7 @@
             <div class="space-y-2">
                 <h3>Final Note</h3>
                 <p>
-                    By using the Xero Fan Zone, you agree to these Terms of Service. Thank you for being part of our community!
+                    By using the Xero Fanzone, you agree to these Terms of Service. Thank you for being part of our community!
                 </p>
             </div>
         </div>

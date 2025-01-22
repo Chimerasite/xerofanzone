@@ -70,7 +70,7 @@
     <div class="lg:hidden flex bg-stone-950">
         <!-- Hamburger -->
         <div class="flex items-center h-12 justify-between w-screen text-stone-50 px-4 z-50">
-            <div><a href="{{ route('home') }}">Xero Fan zone</a></div>
+            <div><a href="{{ route('home') }}">Xero Fanzone</a></div>
             <button @click="open = ! open" onclick="lockscroll()">
                 <span :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex items-center px-4 py-2 border border-stone-50 rounded-md font-semibold text-xs text-stone-50 uppercase tracking-widest"><i class="fa-solid fa-bars"></i></span>
                 <span :class="{'hidden': ! open, 'inline-flex': open }" class="inline-flex items-center px-4 py-2 bg-teal-500 rounded-md font-semibold text-xs text-stone-50 uppercase tracking-widest"><i class="fa-solid fa-xmark"></i></span>

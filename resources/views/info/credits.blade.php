@@ -8,7 +8,7 @@
             {{ __('Credits') }}
         </h2>
         <p>
-            Project Xero is an ARPG species concept belonging to NeonSlushie & ScrapTeeth, The Xero Fan Zone is a fan project and not officially affiliated with Project Xero.
+            Project Xero is an ARPG species concept belonging to NeonSlushie & ScrapTeeth, The Xero Fanzone is a fan project and not officially affiliated with Project Xero.
         </p>
     </div>
     <div class="py-12">
@@ -23,7 +23,7 @@
                             <a class="{{ $link }}" href="https://projectxero.org/info/about">Project Xero</a> by <a class="{{ $link }}" href="https://projectxero.org/user/NeonSlushie">NeonSlushie</a> & <a class="{{ $link }}" href="https://projectxero.org/user/ScrapTeeth">ScrapTeeth</a>
                         </p>
                         <p>
-                            <a class="{{ $link }}" href="https://xerofanzone.chimerasite.com/">Xero Fan Zone</a> by <a class="{{ $link }}" href="https://chimerasite.com/">Chimerasite</a>
+                            <a class="{{ $link }}" href="https://xerofanzone.chimerasite.com/">Xero Fanzone</a> by <a class="{{ $link }}" href="https://chimerasite.com/">Chimerasite</a>
                         </p>
                     </div>
                 </div>
