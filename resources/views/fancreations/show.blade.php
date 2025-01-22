@@ -38,7 +38,7 @@
                 @if ($post->thumbnail)
                     <img src="{{ $post->thumbnail }}" class="absolute block object-cover h-full w-full">
                 @else
-                    <img src="/assets/img/no_img.png" class="absolute block object-cover h-full w-full">
+                    <img src="/assets/img/no_img_long.png" class="absolute block object-cover h-full w-full">
                 @endif
             </div>
             <div class="mt-4 ml-4 space-y-1">
