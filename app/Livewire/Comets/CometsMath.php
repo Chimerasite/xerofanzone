@@ -48,10 +48,6 @@ class CometsMath extends Component
         $this->minimum = $calcMin;
         $this->maximum = $calcMax;
         $this->average = $calcAvg;
-
-        $this->small = '';
-        $this->medium = '';
-        $this->large = '';
     }
 
     public function render()

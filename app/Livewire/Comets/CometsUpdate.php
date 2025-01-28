@@ -24,7 +24,7 @@ class CometsUpdate extends Component
         if(! Auth::user()) {
             $code = Config::where('data', 'forage password')->get('value')->first()->value;
             if($this->passcode !== $code) {
-                session()->flash('message', 'Incorrect Passcode');
+                $this->dispatch('incorrect-password');
                 return;
             }
         }
@@ -37,7 +37,7 @@ class CometsUpdate extends Component
 
         $this->amount = '';
 
-        session()->flash('message', 'Comet Cluster added succesfully');
+        $this->dispatch('comets-added');
     }
 
     public function render()

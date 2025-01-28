@@ -195,7 +195,7 @@
         @foreach( $locations as $location)
             <tr class="w-full {{ $loop->even ? 'bg-stone-300' : 'bg-stone-50'}}">
                 <td class="border-b border-stone-900 text-center">{{ $location->name }}</td>
-                <td class="border-b border-x border-stone-900 text-center p-1"><span class="rounded-md px-4 py-1 text-stone-50" style="background-color: {{ $location->color }}">{{ $location->color }}</span></td>
+                <td class="border-b border-x border-stone-900 text-center p-1"><span class="rounded-md md:px-4 px-1 py-1 text-stone-50" style="background-color: {{ $location->color }}">{{ $location->color }}</span></td>
                 <td class="border-b border-x border-stone-900 text-center">{{ $location->type }}</td>
                 <td class="border-b border-x border-stone-900 text-center">{{ $location->start_date }}</td>
                 <td class="border-b border-x border-stone-900 text-center">{{ $location->end_date }}</td>

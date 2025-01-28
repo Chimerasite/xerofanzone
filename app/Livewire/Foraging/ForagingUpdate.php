@@ -26,7 +26,7 @@ class ForagingUpdate extends Component
         if(! Auth::user()) {
             $code = Config::where('data', 'forage password')->get('value')->first()->value;
             if($this->passcode !== $code) {
-                session()->flash('message', 'Incorrect Passcode');
+                $this->dispatch('incorrect-password');
                 return;
             }
         }
@@ -63,7 +63,7 @@ class ForagingUpdate extends Component
 
         $this->amount = '';
 
-        session()->flash('message', 'Forage added succesfully');
+        $this->dispatch('forage-added');
     }
 
     public function render()

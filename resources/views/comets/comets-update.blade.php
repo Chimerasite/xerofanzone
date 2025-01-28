@@ -38,13 +38,24 @@
             </div>
 
             <div class="mt-6 flex justify-end items-center">
-                @if (session()->has('message'))
-                    <div x-data="{show: true}" x-init="setTimeout(() => show = false, 1000)" x-show="show">
-                        <div class="alert alert-success" onload="timeout()" id="success">
-                            {{ session('message') }}
-                        </div>
+                <div x-data="{ shown: false, timeout: null }"
+                    x-init="@this.on('comets-added', () => { clearTimeout(timeout); shown = true; timeout = setTimeout(() => { shown = false }, 2000); })"
+                    x-show.transition.opacity.out.duration.1500ms="shown"
+                    style="display: none;">
+                    <div class="alert" id="success">
+                        {{ __('Comet Cluster added succesfully.') }}
                     </div>
-                @endif
+                </div>
+
+                <div x-data="{ shown: false, timeout: null }"
+                    x-init="@this.on('incorrect-password', () => { clearTimeout(timeout); shown = true; timeout = setTimeout(() => { shown = false }, 2000); })"
+                    x-show.transition.opacity.out.duration.1500ms="shown"
+                    style="display: none;">
+                    <div class="alert" id="error">
+                        {{ __('Incorrect Passcode.') }}
+                    </div>
+                </div>
+
                 <a href="{{ route('stats.comets') }}">
                     <x-button.secondary class="ml-3">
                         {{ __('Back') }}

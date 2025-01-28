@@ -138,7 +138,7 @@
             </form>
         </div>
     </div>
-    <table class="lg:w-2/3 w-full m-auto text-stone-900 mt-8">
+    <table class="lg:w-2/3 w-full m-auto text-stone-900 mt-8 table-fixed">
         <tr class="bg-teal-500 text-stone-50">
             <th class="border-b border-stone-900 pl-2 w-4/12">Name</th>
             <th class="border-b border-x border-stone-900 text-center w-4/12">Link</th>
@@ -146,9 +146,9 @@
         </tr>
         @foreach( $locations as $location)
             <tr class="w-full {{ $loop->even ? 'bg-stone-300' : 'bg-stone-50'}}">
-                <td class="border-b border-stone-900 text-center w-4/12">{{ $location->name }}</td>
-                <td class="border-b border-x border-stone-900 text-center w-4/12"><a href="{{ $location->link }}" class="hover:underline">{{ $location->link }}</a></td>
-                <td class="border-b border-x border-stone-900 text-center w-2/12">{{ $location->type }}</td>
+                <td class="border-b border-stone-900 text-center">{{ $location->name }}</td>
+                <td class="border-b border-x border-stone-900 text-center"><a href="{{ $location->link }}" class="hover:underline block break-words">{{ $location->link }}</a></td>
+                <td class="border-b border-x border-stone-900 text-center">{{ $location->type }}</td>
             </tr>
         @endforeach
     </table>

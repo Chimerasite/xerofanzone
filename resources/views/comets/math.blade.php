@@ -4,7 +4,8 @@
             <i class="fa-solid fa-chevron-left"></i>
         </x-button.inline>
     </a>
-    <div class="text-center w-2/3 m-auto mb-8">
+
+    <div class="text-center md:w-2/3 w-5/6 m-auto mb-8 lg:mt-0 mt-8">
         <h2>Wish Shard Calculator</h2>
         <p>
             This is a tool to calculate the minimum, maximum and average amount of Wish Shards you can recieve from the Comet Clusters you are opening.

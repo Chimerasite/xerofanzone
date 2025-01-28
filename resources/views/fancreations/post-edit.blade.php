@@ -325,7 +325,7 @@
                     </div>
                 </x-modal>
 
-                <div class="flex flex-wrap justify-end sm:gap-0 gap-2">
+                <div class="flex flex-wrap-reverse justify-end sm:gap-0 gap-2">
                     @if (session()->has('postMessage'))
                         <div x-data="{show: true}" x-init="setTimeout(() => show = false, 5000)" x-show="show">
                             <div class="alert alert-success text-green-500 font-bold bg-stone-100 py-1 px-4 rounded-md" onload="timeout()" id="success">

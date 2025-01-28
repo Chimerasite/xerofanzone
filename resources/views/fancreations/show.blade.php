@@ -68,11 +68,11 @@
     @if(array_slice($linkedCharacters, 0, 1)[0]['thumbnail'])
         <div class="mb-6">
             <h2>Linked Characters</h2>
-            <div class="mt-1 flex flex-wrap md:justify-start justify-center w-full">
+            <div class="mt-1 flex flex-wrap md:justify-start justify-center w-full md:gap-4 gap-2">
                 @foreach($linkedCharacters as $character)
                     @if($character['link'])
                         <a href="{{ $character['link'] }}" class="group hover:bg-teal-500 rounded-md">
-                            <img class="rounded-md size-40 group-hover:opacity-75" src='{{ $character['thumbnail'] }}'>
+                            <img class="rounded-md md:size-40 size-36 group-hover:opacity-75" src='{{ $character['thumbnail'] }}'>
                             <div class="text-center mt-1">
                                 <div class="font-bold text-lg">{{ $character['name'] }}</div>
                                 @if ($character['role'])

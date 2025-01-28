@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="text-center w-1/2 m-auto">
+    <div class="text-center md:w-1/2 w-11/12 m-auto">
         <h2>
             {{ __('Privacy Policy') }}
         </h2>
