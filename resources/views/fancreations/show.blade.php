@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="flex justify-between items-center space-x-3 mb-6">
-        <a href="{{ route('fancreations') }}">
+        <a href="{{ url()->previous() }}">
             <x-button.inline >
                 <i class="fa-solid fa-chevron-left"></i>
             </x-button.inline>
@@ -42,12 +42,14 @@
                 @endif
             </div>
             <div class="mt-4 ml-4 space-y-1">
-                <div>
-                    <i class="fa-solid fa-location-dot"></i> <span class="font-bold cursor-default">{{ __('Location') }}: </span>
-                    <a href="{{ $location->link ?? ''}}" class="{{ $location ? 'hover:text-teal-300 hover:underline' : 'cursor-default'}}">
-                        <i>{{ $location->name ?? $post->location }}</i>
-                    </a>
-                </div>
+                @if($post->location)
+                    <div>
+                        <i class="fa-solid fa-location-dot"></i> <span class="font-bold cursor-default">{{ __('Location') }}: </span>
+                        <a href="{{ $location->link ?? ''}}" class="{{ $location ? 'hover:text-teal-300 hover:underline' : 'cursor-default'}}">
+                            <i>{{ $location->name ?? $post->location }}</i>
+                        </a>
+                    </div>
+                @endif
                 @if($post->contact)
                     <p>
                         <a href="{{ $post->contact }}" class="hover:text-teal-300 font-bold">
@@ -94,15 +96,18 @@
                     @if($image['image'])
                         <div x-data=""
                             x-on:click.prevent="$dispatch('open-modal', 'Image{{ $loop->index }}')"
-                            class="group relative m-4 rounded-md size-64"
+                            class="group relative m-4 rounded-md size-64 flex justify-center bg-stone-600"
                         >
-                            <img class="absolute block object-cover h-full w-full rounded-md" src='{{ $image['image'] }}'>
+                            <img class="absolute block object-scale-down h-full rounded-md" src='{{ $image['image'] }}'>
                             <div class="absolute hidden group-hover:block top-0 left-0 right-0 bottom-0 bg-teal-500 bg-opacity-85 rounded-md">
                                 <div class="absolute w-full h-full p-4 flex justify-center items-center font-bold text-xl text-center"> {{ $image['text'] }} </div>
                             </div>
                         </div>
 
                         <x-modal name="Image{{ $loop->index }}" bgColor="bg-transparent" shadow="" focusable>
+                            <span class="w-full flex justify-end" x-on:click="$dispatch('close')">
+                                <i class="fa-solid fa-xmark"></i>
+                            </span>
                             <div class="flex justify-center">
                                 <img class="rounded-md" src='{{ $image['image'] }}'>
                             </div>

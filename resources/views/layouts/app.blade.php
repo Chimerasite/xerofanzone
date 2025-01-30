@@ -59,7 +59,7 @@
             <a class="hover:text-stone-50" href="{{ route('credits') }}">Credits</a>
         </div>
         <div class="text-stone-50 text-sm">
-            &copy; Chimerasite <?php echo date("Y"); ?> - V2.0.3 <i>Beta</i>
+            &copy; <a href="https://chimerasite.com/">Chimerasite</a> <?php echo date("Y"); ?> - V2.0.4 <i>Beta</i>
         </div>
     </footer>
 </html>
