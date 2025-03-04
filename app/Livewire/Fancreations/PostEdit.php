@@ -187,7 +187,7 @@ class PostEdit extends Component
             $this->imageCount ++;
         }
 
-        $this->imageList += [$this->imageCount => ['text' => '', 'image' => '']];
+        $this->imageList += [$this->imageCount => ['text' => '', 'image' => '', 'info' => '']];
     }
 
     public function removeImageField($key)
@@ -220,6 +220,18 @@ class PostEdit extends Component
 
         if(array_key_exists($key, $this->imageList)) {
             $this->imageList[$key]['image'] = $newLink;
+        } else {
+            //dont do anything this shouldnt ever happen
+        }
+    }
+
+    #[On('saveImageInfo')]
+    public function saveImageInfo($newInfo, $key)
+    {
+        $item;
+
+        if(array_key_exists($key, $this->imageList)) {
+            $this->imageList[$key]['info'] = $newInfo;
         } else {
             //dont do anything this shouldnt ever happen
         }

@@ -281,9 +281,17 @@
                                     onkeyup="saveImageLink({{ $key }})"
                                     type="url"
                                     id="imgLink{{ $key }}"
-                                    value="{{ $image['image'] }}"
+                                    value="{{ $image['image'] ?? ''}}"
                                     class="w-full text-stone-950 mt-1"
                                     placeholder="Url"
+                                />
+                                <x-input.text
+                                    onkeyup="saveImageInfo({{ $key }})"
+                                    type="text"
+                                    id="imgInfo{{ $key }}"
+                                    value="{{ $image['info'] ?? ''}}"
+                                    class="w-full text-stone-950 mt-1"
+                                    placeholder="Info or Credits"
                                 />
                                 @if(!$loop->last)
                                     <hr class="my-4">
@@ -374,6 +382,14 @@
         let link = document.getElementById('imgLink' + key).value;
         Livewire.dispatch('saveImageLink', {
                             newLink: link,
+                            key: key
+                        });
+    }
+
+    function saveImageInfo(key) {
+        let info = document.getElementById('imgInfo' + key).value;
+        Livewire.dispatch('saveImageInfo', {
+                            newInfo: info,
                             key: key
                         });
     }

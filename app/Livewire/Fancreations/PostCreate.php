@@ -26,6 +26,7 @@ class PostCreate extends Component
     public $imageList = [];
     public $imgText;
     public $imgLink = [];
+    public $imgInfo;
     public $config = 1;
 
     public function mount()
@@ -37,7 +38,7 @@ class PostCreate extends Component
 
         $this->linkedList += [$this->linkedCount => ['name' => '', 'thumbnail' => '', 'link' => '', 'role' => '']];
 
-        $this->imageList += [$this->imageCount => ['text' => '', 'image' => '']];
+        $this->imageList += [$this->imageCount => ['text' => '', 'image' => '', 'info' => '']];
 
         $var = FanCreations::where('public', true)->get('tags');
 
@@ -187,6 +188,18 @@ class PostCreate extends Component
 
         if(array_key_exists($key, $this->imageList)) {
             $this->imageList[$key]['image'] = $newLink;
+        } else {
+            //dont do anything this shouldnt ever happen
+        }
+    }
+
+    #[On('saveImageInfo')]
+    public function saveImageInfo($newInfo, $key)
+    {
+        $item;
+
+        if(array_key_exists($key, $this->imageList)) {
+            $this->imageList[$key]['info'] = $newInfo;
         } else {
             //dont do anything this shouldnt ever happen
         }

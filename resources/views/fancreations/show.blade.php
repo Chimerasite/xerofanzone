@@ -112,6 +112,7 @@
                                 <img class="rounded-md" src='{{ $image['image'] }}'>
                             </div>
                             <div class="font-bold text-xl w-full text-center pt-1"> {{ $image['text'] }} </div>
+                            <div class="full text-center pt-1"><i> {{ $image['info'] ?? ''}} </i></div>
                         </x-modal>
                     @endif
                 @endforeach
