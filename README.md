@@ -11,3 +11,7 @@ Join the adventure, create an account to upload your posts and creations!
 - Reverse calculator for comet clusters (aka I need 300 how many clusters is that).
 - Drop rates on other things like: lost items, astatine containers, mysterious orbs
 - Xero lists (pokexeros, neopet xeros, etc.)
+
+## Suggestions
+
+Got any fun suggestions for new features? let me know! you can send a message with your idea to xfz@chimerasite.com
