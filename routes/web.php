@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ForagingController;
 use App\Http\Controllers\CometController;
+use App\Http\Controllers\LostItemController;
 use App\Http\Controllers\FanCreationController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
@@ -28,9 +29,14 @@ Route::get('/statistics/foraging/upload', [ForagingController::class, 'update'])
 Route::get('/statistics/foraging/edit', [ForagingController::class, 'edit'])->middleware(['auth', 'ad_mod', 'verified'])->name('stats.foraging-edit');
 
 // Comets
-Route::get('/statistics/cometclusters', [CometController::class, 'index'])->name('stats.comets');
-Route::get('/statistics/cometclusters/upload', [CometController::class, 'update'])->name('stats.comets-update');
-Route::get('/statistics/cometclusters/calculator', [CometController::class, 'math'])->name('stats.comets-math');
+Route::get('/statistics/comet-clusters', [CometController::class, 'index'])->name('stats.comets');
+Route::get('/statistics/comet-clusters/upload', [CometController::class, 'update'])->name('stats.comets-update');
+Route::get('/statistics/comet-clusters/calculator', [CometController::class, 'math'])->name('stats.comets-math');
+
+//Lost Items
+Route::get('/statistics/lost-items', [LostItemController::class, 'index'])->name('stats.lostItems');
+Route::get('/statistics/lost-items/upload', [LostItemController::class, 'update'])->name('stats.lostItems-update');
+Route::get('/statistics/lost-items/edit', [LostItemController::class, 'edit'])->middleware(['auth', 'ad_mod', 'verified'])->name('stats.lostItems-edit');
 
 // Creations
 Route::get('/fan-creations', [FanCreationController::class, 'index'])->name('fancreations');
