@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ForagingController;
 use App\Http\Controllers\CometController;
 use App\Http\Controllers\LostItemController;
+use App\Http\Controllers\ContainerController;
 use App\Http\Controllers\FanCreationController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
@@ -23,20 +24,25 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/settings', [ProfileController::class, 'destroy'])->name('settings.destroy');
 });
 
-// Foraging
+// Stats - Foraging
 Route::get('/statistics/foraging', [ForagingController::class, 'index'])->name('stats.foraging');
 Route::get('/statistics/foraging/upload', [ForagingController::class, 'update'])->name('stats.foraging-update');
 Route::get('/statistics/foraging/edit', [ForagingController::class, 'edit'])->middleware(['auth', 'ad_mod', 'verified'])->name('stats.foraging-edit');
 
-// Comets
+// Stats - Comets
 Route::get('/statistics/comet-clusters', [CometController::class, 'index'])->name('stats.comets');
 Route::get('/statistics/comet-clusters/upload', [CometController::class, 'update'])->name('stats.comets-update');
 Route::get('/statistics/comet-clusters/calculator', [CometController::class, 'math'])->name('stats.comets-math');
 
-//Lost Items
+// Stats - Lost Items
 Route::get('/statistics/lost-items', [LostItemController::class, 'index'])->name('stats.lostItems');
 Route::get('/statistics/lost-items/upload', [LostItemController::class, 'update'])->name('stats.lostItems-update');
 Route::get('/statistics/lost-items/edit', [LostItemController::class, 'edit'])->middleware(['auth', 'ad_mod', 'verified'])->name('stats.lostItems-edit');
+
+// Stats - Containers
+Route::get('/statistics/containers', [ContainerController::class, 'index'])->name('stats.containers');
+Route::get('/statistics/containers/upload', [ContainerController::class, 'update'])->name('stats.containers-update');
+Route::get('/statistics/containers/edit', [ContainerController::class, 'edit'])->middleware(['auth', 'ad_mod', 'verified'])->name('stats.containers-edit');
 
 // Creations
 Route::get('/fan-creations', [FanCreationController::class, 'index'])->name('fancreations');
@@ -63,3 +69,5 @@ Route::middleware(['auth', 'ad_mod', 'verified'])->group(function () {
 
 
 require __DIR__.'/auth.php';
+
+// Container stats note to do, split in categories each category has its own math and devider. has to be filterable by a word or something to make it work.

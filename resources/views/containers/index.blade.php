@@ -1,4 +1,4 @@
 <x-app-layout>
     <x-slot:subnav></x-slot>
-    @livewire('Lostitems.lostitems-index', [])
+    @livewire('Containers.containers-index', [])
 </x-app-layout>

@@ -33,7 +33,7 @@
 
                 @if(! Auth::user())
                     <x-input.label class="mt-2" for="passcode">
-                        {{ __('Passcode') }} <x-input.tip value="None logged in users can only upload forages using the passcode. This can be found on the Project Xero Discord." />
+                        {{ __('Passcode') }}* <x-input.tip value="None logged in users can only upload forages using the passcode. This can be found on the Project Xero Discord." />
                     </x-input.label>
 
                     <x-input.text

@@ -19,6 +19,9 @@
             @if( $role->where('is_admin', 2)->first()->edit_items == 1 || Auth::user()->is_admin == 1 )
                 <button :class=" element == 'items' ? 'bg-teal-500' : ''" class="w-full rounded-md" x-on:click="element = 'items'">Items</button>
             @endif
+            @if( $role->where('is_admin', 2)->first()->edit_containers == 1 || Auth::user()->is_admin == 1 )
+                <button :class=" element == 'containers' ? 'bg-teal-500' : ''" class="w-full rounded-md" x-on:click="element = 'containers'">Containers</button>
+            @endif
         </div>
         @if( $role->where('is_admin', 2)->first()->edit_settings == 1 || Auth::user()->is_admin == 1 )
             <div class="mt-4" x-show="element == 'settings'" x-cloak>
@@ -45,6 +48,13 @@
             <div class="mt-4" x-show="element == 'items'" x-cloak">
                 <div class="flex flex-wrap justify-start w-full">
                     @livewire('admin.items')
+                </div>
+            </div>
+        @endif
+        @if( $role->where('is_admin', 2)->first()->edit_containers == 1 || Auth::user()->is_admin == 1 )
+            <div class="mt-4" x-show="element == 'containers'" x-cloak">
+                <div class="flex flex-wrap justify-start w-full">
+                    @livewire('admin.containers')
                 </div>
             </div>
         @endif

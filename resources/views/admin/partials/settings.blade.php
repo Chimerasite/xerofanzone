@@ -40,6 +40,40 @@
                         </label>
                     </div>
                     <div class="flex space-x-4">
+                        <x-input.label for="uploadLostItems">
+                            {{ __('Upload Lost Item') }}
+                        </x-input.label>
+
+                        <label class="inline-flex items-center me-5 cursor-pointer">
+                            <input
+                                wire:model="uploadLostItems"
+                                type="checkbox"
+                                name="uploadLostItems"
+                                id="uploadLostItems"
+                                class="sr-only peer"
+                                {{ $uploadLostItems == 1 ? 'checked' : ''}}
+                            >
+                            <div class="relative w-11 h-6 bg-stone-400 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-stone-50 after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-stone-50 after:border-stone-400 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-teal-500"></div>
+                        </label>
+                    </div>
+                    <div class="flex space-x-4">
+                        <x-input.label for="uploadContainers">
+                            {{ __('Upload Containers') }}
+                        </x-input.label>
+
+                        <label class="inline-flex items-center me-5 cursor-pointer">
+                            <input
+                                wire:model="uploadContainers"
+                                type="checkbox"
+                                name="uploadContainers"
+                                id="uploadContainers"
+                                class="sr-only peer"
+                                {{ $uploadContainers == 1 ? 'checked' : ''}}
+                            >
+                            <div class="relative w-11 h-6 bg-stone-400 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-stone-50 after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-stone-50 after:border-stone-400 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-teal-500"></div>
+                        </label>
+                    </div>
+                    <div class="flex space-x-4">
                         <x-input.label for="createPosts">
                             {{ __('Create Posts') }}
                         </x-input.label>
@@ -198,6 +232,23 @@
                                 id="modsEditItems"
                                 class="sr-only peer"
                                 {{ $modsEditItems == 1 ? 'checked' : ''}}
+                            >
+                            <div class="relative w-11 h-6 bg-stone-400 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-stone-50 after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-stone-50 after:border-stone-400 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-teal-500"></div>
+                        </label>
+                    </div>
+                    <div class="flex space-x-4">
+                        <x-input.label for="modsEditContainers">
+                            {{ __('Moderators can edit container data') }}
+                        </x-input.label>
+
+                        <label class="inline-flex items-center me-5 cursor-pointer">
+                            <input
+                                wire:model="modsEditContainers"
+                                type="checkbox"
+                                name="modsEditContainers"
+                                id="modsEditContainers"
+                                class="sr-only peer"
+                                {{ $modsEditContainers == 1 ? 'checked' : ''}}
                             >
                             <div class="relative w-11 h-6 bg-stone-400 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-stone-50 after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-stone-50 after:border-stone-400 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-teal-500"></div>
                         </label>

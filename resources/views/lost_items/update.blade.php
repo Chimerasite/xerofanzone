@@ -4,5 +4,5 @@
             <i class="fa-solid fa-chevron-left"></i>
         </x-button.inline>
     </a>
-    @livewire('Lostitems.lost-items-update')
+    @livewire('Lostitems.lostitems-update')
 </x-app-layout>

@@ -85,7 +85,7 @@
                 @php
                     $count = 0;
 
-                    foreach($lostItemStats->where('lost_item_id', $lostItemType->id) as $key){
+                    foreach($lostItemStats->where('lost_item_id', $lostItemType->id)->where('item_id', '!=', '65') as $key){
                         $count = $count + $key->amount;
                     }
                 @endphp
@@ -100,11 +100,20 @@
                     </div>
                     <table class="w-full">
                         @foreach ($lostItemStats->where('lost_item_id', $lostItemType->id) as $recievedItem)
+                            @if($recievedItem->item->name == 'Litter')
+                                <tr class="h-2">
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            @endif
                             <tr class="w-full {{ $loop->even ? 'bg-stone-50 bg-opacity-75' : 'bg-stone-50'}}">
                                 <td class="border-b border-stone-900 pl-2 w-6/12">{{ $recievedItem->item->name }}</td>
                                 <td class="border-b border-x border-stone-900 text-center w-2/12">{{ $recievedItem->amount }}</td>
                                 <td class="border-b border-stone-900 text-center w-2/12">
-                                    @if(!$count == 0)
+                                    @if($recievedItem->item->name == 'Litter')
+                                        100%
+                                    @elseif(!$count == 0)
                                         {{ round($recievedItem->amount/$count * 100) }}%
                                     @endif
                                 </td>
@@ -135,16 +144,6 @@
                                 </div>
                             </x-modal>
                         @endforeach
-                        <tr class="h-2">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr class="bg-white">
-                            <td class="border-t border-gray-900 pl-2">Total Opened</td>
-                            <td class="border-t border-x border-gray-900 text-center"> {{ $count }} </td>
-                            <td class="border-t border-gray-900"></td>
-                        </tr>
                     </table>
                 </div>
 
@@ -165,16 +164,11 @@
                         <div class="mt-6">
                             <x-input.label for="name" value="{{ __('Name') }}"/>
 
-                            <div class="flex">
-                                <select wire:model.defer="id" id="name" name="name" class="block w-full rounded border-0 shadow-sm ring-1 ring-inset ring-slate-400 focus:ring-2 focus:ring-inset focus:ring-midnight-500">
-                                    @foreach ($items->whereNotIn('id', $exist) as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endforeach
-                                </select>
-                                <button data="" x-on:click.prevent="$dispatch('open-modal', 'createItem')" class="ml-2 w-12 block rounded border-0 shadow-sm ring-1 ring-inset ring-slate-400 focus:ring-2 focus:ring-inset focus:ring-midnight-500">
-                                    <i class="fa-solid fa-plus"></i>
-                                </button>
-                            </div>
+                            <select wire:model.defer="id" id="name" name="name" class="block w-full rounded border-0 shadow-sm ring-1 ring-inset ring-slate-400 focus:ring-2 focus:ring-inset focus:ring-midnight-500">
+                                @foreach ($items->whereNotIn('id', $exist) as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="mt-6 flex justify-end">

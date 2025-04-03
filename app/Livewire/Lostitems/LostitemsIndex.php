@@ -15,7 +15,7 @@ class LostitemsIndex extends Component
 
     public function mount()
     {
-        $this->config = Config::where('data', 'upload comets')->get('value')->first()->value;
+        $this->config = Config::where('data', 'upload lost_items')->get('value')->first()->value;
     }
 
     public function add($recievedItem) //plus 1 on item
@@ -72,9 +72,15 @@ class LostitemsIndex extends Component
 
     public function render()
     {
+        $litter = 65;
+
+        $lostItemStats = LostItemStats::all()->sortby('item.name')->sortBy(function ($item, $index) use ($litter) {
+            if ($item->item_id == $litter) return -1; // 3. bumps selected to top
+        });
+
         return view('lost_items.lostitems-index', [
             'lostItemTypes' => Items::where('name', 'like','%Lost %')->get()->sortbydesc('name'),
-            'lostItemStats' => LostItemStats::all(),
+            'lostItemStats' => $lostItemStats,
             'items'=> Items::all()->sortby('name'),
         ]);
     }

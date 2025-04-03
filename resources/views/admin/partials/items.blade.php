@@ -10,7 +10,7 @@
                     </x-input.label>
                     <select wire:model.defer="itemId" wire:change="addValues" id="itemId" name="itemId" class="block w-full rounded-md border-0 shadow-sm ring-1 ring-inset ring-stone-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 text-stone-950 cursor-pointer">
                         <option>Choose a item</option>
-                        @foreach($items as $item)
+                        @foreach($items->sortby('name') as $item)
                             <option class="text-stone-950" value="{{ $item->id }}">{{ $item->name }}</option>
                         @endforeach
                     </select>
@@ -138,7 +138,7 @@
             <th class="border-b border-x border-stone-900 text-center">Value</th>
             <th class="border-b border-x border-stone-900 text-center">Forageable</th>
         </tr>
-        @foreach( $items as $item)
+        @foreach( $items->sortby('name') as $item)
             <tr class="w-full {{ $loop->even ? 'bg-stone-300' : 'bg-stone-50'}}">
                 <td class="border-b border-stone-900 text-center w-3/6">{{ $item->name }}</td>
                 <td class="border-b border-x border-stone-900 text-center w-2/6">{{ $item->value }}</td>
