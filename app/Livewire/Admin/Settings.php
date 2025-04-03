@@ -9,8 +9,8 @@ use App\Models\Config;
 
 class Settings extends Component
 {
-    public $adminEditPosts, $modsEditSettings, $modsEditPosts, $modsEditLocations, $modsEditForaging, $modsEditItems, $modsMassEditForaging;
-    public $uploadForages, $uploadComets, $createPosts, $editPosts, $foragePassword;
+    public $adminEditPosts, $modsEditSettings, $modsEditPosts, $modsEditLocations, $modsEditForaging, $modsEditItems, $modsEditContainers, $modsMassEditForaging;
+    public $uploadForages, $uploadComets, $uploadLostItems, $uploadContainers, $createPosts, $editPosts, $foragePassword;
 
     public function mount()
     {
@@ -20,10 +20,13 @@ class Settings extends Component
         $this->modsEditLocations = Role::where('is_admin', 2)->get('edit_locations')->first()->edit_locations;
         $this->modsEditForaging = Role::where('is_admin', 2)->get('edit_foraging_locations')->first()->edit_foraging_locations;
         $this->modsEditItems = Role::where('is_admin', 2)->get('edit_items')->first()->edit_items;
+        $this->modsEditContainers = Role::where('is_admin', 2)->get('edit_containers')->first()->edit_containers;
         $this->modsMassEditForaging = Role::where('is_admin', 2)->get('mass_edit_foraging')->first()->mass_edit_foraging;
 
         $this->uploadForages = Config::where('data', 'upload forages')->get('value')->first()->value;
         $this->uploadComets = Config::where('data', 'upload comets')->get('value')->first()->value;
+        $this->uploadLostItems = Config::where('data', 'upload lost_items')->get('value')->first()->value;
+        $this->uploadContainers = Config::where('data', 'upload containers')->get('value')->first()->value;
         $this->createPosts = Config::where('data', 'create posts')->get('value')->first()->value;
         $this->editPosts = Config::where('data', 'edit posts')->get('value')->first()->value;
         $this->foragePassword = Config::where('data', 'forage password')->get('value')->first()->value;
@@ -37,6 +40,12 @@ class Settings extends Component
         ]);
         Config::where('data', 'upload comets')->update([
             'value' => $this->uploadComets,
+        ]);
+        Config::where('data', 'upload lost_items')->update([
+            'value' => $this->uploadLostItems,
+        ]);
+        Config::where('data', 'upload containers')->update([
+            'value' => $this->uploadContainers,
         ]);
         Config::where('data', 'create posts')->update([
             'value' => $this->createPosts,
@@ -64,6 +73,7 @@ class Settings extends Component
                 'edit_locations' => $this->modsEditLocations,
                 'edit_foraging_locations' => $this->modsEditForaging,
                 'edit_items' => $this->modsEditItems,
+                'edit_containers' => $this->modsEditContainers,
                 'mass_edit_foraging' => $this->modsMassEditForaging,
             ]);
 

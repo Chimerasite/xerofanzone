@@ -3,24 +3,24 @@
         <form wire:submit="addItems" class="px-6 pb-6">
             @csrf
             <div class="mt-6">
-                <x-input.label for="location" value="{{ __('Location') }}*" />
+                <x-input.label for="lostItemType" value="{{ __('Lost Item') }}*" />
 
-                <select wire:model.defer="location" id="location" name="location" class="block w-full rounded-md border-0 shadow-sm ring-1 ring-inset ring-stone-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 text-stone-950">
-                    @foreach ($locations as $location)
-                        <option class="text-stone-950" value="{{ $location->id }}">{{ $location->name }}</option>
+                <select wire:model.defer="lostItemType" id="lostItemType" name="lostItemType" class="block w-full rounded-md border-0 shadow-sm ring-1 ring-inset ring-stone-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 text-stone-950">
+                    @foreach ($lostItemTypes as $lostItemType)
+                        <option class="text-stone-950" value="{{ $lostItemType->id }}">{{ $lostItemType->name }}</option>
                     @endforeach
                 </select>
 
-                <x-input.label class="mt-2" for="forageable" value="{{ __('Item') }}*" />
+                <x-input.label class="mt-2" for="recievedItem" value="{{ __('Recieved Item') }}*" />
 
-                <select wire:model.defer="forageable" id="forageable" name="forageable" class="block w-full rounded-md border-0 shadow-sm ring-1 ring-inset ring-stone-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 text-stone-950">
-                    @foreach ($forageables as $forageable)
-                        <option class="text-stone-950" value="{{ $forageable->id }}">{{ $forageable->name }}</option>
+                <select wire:model.defer="recievedItem" id="recievedItem" name="recievedItem" class="block w-full rounded-md border-0 shadow-sm ring-1 ring-inset ring-stone-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 text-stone-950">
+                    @foreach ($items as $item)
+                        <option class="text-stone-950" value="{{ $item->id }}">{{ $item->name }}</option>
                     @endforeach
                 </select>
 
                 <x-input.label class="mt-2" for="amount">
-                    {{ __('Amount') }} <x-input.tip value="When foraging Astatine or Prestige, select the right amount in the Item tab. Do not put the amount here!" />
+                    {{ __('Amount') }} <x-input.tip value="When recieving Astatine or Prestige, select the right amount in the Item tab. Do not put the amount here!" />
                 </x-input.label>
 
                 <x-input.text
@@ -33,7 +33,7 @@
 
                 @if(! Auth::user())
                     <x-input.label class="mt-2" for="passcode">
-                        {{ __('Passcode') }}* <x-input.tip value="None logged in users can only upload forages using the passcode. This can be found on the Project Xero Discord." />
+                        {{ __('Passcode') }} <x-input.tip value="None logged in users can only upload data using the passcode. This passcode can be found on the Project Xero Discord." />
                     </x-input.label>
 
                     <x-input.text
@@ -48,11 +48,11 @@
 
             <div class="mt-6 flex justify-end items-center">
                 <div x-data="{ shown: false, timeout: null }"
-                    x-init="@this.on('forage-added', () => { clearTimeout(timeout); shown = true; timeout = setTimeout(() => { shown = false }, 2000); })"
+                    x-init="@this.on('lostItems-added', () => { clearTimeout(timeout); shown = true; timeout = setTimeout(() => { shown = false }, 2000); })"
                     x-show.transition.opacity.out.duration.1500ms="shown"
                     style="display: none;">
                     <div class="alert alert-success" id="success">
-                        {{ __('Forage added succesfully.') }}
+                        {{ __('Items added succesfully.') }}
                     </div>
                 </div>
 
@@ -78,7 +78,8 @@
         </form>
     @elseif ( $config == 0 )
         <div class="mt-6 text-center font-bold text-xl">
-            Forage uploads are currently closed
+            Lost item uploads are currently closed
         </div>
     @endif
 </div>
+

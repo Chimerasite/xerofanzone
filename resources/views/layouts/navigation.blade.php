@@ -22,6 +22,12 @@
                     <x-nav.dropdown-link :href="route('stats.comets')" :active="request()->routeIs('stats.*')">
                         {{ __('Comet clusters') }}
                     </x-nav.dropdown-link>
+                    <x-nav.dropdown-link :href="route('stats.lostItems')" :active="request()->routeIs('stats.*')">
+                        {{ __('Lost Items') }}
+                    </x-nav.dropdown-link>
+                    <x-nav.dropdown-link :href="route('stats.containers')" :active="request()->routeIs('stats.*')">
+                        {{ __('Containers') }}
+                    </x-nav.dropdown-link>
                 </x-slot>
             </x-nav.dropdown>
         </div>
@@ -98,6 +104,12 @@
                             </x-nav.dropdown-link>
                             <x-nav.dropdown-link :href="route('stats.comets')" :active="request()->routeIs('stats.*')">
                                 {{ __('Comet clusters') }}
+                            </x-nav.dropdown-link>
+                            <x-nav.dropdown-link :href="route('stats.lostItems')" :active="request()->routeIs('stats.*')">
+                                {{ __('Lost Items') }}
+                            </x-nav.dropdown-link>
+                            <x-nav.dropdown-link :href="route('stats.containers')" :active="request()->routeIs('stats.*')">
+                                {{ __('Containers') }}
                             </x-nav.dropdown-link>
                         </x-slot>
                     </x-nav.dropdown>

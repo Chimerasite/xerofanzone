@@ -8,8 +8,7 @@ Join the adventure, create an account to upload your posts and creations!
 
 ## To be added
 
-- Reverse calculator for comet clusters (aka I need 300 how many clusters is that).
-- Drop rates on other things like: lost items, astatine containers, mysterious orbs
+- Reverse calculator for comet clusters (aka I need 300 how many clusters is that)
 - Xero lists (pokexeros, neopet xeros, etc.)
 
 ## Suggestions

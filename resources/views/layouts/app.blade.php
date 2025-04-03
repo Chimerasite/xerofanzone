@@ -57,9 +57,10 @@
             <a class="hover:text-stone-50" href="{{ route('privacy') }}">Privacy</a>
             <a class="hover:text-stone-50" href="mailto:xfz@chimerasite.com">Contact</a>
             <a class="hover:text-stone-50" href="{{ route('credits') }}">Credits</a>
+            <a class="hover:text-stone-50" href="https://ko-fi.com/chimerasite">Donate</a>
         </div>
         <div class="text-stone-50 text-sm">
-            &copy; <a href="https://chimerasite.com/">Chimerasite</a> <?php echo date("Y"); ?> - V2.0.5
+            &copy; <a href="https://chimerasite.com/">Chimerasite</a> <?php echo date("Y"); ?> - V2.1.0
         </div>
     </footer>
 </html>
